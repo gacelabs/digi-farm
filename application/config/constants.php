@@ -83,3 +83,7 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+
+defined('GACELABS_SUPER_KEY')  OR define('GACELABS_SUPER_KEY', '&@c3L4b$-5uP3R-k3y');
+defined('GACELABS_KEY')  OR define('GACELABS_KEY', '&@c3L4b$-k3y');
