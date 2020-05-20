@@ -30,7 +30,7 @@ class Home extends MY_Controller {
 					'global/nav'
 				),
 				'top_view' => array(
-					'home/category-slider'
+					'modules/category-slider'
 				),
 				'middle_view' => array(
 

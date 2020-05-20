@@ -81,16 +81,22 @@ ul, ul>li {
 .slider-title {
 	margin: 0;
 	position: absolute;
-	top: 50%;
-	left: 0;
-	display: block;
+	top: 40%;
+	left: 50%;
+	display: inline-block;
 	text-align: center;
 	width: 100%;
 	color: #fff;
 	text-shadow: 2px 2px 1px rgba(0,0,0,0.8);
 	transform: translateY(-50%);
 	font-size: 1.5vmax;
-	word-break: break-all;;
+	word-break: break-all;
+	background-color: rgba(0,0,0,0.5);
+	width: fit-content;
+	transform: translateX(-50%);
+	padding: 6px 16px;
+	border-radius: 100px;
+	border: 1px solid rgba(0,0,0,0.1);
 }
 
 /*DEFAULTS*/
