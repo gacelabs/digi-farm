@@ -1,0 +1,36 @@
+@media (max-width: 1300px) {
+	
+}
+
+@media (min-width: 1200px) {
+	.container {
+		width: 970px;
+	}
+}
+
+@media (max-width: 1090px) {
+
+}
+
+@media (max-width: 1024px) {
+	
+}
+
+@media (max-width: 991px) {
+	
+}
+@media (max-width: 812px) and (max-height: 400px) { /*iPhone MAX and the likes landscape*/
+	
+}
+@media (max-width: 767px) {
+	
+}
+@media (max-width: 736px) {
+	
+}
+
+@media (max-width: 480px) {
+	.slider-title {
+		font-size: 5vmax;
+	}
+}
