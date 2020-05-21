@@ -71,6 +71,11 @@ class Profile extends MY_Controller {
 		$return = $this->accounts->register($post, 'settings'); /*this will redirect to settings page */
 		// debug($this->session);
 		// debug($return, 1);
+		if ($return['allowed'] == false) {
+			redirect(base_url('login?page='.__FUNCTION__.'&error='.$return['message']));
+		} else {
+			redirect(base_url());
+		}
 	}
 
 	public function sign_in()
@@ -83,7 +88,7 @@ class Profile extends MY_Controller {
 		if ($is_ok) {
 			redirect(base_url());
 		} else {
-			redirect(base_url('login'));
+			redirect(base_url('login?page='.__FUNCTION__.'&error=Invalid credentials'));
 		}
 	}
 

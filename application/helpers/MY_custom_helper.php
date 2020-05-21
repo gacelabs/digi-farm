@@ -980,3 +980,14 @@ function is_farmer($profile=false)
 	}
 	return false;
 }
+
+function is_url_var($name='', $value='')
+{	
+	$set = ['', $value];
+	if (isset($_GET[$name])) {
+		if (!in_array($_GET[$name], $set)) {
+			return false;
+		}
+	}
+	return true;
+}

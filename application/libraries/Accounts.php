@@ -17,8 +17,9 @@ class Accounts {
 
 	public function check_credits($credits=FALSE)
 	{
-		$allowed = FALSE; $user = FALSE; $msg = '';
+		$allowed = FALSE; $user = FALSE; $msg = 'Invalid entry';
 		if ($credits) {
+			// debug($credits, 1);
 			if (isset($credits['email_address']) AND isset($credits['password'])) {
 				$password = $credits['password'];
 				unset($credits['password']);
@@ -43,7 +44,7 @@ class Accounts {
 
 	public function register($post=FALSE, $redirect_url='')
 	{
-		$allowed = FALSE; $user = FALSE;; $passed = TRUE; $msg = '';
+		$allowed = FALSE; $user = FALSE;; $passed = TRUE; $msg = 'Invalid entries!';
 		if ($post) {
 			// debug($post, 1);
 			if (isset($post['password']) AND isset($post['retype_password'])) {
@@ -54,51 +55,53 @@ class Accounts {
 			}
 			if (isset($post['email_address']) AND isset($post['password'])) {
 				$credits = ['email_address'=>$post['email_address'], 'password'=>$post['password']];
-				$return = $this->check_credits($credits, 'user');
-				if ($passed) {
-					if (isset($return['allowed']) AND $return['allowed'] == FALSE) {
-						unset($post['retype_password']);
-						$password = $post['password'];
-						unset($post['password']);
-						$post['farmer'] = $post['farmer'] == 'on' ? 1 : 0;
-						// debug($post, 1);
-						$query = $this->class->db->insert('user', $post);
-						$id = $this->class->db->insert_id();
-						/*insert user location*/
-						$this->class->db->insert('user_location', ['user_id' => $id]);
-						/*after insert copy all settings to this user*/
-						$app_settings = $this->class->db->get('app_settings')->result_array();
-						// debug($app_settings, 1);
-						$user_app_settings = [];
-						foreach ($app_settings as $key => $row) {
-							$value = $row['value'];
-							if ($row['name'] == 'password') {
-								$value = $password;
+				// $return = $this->check_credits($credits);
+				if (strlen(trim($credits['email_address'])) > 0 AND strlen(trim($credits['password'])) > 0) {
+					if ($passed) {
+						if (isset($return['allowed']) AND $return['allowed'] == FALSE) {
+							unset($post['retype_password']);
+							$password = $post['password'];
+							unset($post['password']);
+							$post['farmer'] = (isset($post['farmer']) AND $post['farmer'] == 'on') ? 1 : 0;
+							debug($post, 1);
+							$query = $this->class->db->insert('user', $post);
+							$id = $this->class->db->insert_id();
+							/*insert user location*/
+							$this->class->db->insert('user_location', ['user_id' => $id]);
+							/*after insert copy all settings to this user*/
+							$app_settings = $this->class->db->get('app_settings')->result_array();
+							// debug($app_settings, 1);
+							$user_app_settings = [];
+							foreach ($app_settings as $key => $row) {
+								$value = $row['value'];
+								if ($row['name'] == 'password') {
+									$value = $password;
+								}
+								$user_app_settings = [
+									'user_id' => $id,
+									'id' => $row['id'],
+									'name' => $row['name'],
+									'label' => $row['label'],
+									'value' => $value
+								];
+								// debug($user_app_settings, 1);
+								$this->class->db->insert('user_app_settings', $user_app_settings);
 							}
-							$user_app_settings = [
-								'user_id' => $id,
-								'id' => $row['id'],
-								'name' => $row['name'],
-								'label' => $row['label'],
-								'value' => $value
-							];
-							// debug($user_app_settings, 1);
-							$this->class->db->insert('user_app_settings', $user_app_settings);
+							// debug($id);
+							if ($id) {
+								$msg = '';
+								$allowed = TRUE;
+								$data = $this->assemble_profile_data($id);
+								// debug($data, 1);
+								$this->class->session->set_userdata('profile', $data);
+								$this->profile = $data;
+							}
+							if ($redirect_url != '') {
+								redirect(base_url($redirect_url == 'home' ? '' : $redirect_url));
+							}
+						} else {
+							$msg = 'Username and password existing!';
 						}
-						// debug($id);
-						if ($id) {
-							$msg = '';
-							$allowed = TRUE;
-							$data = $this->assemble_profile_data($id);
-							// debug($data, 1);
-							$this->class->session->set_userdata('profile', $data);
-							$this->profile = $data;
-						}
-						if ($redirect_url != '') {
-							redirect(base_url($redirect_url == 'home' ? '' : $redirect_url));
-						}
-					} else {
-						$msg = 'Username and password existing!';
 					}
 				}
 			} else {
@@ -116,7 +119,7 @@ class Accounts {
 		// debug($credits, 1);
 		if ($credits != FALSE AND is_array($credits) AND $this->has_session == FALSE) {
 			/*user is logging in*/
-			$return = $this->check_credits($credits, 'user');
+			$return = $this->check_credits($credits);
 			if (isset($return['allowed']) AND $return['allowed']) {
 				$data = $this->assemble_profile_data($return['profile']['user_id']);
 				// debug($data, 1);
