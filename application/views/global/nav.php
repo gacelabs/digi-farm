@@ -33,11 +33,11 @@
 				</div>
 			</form>
 			<ul class="nav navbar-nav navbar-right navbar-buttons">
-				<!-- Show if user is logged in
 				<li><a href="<?php echo base_url('login'); ?>">Login / Sign up</a></li>
-				-->
+				<!-- Show if user is logged in
 				<li><a href="<?php echo base_url('dashboard/sell-product'); ?>">Sell Veggies!</a></li>
 				<li><a href="<?php echo base_url('dashboard'); ?>" style="padding-right:0;">Ema Margaret</a></li>
+				-->
 			</ul>
 		</div><!-- /.navbar-collapse -->
 		
