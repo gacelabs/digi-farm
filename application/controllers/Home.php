@@ -16,6 +16,8 @@ class Home extends MY_Controller {
 				base_url().'assets/css/slider.css',
 				base_url().'assets/css/slick-theme.css',
 				base_url().'assets/css/global.css',
+				base_url().'assets/css/category-slider.css',
+				base_url().'assets/css/featured-slider.css',
 				base_url().'assets/css/home.css',
 				base_url().'assets/css/responsive.css'
 			),
@@ -30,6 +32,7 @@ class Home extends MY_Controller {
 					'global/nav'
 				),
 				'top_view' => array(
+					'modules/featured-slider',
 					'modules/category-slider'
 				),
 				'middle_view' => array(
@@ -49,6 +52,7 @@ class Home extends MY_Controller {
 				base_url().'assets/js/jquery.min.js',
 				base_url().'assets/js/bootstrap.min.js',
 				base_url().'assets/js/slider.js',
+				base_url().'assets/js/fitext.js',
 				base_url().'assets/js/main.js'
 			),
 			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
