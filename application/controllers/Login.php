@@ -46,7 +46,7 @@ class Login extends MY_Controller {
 			'footer_js' => array( // path to js files, appended with base_url(). these are declared before </body> closing tag. example: base_url().'assets/js/jquery.min.js'
 				base_url().'assets/js/jquery.min.js',
 				base_url().'assets/js/bootstrap.min.js',
-				base_url().'assets/js/main.js'
+				base_url().'assets/js/login.js'
 			),
 			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
 				''

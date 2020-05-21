@@ -10,7 +10,7 @@
 			</button>
 			<a class="navbar-brand" href="<?php echo base_url(); ?>">
 				<span class="hidden-xs">FarmApp</span>
-				<i class="fa fa-home visible-xs"></i>
+				<i class="glyphicon glyphicon-home visible-xs"></i>
 			</a>
 			<form class="navbar-form navbar-left hidden-lg hidden-md hidden-sm">
 				<div class="input-group input-rounded">
@@ -33,7 +33,7 @@
 				</div>
 			</form>
 			<ul class="nav navbar-nav navbar-right navbar-buttons">
-				<li><a href="<?php echo base_url('login'); ?>">Login / Sign up</a></li>
+				<li><a href="login">Login / Sign up</a></li>
 				<!-- Show if user is logged in
 				<li><a href="<?php echo base_url('dashboard/sell-product'); ?>">Sell Veggies!</a></li>
 				<li><a href="<?php echo base_url('dashboard'); ?>" style="padding-right:0;">Ema Margaret</a></li>

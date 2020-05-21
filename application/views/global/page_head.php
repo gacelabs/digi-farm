@@ -1,4 +1,4 @@
-		<base href="<?php echo base_url(); ?>" target="_blank">
+		<base href="<?php echo base_url(); ?>">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		

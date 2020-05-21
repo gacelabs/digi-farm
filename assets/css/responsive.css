@@ -39,8 +39,14 @@
 	.nav>li>a {
 		padding: 10px 15px !important;
 	}
-	.container.padding-zero-sm {
+	.container.padding-zero-sm, .padding-zero-sm {
 		padding-left: 0;
 		padding-right: 0;
+	}
+	.division-inner {
+		border-radius: 0;
+	}
+	p {
+		font-size: 1.2rem;
 	}
 }
