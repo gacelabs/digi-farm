@@ -84,20 +84,21 @@ function check_instance($obj=FALSE, $class=NULL)
 	return FALSE;
 }
 
-function format_ip($ip='')
+function device_id($ip=false)
 {
 	$ci =& get_instance();
+	if ($ip == false) $ip = $_SERVER['REMOTE_ADDR'];
 	$ID = GACELABS_SUPER_KEY.$ip;
-	if (isset($ci->accounts) AND $ci->accounts->has_session) {
+	/*if (isset($ci->accounts) AND $ci->accounts->has_session) {
 		$ID = $ci->accounts->profile['id'].$ci->accounts->profile['email_address'].$ip;
-	}
+	}*/
 	// $DEVICE = substr(md5($ID), 0, 7);
-	$DEVICE = substr(md5($ID), 0, 7);
-	if (get_mac_address()) {
+	$DEVICE = substr(md5($ID), 0, 12);
+	/*if (get_mac_address()) {
 		$DEVICE = substr(md5(get_mac_address()), 0, 7);
-	}
+	}*/
 	// debug($DEVICE, 1);
-	$ci->device_id = strtoupper(GACELABS_KEY.$DEVICE);
+	$ci->device_id = substr(base64_encode(strtoupper(GACELABS_KEY.$DEVICE)), 0, 9);
 	return $ci->device_id;
 }
 
@@ -921,4 +922,32 @@ function whats_the_day($in='tomorrow')
 {
 	$datetime = new DateTime($in);
 	return $datetime->format('Y-m-d');
+}
+
+function cookies($name=false, $method='get', $value=false, $expire=604800) /*for a week*/
+{
+	// https://codeigniter.com/user_guide/helpers/cookie_helper.html
+	if ($name) {
+		switch (strtolower($method)) {
+			case 'set':
+				if ($value) {
+					set_cookie($name, $value, $expire);
+					return true;
+				}
+				break;
+			
+			case 'delete':
+				delete_cookie($name);
+				return true;
+				break;
+			
+			default:
+				$cookie = get_cookie($name);
+				if (!is_null($cookie)) {
+					return $cookie;
+				}
+				break;
+		}
+	}
+	return false;
 }
