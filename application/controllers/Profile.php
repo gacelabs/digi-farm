@@ -48,7 +48,7 @@ class Profile extends MY_Controller {
 				'footer_js' => array( // path to js files, appended with base_url(). these are declared before </body> closing tag. example: base_url().'assets/js/jquery.min.js'
 					base_url().'assets/js/jquery.min.js',
 					base_url().'assets/js/bootstrap.min.js',
-					base_url().'assets/js/main.js'
+					base_url().'assets/js/login.js'
 				),
 				'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
 					''
@@ -57,9 +57,10 @@ class Profile extends MY_Controller {
 					
 				)
 			);
+
 			$this->load->view('templates/home', $data);
 		} else {
-			redirect(base_url('home'));
+			redirect(base_url());
 		}
 	}
 
@@ -69,7 +70,7 @@ class Profile extends MY_Controller {
 		$post = $this->input->post();
 		$return = $this->accounts->register($post, 'settings'); /*this will redirect to settings page */
 		// debug($this->session);
-		debug($return, 1);
+		// debug($return, 1);
 	}
 
 	public function sign_in()
@@ -79,17 +80,15 @@ class Profile extends MY_Controller {
 		// debug($post, 1);
 		$is_ok = $this->accounts->login($post);
 		// debug($is_ok, 1);
-		redirect(base_url());
-		// if ($is_ok) {
-		// 	/*direct to the home when login success*/
-		// 	redirect(base_url());
-		// } else {
-		// 	$this->load->view('welcome_message');
-		// }
+		if ($is_ok) {
+			redirect(base_url());
+		} else {
+			redirect(base_url('login'));
+		}
 	}
 
 	public function sign_out()
 	{
-		return $this->accounts->logout('home'); /*this will redirect to default page */
+		return $this->accounts->logout(); /*this will redirect to default page */
 	}
 }

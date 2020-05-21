@@ -33,11 +33,15 @@
 				</div>
 			</form>
 			<ul class="nav navbar-nav navbar-right navbar-buttons">
-				<li><a href="login">Login / Sign up</a></li>
-				<!-- Show if user is logged in
-				<li><a href="<?php echo base_url('dashboard/sell-product'); ?>">Sell Veggies!</a></li>
-				<li><a href="<?php echo base_url('dashboard'); ?>" style="padding-right:0;">Ema Margaret</a></li>
-				-->
+				<?php if ($current_profile): /*debug($current_profile, 1);*/ ?>
+				<!-- Show if user is logged in -->
+					<?php if (is_farmer($current_profile)): ?>
+						<li><a href="<?php echo base_url('dashboard/sell-product'); ?>">Sell Veggies!</a></li>
+					<?php endif ?>
+					<li><a href="<?php echo base_url('dashboard'); ?>" style="padding-right:0;"><?php echo get_fullname($current_profile); ?></a></li>
+				<?php else: ?>
+					<li><a href="login">Login / Sign up</a></li>
+				<?php endif ?>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 		

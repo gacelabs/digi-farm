@@ -117,11 +117,11 @@ class Accounts {
 		if ($credits != FALSE AND is_array($credits) AND $this->has_session == FALSE) {
 			/*user is logging in*/
 			$return = $this->check_credits($credits, 'user');
-			// debug($return, 1);
 			if (isset($return['allowed']) AND $return['allowed']) {
-				unset($return['profile']['password']);
-				$this->class->session->set_userdata('profile', $return['profile']);
-				$this->profile = $return['profile'];
+				$data = $this->assemble_profile_data($return['profile']['user_id']);
+				// debug($data, 1);
+				$this->class->session->set_userdata('profile', $data);
+				$this->profile = $data;
 				if ($redirect_url != '') {
 					redirect(base_url($redirect_url == 'home' ? '' : $redirect_url));
 				} else {
@@ -141,7 +141,7 @@ class Accounts {
 		$this->profile = FALSE;
 		$this->has_session = FALSE;
 		// $this->class->pushthru->trigger('logout-profile', 'browser-'.$this->device_id.'-sessions-logout', $profile);
-		redirect(base_url($redirect_url == 'home' ? '' : $redirect_url));
+		redirect(base_url($redirect_url));
 	}
 
 	public function refetch()

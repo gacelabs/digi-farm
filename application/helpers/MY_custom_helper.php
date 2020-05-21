@@ -951,3 +951,32 @@ function cookies($name=false, $method='get', $value=false, $expire=604800) /*for
 	}
 	return false;
 }
+
+function get_fullname($profile=false)
+{
+	$ci =& get_instance();
+	if ($profile == false) $ci->profile;
+	if ($profile) {
+		if (isset($profile['user'])) {
+			if (isset($profile['user']['last_name'])) {
+				return $profile['user']['first_name'].' '.$profile['user']['last_name'];
+			}
+			return $profile['user']['first_name'];
+		}
+	}
+	return false;
+}
+
+function is_farmer($profile=false)
+{
+	$ci =& get_instance();
+	if ($profile == false) $ci->profile;
+	if ($profile) {
+		if (isset($profile['user'])) {
+			if (isset($profile['user']['farmer']) AND (bool)$profile['user']['farmer']) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
