@@ -1,7 +1,7 @@
 <div class="container margin-bottom-15">
 	<div class="row">
 		<!-- loop here -->
-		<div class="col-lg-3">
+		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 			<div class="card-item">
 				<div class="card-image">
 					<img src="assets/images/props/chilis.jpg">
@@ -13,7 +13,7 @@
 				<div class="card-footer bg-theme">
 					<ul class="spaced-list between">
 						<li>
-							<p class="color-white">Buy</p>
+							<h5 class="zero-gap color-white" style="line-height:1.3;">Buy</h5>
 						</li>
 						<li>
 							<p class="label text-sm color-white"><i class="fa fa-map-marker"></i> 2KM</p>

@@ -1,5 +1,16 @@
 $(document).ready(function() {
 
+	$("#featured-horizontal-slider .center").slick({
+		arrows: false,
+		dots: true,
+		infinite: true,
+		speed: 400,
+		autoplay: true,
+		slidesToShow: 1,
+		adaptiveHeight: true,
+		swipeToSlide: true,
+	});
+
 	$("#category-slider .center").slick({
 		arrows: false,
 		dots: false,
@@ -15,33 +26,17 @@ $(document).ready(function() {
 				breakpoint: 480,
 				settings: {
 					centerMode: true,
-					slidesToShow: 3,
+					slidesToShow: 2,
 					slidesToScroll: 1
 				}
 			}
 		]
 	});
 
-	$("#featured-horizontal-slider .center").slick({
-		arrows: false,
-		dots: true,
-		infinite: true,
-		speed: 400,
-		autoplay: true,
-		slidesToShow: 1,
-		adaptiveHeight: true,
-		swipeToSlide: true,
-	});
+});
 
-	$("#featured-vertical-slider .center").slick({
-		vertical: true,
-		arrows: false,
-		dots: false,
-		infinite: false,
-		speed: 400,
-		autoplay: false,
-		slidesToShow: 2,
-		adaptiveHeight: true,
-		swipeToSlide: true,
-	});
+
+$(window).on('load change resize', function() {
+
+	$('.card-image>img').css('height', $('.card-image>img').width()+10);
 });
