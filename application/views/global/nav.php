@@ -8,7 +8,10 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand hidden-xs" href="<?php echo base_url(); ?>">FarmApp</a>
+			<a class="navbar-brand" href="<?php echo base_url(); ?>">
+				<span class="hidden-xs">FarmApp</span>
+				<i class="fa fa-home visible-xs"></i>
+			</a>
 			<form class="navbar-form navbar-left hidden-lg hidden-md hidden-sm">
 				<div class="input-group input-rounded">
 					<input type="text" class="form-control" placeholder="Lettuce...">
@@ -30,11 +33,11 @@
 				</div>
 			</form>
 			<ul class="nav navbar-nav navbar-right navbar-buttons">
-				<li><a href="#">Login / Sign up</a></li>
 				<!-- Show if user is logged in
-					<li><a href="<?php echo base_url('admin/sell-product'); ?>">Sell Product</a></li>
-					<li><a href="<?php echo base_url('logout'); ?>">Log out</a></li>
+				<li><a href="<?php echo base_url('login'); ?>">Login / Sign up</a></li>
 				-->
+				<li><a href="<?php echo base_url('dashboard/sell-product'); ?>">Sell Veggies!</a></li>
+				<li><a href="<?php echo base_url('dashboard'); ?>" style="padding-right:0;">Ema Margaret</a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 		

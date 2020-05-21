@@ -30,5 +30,17 @@
 }
 
 @media (max-width: 480px) {
-
+	.navbar-brand {
+		padding: 15px 10px;
+	}
+	.nav>li {
+		display: inline-block;
+	}
+	.nav>li>a {
+		padding: 10px 15px !important;
+	}
+	.container.padding-zero-sm {
+		padding-left: 0;
+		padding-right: 0;
+	}
 }

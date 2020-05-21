@@ -9,6 +9,7 @@ $(document).ready(function() {
 		slidesToScroll: 1,
 		autoplay: true,
 		autoplaySpeed: 2000,
+		swipeToSlide: true,
 		responsive: [
 			{
 				breakpoint: 480,
@@ -28,7 +29,8 @@ $(document).ready(function() {
 		speed: 400,
 		autoplay: true,
 		slidesToShow: 1,
-		adaptiveHeight: true
+		adaptiveHeight: true,
+		swipeToSlide: true,
 	});
 
 	$("#featured-vertical-slider .center").slick({
@@ -39,6 +41,7 @@ $(document).ready(function() {
 		speed: 400,
 		autoplay: false,
 		slidesToShow: 2,
-		adaptiveHeight: true
+		adaptiveHeight: true,
+		swipeToSlide: true,
 	});
 });

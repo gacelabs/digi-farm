@@ -1,5 +1,5 @@
-<div class="container">
-	<div class="col-lg-12 category-slider-inner zero-gap" id="category-slider">
+<div class="container padding-zero-sm margin-bottom-15">
+	<div class="division-inner box-shadow" id="category-slider">
 		<ul class="spaced-list between margin-bottom-10">
 			<li><p class="label text-sm color-grey">CATEGORIES</p></li>
 		</ul>

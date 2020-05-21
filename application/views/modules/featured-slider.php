@@ -1,5 +1,5 @@
-<div class="container margin-bottom-15">
-	<div class="col-lg-8 zero-gap" id="featured-horizontal-slider">
+<div class="container margin-bottom-15 padding-zero-sm">
+	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 zero-gap" id="featured-horizontal-slider">
 		<section class="center">
 			<div class="slider-item">
 				<a href="#">
@@ -39,7 +39,7 @@
 		</section>
 	</div>
 
-	<div class="col-lg-4 zero-gap" id="featured-vertical-slider">
+	<div class="col-lg-4 col-md-4 col-sm-4 hidden-xs zero-gap" id="featured-vertical-slider">
 		<section class="center">
 			<div class="slider-item">
 				<a href="#">
