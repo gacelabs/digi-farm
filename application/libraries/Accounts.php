@@ -15,7 +15,7 @@ class Accounts {
 		$this->profile = $this->class->session->userdata('profile');
 	}
 
-	public function check_credits($credits=FALSE, $table='users')
+	public function check_credits($credits=FALSE, $table='user')
 	{
 		$allowed = FALSE; $user = FALSE; $msg = '';
 		if ($credits) {
@@ -40,7 +40,7 @@ class Accounts {
 		return ['allowed' => $allowed, 'message' => $msg, 'profile' => $user];
 	}
 
-	public function register($post=FALSE, $redirect_url='', $table='users')
+	public function register($post=FALSE, $redirect_url='', $table='user')
 	{
 		$allowed = FALSE; $user = FALSE;; $passed = TRUE; $msg = '';
 		if ($post) {
@@ -88,7 +88,7 @@ class Accounts {
 		return ['allowed' => $allowed, 'message' => $msg, 'profile' => $user];
 	}
 
-	public function login($credits=FALSE, $redirect_url='', $table='users')
+	public function login($credits=FALSE, $redirect_url='', $table='user')
 	{
 		// debug($credits, 1);
 		if ($credits != FALSE AND is_array($credits) AND $this->has_session == FALSE) {
@@ -123,7 +123,7 @@ class Accounts {
 
 	public function refetch()
 	{
-		$user = $this->class->db->get_where('users', ['id' => $this->profile['id']]);
+		$user = $this->class->db->get_where('user', ['id' => $this->profile['id']]);
 		if ($user->num_rows()) {
 			$request = $user->row_array();
 			unset($request['password']);
