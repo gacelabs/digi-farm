@@ -57,16 +57,8 @@ class Dashboard extends MY_Controller {
 				''
 			),
 			'title' => ucfirst(__FUNCTION__).' | Farmapp',
-			'head_css' => array( // path to css files, appended with base_url(). these are declared within page <head> opening tag. example: base_url().'assets/css/bootstrap.min.css'
-				base_url().'assets/css/bootstrap.min.css',
-				base_url().'assets/css/font-awesome.min.css',
-				base_url().'assets/css/global.css',
-				base_url().'assets/css/login.css',
-				base_url().'assets/css/responsive.css'
-			),
-			'head_js' => array( // path to js files, appended with base_url(). these are declared within page <head> opening tag. example: base_url().'assets/js/jquery.min.js'
-				''
-			),
+			'head_css' => $this->default('head_css'),
+			'head_js' => $this->default('head_js'),
 			'body_id' => __FUNCTION__,
 			'body_class' => __FUNCTION__,
 			'wrapper_class' => '',
@@ -87,16 +79,11 @@ class Dashboard extends MY_Controller {
 
 				)
 			),
-			'footer_css' => array( // path to css files, appended with base_url(). these are declared before </body> closing tag. example: base_url().'assets/css/bootstrap.min.css'
-				''
-			),
-			'footer_js' => array( // path to js files, appended with base_url(). these are declared before </body> closing tag. example: base_url().'assets/js/jquery.min.js'
-				base_url().'assets/js/jquery.min.js',
-				base_url().'assets/js/bootstrap.min.js',
-				base_url().'assets/js/jquery.validation.min.js',
-				base_url().'assets/js/login.js',
-				base_url().'assets/js/validator.js'
-			),
+			'footer_css' => $this->default('footer_css'),
+			'footer_js' => $this->default('footer_js', [
+				base_url('assets/js/jquery.validation.min.js'),
+				base_url('assets/js/validator.js')
+			]),
 			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
 				''
 			),
