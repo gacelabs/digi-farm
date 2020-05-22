@@ -982,7 +982,7 @@ function is_farmer($profile=false)
 }
 
 function is_url_var($name='', $value='')
-{	
+{
 	$set = ['', $value];
 	if (isset($_GET[$name])) {
 		if (!in_array($_GET[$name], $set)) {
@@ -990,4 +990,22 @@ function is_url_var($name='', $value='')
 		}
 	}
 	return true;
+}
+
+function get_url_var($name='')
+{
+	if (isset($_GET[$name])) {
+		return $_GET[$name];
+	}
+	return '';
+}
+
+function has_get($name='')
+{
+	return isset($_GET[$name]);
+}
+
+function has_post($name='')
+{
+	return isset($_POST[$name]);
 }

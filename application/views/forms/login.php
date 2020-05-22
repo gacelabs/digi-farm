@@ -1,4 +1,11 @@
 <div class="container">
+	<?php if (has_get('error')): ?>
+		<br>
+		<div class="alert alert-danger alert-dismissible">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Error!</strong> <?php echo get_url_var('error');?>
+		</div>
+	<?php endif ?>
 	<div class="row" id="loign-row">
 		<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12" id="login-bg" style="background-image: url(assets/images/props/local-farmer.jpg);"></div>
 
@@ -72,7 +79,6 @@
 			
 			<div style="padding-bottom: 15px;">
 				<ul class="spaced-list between">
-					<!-- <li><button class="btn btn-sm btn-default" id="login-switch">Sign up</button></li> -->
 					<li>
 						<button class="btn btn-sm btn-default" id="login-switch">
 							<?php echo is_url_var('page', 'sign_in') ? 'Sign up' : 'Log in';?>

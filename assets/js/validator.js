@@ -33,6 +33,10 @@ $(document).ready(function() {
 		form.validate({
 			ignore: '.ignore',
 			debug: true,
+			/*invalidHandler: function (e, validator) {
+				var errors = validator.numberOfInvalids();
+				console.log(errors, e, validator);
+			},*/
 			errorPlacement: function(error, element) {
 				if (element.prop('tagName') === 'SELECT' && element.hasClass('chosen-select')) {
 					element.parent().find('.chosen-container-single').addClass('error');
@@ -62,7 +66,7 @@ $(document).ready(function() {
 			submitHandler: function(form) {
 				form.submit();
 				// grecaptcha.execute(window.parseInt(recaptcha.data('rendered-id')));
-			},
+			}/*,
 			messages: {
 				retype_password: { 
 					required: " ", 
@@ -73,7 +77,7 @@ $(document).ready(function() {
 					email: "Please enter a valid email address, example: you@yourdomain.com", 
 					remote: jQuery.validator.format("{0} is already taken, please enter a different address.") 
 				},
-			}
+			}*/
 		});
 	});
 });
