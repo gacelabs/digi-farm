@@ -4,7 +4,7 @@
 		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 card-item-parent">
 			<div class="card-item">
 				<div class="card-image">
-					<img src="http://localhost/localfarm/assets/images/props/chilis.jpg">
+					<img src="http://localhost/localfarm/assets/images/props/potatoes.jpg">
 				</div>
 				<div class="card-title">
 					<h4 class="zero-gap margin-bottom-10">Romaine Red Lettuce Freshly Picked</h4>
