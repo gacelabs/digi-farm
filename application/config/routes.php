@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'Home';
+$route['product'] = 'Product/index';
 $route['login'] = 'Account/index';
 $route['sign_in'] = 'Account/sign_in';
 $route['sign_up'] = 'Account/sign_up';
