@@ -376,7 +376,6 @@ var cfg = {
 };
 
 var chart = new Chart(ctx, cfg);
-
 /*document.getElementById('update').addEventListener('click', function() {
 	var type = document.getElementById('type').value;
 	var dataset = chart.config.data.datasets[0];
