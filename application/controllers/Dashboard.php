@@ -37,6 +37,7 @@ class Dashboard extends MY_Controller {
 			'footer_css' => $this->default('footer_css'),
 			'footer_js' => $this->default('footer_js', [
 				base_url('assets/js/chartjs/Chart.bundle.min.js'),
+				base_url('assets/js/chartjs/moment.min.js'),
 				base_url('assets/js/chartjs/charts.js'),
 			]),
 			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
