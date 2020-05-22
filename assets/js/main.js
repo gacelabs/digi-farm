@@ -33,6 +33,30 @@ $(document).ready(function() {
 		]
 	});
 
+	$('#product-image-slider').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		arrows: false,
+		fade: true,
+		asNavFor: '#product-thumbnail-slider.slider-nav'
+	});
+	$('#product-thumbnail-slider').slick({
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		asNavFor: '#product-image-slider.slider-for',
+		dots: false,
+		centerMode: false,
+		focusOnSelect: true,
+		responsive: [
+			{
+				breakpoint: 480,
+				settings: {
+					arrows: false
+				}
+			}
+		]
+	});
+
 });
 
 
