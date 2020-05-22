@@ -145,10 +145,10 @@ class MY_Loader extends CI_Loader {
 		}
 		if (is_array($vars)) {
 			$vars['current_profile'] = $current_profile;
-			$vars['device_id'] = format_ip($_SERVER['REMOTE_ADDR']);
+			$vars['device_id'] = device_id($_SERVER['REMOTE_ADDR']);
 		} else if (is_object($vars)) {
 			$vars->current_profile = $current_profile;
-			$vars->device_id = format_ip($_SERVER['REMOTE_ADDR']);
+			$vars->device_id = device_id($_SERVER['REMOTE_ADDR']);
 		}
 		// debug($vars); exit();
 		return parent::view($view, $vars, $return);

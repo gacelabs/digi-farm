@@ -4,7 +4,7 @@ $(document).ready(function() {
 		$('#login').toggleClass('show hidden');
 		$('#signup').toggleClass('hidden show');
 
-		if ($(this).text() == "Sign up") {
+		if ($.trim($(this).text()) == "Sign up") {
 			$(this).text("Log in");
 		} else {
 			$(this).text("Sign up");
