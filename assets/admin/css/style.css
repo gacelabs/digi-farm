@@ -1,0 +1,152 @@
+.admin-content-container {
+	margin-bottom: 30px;
+}
+
+.domain-project-content {
+	display: none;
+}
+.domain-project-content.active {
+	display: block;
+}
+hr	{
+	border: 0; /* reset the default stylesheet */
+	border-bottom: 1px solid rgba(255,255,255,0.5);
+	border-top: 1px solid rgba(0,0,0,0.12)
+}
+.icon-left {
+	margin-right: 15px;
+}
+.treeview-menu>li>p{
+	padding-left: 15px;
+}
+.text-white {
+	color: #fff;
+}
+.zero-gaps {
+	margin: 0;
+	padding: 0;
+}
+
+code {
+	font-size: 100% !important;
+	letter-spacing: 0px;
+}
+.nav>li>a {
+	padding: 10px !important;
+}
+
+.slider-handle {
+    /*position: absolute;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #ffc107;
+    background-image: -webkit-linear-gradient(top, #ffc107 0%, #f6c76c 100%);
+    background-image: -o-linear-gradient(top, #ffc107 0%, #f6c76c 100%);
+    background-image: linear-gradient(to bottom, #ffc107 0%, #f6c76c 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2e6da4', GradientType=0);
+    filter: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 0px solid transparent;
+    margin-left: -3px !important;*/
+    left: 100%;
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 15px 0px 15px 20px;
+    border-color: transparent transparent transparent rgb(255, 193, 7);
+    position: absolute;
+    top: -11px;
+}
+
+.slider-selection {
+	/*background-image: linear-gradient(to bottom, #ffc107 0%, #f6c76c 100%) !important;*/
+	background-image: linear-gradient(to right, #ffe69a 0%, #ffc107 100%) !important;
+	border-radius: unset !important;
+}
+
+.slider-handle.custom {
+	background: transparent none;
+	/* You can customize the handle and set a background image */
+}
+
+/* Or display content like unicode characters or fontawesome icons */
+.slider-handle.custom::before {
+	/*font-size: 37px;
+	content: '➧' !important;
+	color: #ffc107;
+	position: absolute;
+	left: -1px;
+	bottom: 6px;*/
+	content: '' !important;
+}
+
+.slider .tooltip {
+	display: none !important;
+}
+
+.slider.slider-horizontal .slider-track {
+	height: 18px;
+	width: 100%;
+	margin-top: -5px;
+	top: 0;
+	left: 5px;
+}
+
+.slider.slider-horizontal .slider-tick, .slider.slider-horizontal .slider-handle {
+    margin-left: 0px !important;
+}
+
+.input-error {
+	border: 2px solid #ed5565;
+}
+
+.paypal-btn {
+	/*background: url('/assets/images/paypal-btns.png') no-repeat center;*/
+	/*height: 45px;*/
+	/*background-position-y: -45px;*/
+	/*background-color: transparent !important;*/
+	border-radius: 22px;
+}
+
+.toast {
+	position: absolute;
+	z-index: 1;
+	top: 30%;
+	right: 50%;
+	background: #1d1c1c;
+	padding: 5px 5px 15px;
+	user-select: none;
+	transform: translate(50%);
+	-ms-transform: translate(50%);
+}
+.toast-header {
+	background: #e5e9ea;
+	padding: 5px;
+}
+.toast-body {
+	color: #b8c7ce;
+	padding: 15px;
+}
+.toast-footer {
+	position: relative;
+	bottom: -10px;
+	border-top: 1px solid #b8c7ce;
+	padding: 5px 0px;
+}
+.toast-overlay {
+	position: fixed;
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0; 
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 2;
+	/*cursor: pointer;*/
+}

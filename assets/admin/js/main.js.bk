@@ -1,0 +1,336 @@
+$(document).ready(function() {
+	$('#main-script').remove();
+
+	var date = new Date();
+	yearNow = date.getFullYear();
+	$('.yearNow').text(yearNow);
+
+	/*$('.treeview').on('click', function(e) {
+		console.log(e.isDefaultPrevented);
+	});*/
+
+	$('ul').tree({
+		'followLink': true
+	});
+
+	$(function() {
+		/*$('.treeview').on('click', function() {
+			$('.domain-project-content').removeClass('active');
+			var targetContent = $(this).attr('target-content');
+			contentBody = $(this).parents().eq(2).next().find('#admin-content-body');
+
+			contentBody.find('#'+targetContent).addClass('active');
+		});*/
+	});
+
+	$("img.profile-photo").on('click', function() {
+		$(this).next('input').trigger('click');
+	});
+
+	$('[cloned-tag="profile-photo"]').on('change', function() {
+		readURL(this);
+	});
+
+	$('.barChart').each(function(i, elem) {
+		var cBar = elem;
+		drawCharts(cBar);
+	});
+
+	$('form.regen-keys').on('submit', function(e) {
+		e.preventDefault();
+		e.returnValue;
+		$.ajaxq('ReGenKeys', {
+			url : $(this).attr('action'),
+			type: 'post',
+			dataType : 'json',
+			data: $(this).serialize(),
+			success : function(data) {
+				/*console.log(data);*/
+				if (data) {
+					$('a#'+data.id).attr('href', 'generate_files/'+data.app_key);
+					$('#app_key_'+data.id).val(data.app_key);
+				}
+			}
+		});
+	});
+
+	$('.origin-name').off('click').on('click', function(e) {
+		e.preventDefault();
+		e.returnValue;
+		$(this).next('.form-origin').toggle();
+		$(this).toggle();
+	});
+
+	$('.form-origin').off('submit').on('submit', function(e) {
+		e.preventDefault(); e.stopPropagation(); e.returnValue;
+		var oThis = $(this);
+		$.ajaxq('saveOriginName', {
+			url : oThis.attr('action'),
+			type: 'post',
+			dataType : 'json',
+			data: oThis.serialize(),
+			success : function(data) {
+				/*console.log(data);*/
+				if (data) {
+					oThis.toggle();
+					oThis.prev('.origin-name').toggle().find('font').text(data.origin);
+					$('#app_key_'+data.id).val(data.app_key).parents('.form-group').find('label').text(data.domain + ' APP KEY');
+					$('a#'+data.id).attr('href', 'generate_files/'+data.app_key).find('strong code').text(data.domain);
+				}
+			}
+		});
+	});
+
+	sendPaypalForm();
+
+	if ($(".calculatorSlider").length) {
+		var sliderUIs = $(".calculatorSlider");
+		// var percentageFee = 0.769;
+		var license = {
+			enterprise: {
+				active: false,
+				price: 3000,
+				percentage: 0.991
+			},
+			corpo: {
+				active: true,
+				price: 1000,
+				percentage: 0.769
+			},
+			priv: {
+				active: false,
+				price: 500,
+				percentage: 0.658
+			}
+		};
+
+		var loadValue = 1;
+		sliderUIs.each(function(i, slider){
+			var projectID = slider.id;
+			var payloadLimit = $(slider).parents('.box-body:first').find(".payloadLimit");
+			var clientPrice = $(slider).parents('.box-body:first').find(".clientPrice");
+			var paypalFormHolder = $(slider).parents('.box-body:first').next('.box-footer');
+			// calculate($(slider), license.corpo.price, parseInt(loadValue), payloadLimit, clientPrice, paypalFormHolder);
+			
+			$(slider).off("input change").on("input change", function() {
+				var price = 1000;
+				if (license.priv.active) {
+					price = license.priv.price;
+				} else if (license.corpo.active) {
+					price = license.corpo.price;
+				} else if (license.enterprise.active) {
+					price = license.enterprise.price;
+				}
+				calculate($(slider), price, $(slider).val(), payloadLimit, clientPrice, paypalFormHolder);
+			})
+
+			var obj = oUserProjects[projectID].sub1.data;
+			if (obj) {
+				if (obj.package_type == 'Customed') {
+					if (obj.payload != undefined) {
+						loadValue = obj.payload / 1000;
+						$(slider).attr('value', loadValue);
+						$(slider).attr('data-value', loadValue);
+					}
+					var price = 1000;
+					if (license.priv.active) {
+						price = license.priv.price;
+					} else if (license.corpo.active) {
+						price = license.corpo.price;
+					} else if (license.enterprise.active) {
+						price = license.enterprise.price;
+					}
+					calculate($(slider), price, parseInt(loadValue), payloadLimit, clientPrice, paypalFormHolder);
+				} else if (obj.package_type == 'Free' || obj.payload == 2000) {
+					$(slider).attr('value', 1);
+					$(slider).attr('data-value', 1);
+					var price = 1000;
+					if (license.priv.active) {
+						price = license.priv.price;
+					} else if (license.corpo.active) {
+						price = license.corpo.price;
+					} else if (license.enterprise.active) {
+						price = license.enterprise.price;
+					}
+					calculate($(slider), price, 1, payloadLimit, clientPrice, paypalFormHolder);
+				}
+			}
+
+			$(slider).slider();
+			$(slider).parents('.range-field:first').on('mouseover', function() {
+				var price = 1000;
+				if (license.priv.active) {
+					price = license.priv.price;
+				} else if (license.corpo.active) {
+					price = license.corpo.price;
+				} else if (license.enterprise.active) {
+					price = license.enterprise.price;
+				}
+				calculate($(slider), price, $(slider).val(), payloadLimit, clientPrice, paypalFormHolder);
+			});
+		});
+
+		function calculate(slider, price, value, payloadLimit, clientPrice, paypalFormHolder) {
+			// console.log(value)
+			var newLimit = Math.round(value * 1000);
+			payloadLimit.text(newLimit);
+			if ((value * 1000) == 0) {
+				clientPrice.text(Math.round(0));
+			} else {
+				var percentageFee = 0.769;
+				if (license.priv.active) {
+					percentageFee = license.priv.percentage;
+				} else if (license.corpo.active) {
+					percentageFee = license.corpo.percentage;
+				} else if (license.enterprise.active) {
+					percentageFee = license.enterprise.percentage;
+				}
+				var newPrice = Math.round(((value * 300) + price) * percentageFee);
+				clientPrice.text(newPrice);
+
+				var newForm = $(ppBtns['1000']);
+				var projectID = slider.attr('id');
+				var obj = oUserProjects[projectID].sub1.data;
+				var uiForm = paypalFormHolder.find('[data-formid="'+projectID+'"]');
+				if (obj.package_type == 'Customed') {
+					// console.log(obj, projectID);
+					slider.attr('value', parseInt(newLimit) / 1000);
+					slider.attr('data-value', parseInt(newLimit) / 1000);
+					newForm = $(ppBtns[obj.payload]);
+				}
+
+				newForm.attr({'was-clicked': 0, 'project-id': obj.id, 'data-formid': projectID});
+				uiForm.replaceWith(newForm);
+				sendPaypalForm();
+
+				document.cookie="plan=; expires=Wed, 01 Jan 1970 00:00:00 GMT";
+				if (parseInt(value) > 1 && obj.expired == 1) {
+					obj.payload = newLimit;
+					obj.price = newPrice;
+					/*set cookie*/
+					var date = new Date();
+					date.setTime(date.getTime() + (1*24*60*60*1000));
+					var expires = "; expires=" + date.toUTCString();
+					obj.project_id = uiForm.attr('project-id');
+					// console.log(expires);
+					document.cookie = "plan=" + (JSON.stringify(obj) || "")  + expires + "; path=/admin";
+					// console.log(document.cookie);
+				}
+			}
+		}
+	}
+});
+
+function sendPaypalForm() {
+	$(document.body).find('.paypal-form').off('submit').on('submit', function(e) {
+		var oThis = $(this);
+		// console.log(typeof oThis.attr('was-clicked'));
+		if (oThis.attr('was-clicked') == '0') {
+			e.preventDefault();
+			oThis.attr('was-clicked', '1');
+			if (oThis.attr('data-formid') == undefined) {
+				document.cookie="plan=; expires=Wed, 01 Jan 1970 00:00:00 GMT";
+				var oSettings = {
+					url: 'admin/set_session/'+oThis.attr('project-id'),
+					success : function(response) {
+						// console.log(response);
+						if (response) {
+							setTimeout(function() {
+								oThis.submit();
+							}, 1000);
+						}
+					}
+				};
+				$.ajax(oSettings);
+			}
+		}
+	});
+}
+
+function setSession(id) {
+	$.ajaxq('Session', {
+		url: 'admin/set_session/'+id,
+	});
+}
+
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('img.'+$(input).attr('cloned-tag')).attr('src', e.target.result);
+			$('input:hidden.'+$(input).attr('cloned-tag')).val(e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+function drawCharts(cBar) {
+	/*BAR CHART*/
+	if ($(cBar).length) {
+		$.ajaxq('barChart', {
+			url : "admin/get_charts/"+$(cBar).attr('project-id'),
+			dataType : 'json',
+			success : function(data) {
+				cBar = cBar.getContext("2d");
+				var barData = { labels: data.labels, datasets: data.records };
+				window.barChart = new Chart(cBar, {
+					type: 'bar',
+					data: barData,
+					options:{
+						responsive: true,
+						title: {
+							display: true,
+							text: "Current Year - Payload Statistics"
+						},
+						legend: {
+							display: false
+						},
+						scales: {
+							yAxes: [{
+								scaleLabel: {
+									display: true,
+									labelString: 'Number of sent data'
+								},
+								ticks: {
+									min: 0,
+									max: Math.ceil((parseInt(data.yMax)+1)/10)*10,
+									beginAtZero: true,
+									callback: function(value, index, values) {
+										if (Math.floor(value) === value) {
+											return value;
+										}
+									}
+								}
+							}],
+							xAxes: [{
+								scaleLabel: {
+									display: true,
+									labelString: 'Weekly sent data'
+								}
+							}]
+						},
+						tooltips: {
+							callbacks: {
+								title: function(tooltipItem, chartData) {
+									return tooltipItem[0].xLabel+"\n"+tooltipItem[0].yLabel+' payload sent';
+								},
+								label: function(tooltipItem, chartData) {
+									return data.date_range[tooltipItem.index];
+								}
+							}
+						}
+					}
+				});
+			}
+		});
+	}
+}
+
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+}
