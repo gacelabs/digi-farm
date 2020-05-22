@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Account extends MY_Controller {
 
-	public function index()
+	public function index() /*login page*/
 	{
 		// debug($this->accounts->has_session, 1);
 		if ($this->accounts->has_session == FALSE) {
@@ -85,7 +85,7 @@ class Account extends MY_Controller {
 		// $post = ['username'=>'bong', 'password'=>2];
 		$post = $this->input->post();
 		// debug($post, 1);
-		$is_ok = $this->accounts->login($post);
+		$is_ok = $this->accounts->login($post, 'dashboard');
 		// debug($is_ok, 1);
 		if ($is_ok) {
 			redirect(base_url());
