@@ -75,6 +75,12 @@ ul, ul>li {
 	margin: 0;
 	padding: 0;
 }
+input.error, textarea.error, select.error {
+	border-color: #f35757;
+}
+#signup #first_name, #signup #last_name {
+	text-transform: capitalize;
+}
 /*RESET*/
 
 .slider-title {
