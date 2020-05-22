@@ -46,24 +46,25 @@ class Accounts {
 	{
 		$allowed = FALSE; $user = FALSE;; $passed = TRUE; $msg = 'Invalid entries!';
 		if ($post) {
-			// debug($post, 1);
 			if (isset($post['password']) AND isset($post['retype_password'])) {
 				if ($post['retype_password'] !== $post['password']) {
 					$passed = FALSE;
 					$msg = 'Password mismatch!';
 				}
 			}
+			// debug($post, 1);
 			if (isset($post['email_address']) AND isset($post['password'])) {
 				$credits = ['email_address'=>$post['email_address'], 'password'=>$post['password']];
-				// $return = $this->check_credits($credits);
+				$return = $this->check_credits($credits);
 				if (strlen(trim($credits['email_address'])) > 0 AND strlen(trim($credits['password'])) > 0) {
 					if ($passed) {
+						// debug($return, 1);
 						if (isset($return['allowed']) AND $return['allowed'] == FALSE) {
 							unset($post['retype_password']);
 							$password = $post['password'];
 							unset($post['password']);
 							$post['farmer'] = (isset($post['farmer']) AND $post['farmer'] == 'on') ? 1 : 0;
-							debug($post, 1);
+							// debug($post, 1);
 							$query = $this->class->db->insert('user', $post);
 							$id = $this->class->db->insert_id();
 							/*insert user location*/
