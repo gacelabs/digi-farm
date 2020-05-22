@@ -12,20 +12,8 @@ class Dashboard extends MY_Controller {
 				''
 			),
 			'title' => 'Welcome to FarmApp!',
-			'head_css' => array( // path to css files, appended with base_url(). these are declared within page <head> opening tag. example: base_url().'assets/css/bootstrap.min.css'
-				base_url().'assets/css/bootstrap.min.css',
-				base_url().'assets/css/font-awesome.min.css',
-				base_url().'assets/css/slider.css',
-				base_url().'assets/css/slick-theme.css',
-				base_url().'assets/css/global.css',
-				base_url().'assets/css/category-slider.css',
-				base_url().'assets/css/featured-slider.css',
-				base_url().'assets/css/home.css',
-				base_url().'assets/css/responsive.css'
-			),
-			'head_js' => array( // path to js files, appended with base_url(). these are declared within page <head> opening tag. example: base_url().'assets/js/jquery.min.js'
-				''
-			),
+			'head_css' => $this->default('head_css'),
+			'head_js' => $this->default('head_js'),
 			'body_id' => strtolower(__CLASS__),
 			'body_class' => strtolower(__CLASS__),
 			'wrapper_class' => '',
@@ -46,18 +34,11 @@ class Dashboard extends MY_Controller {
 
 				)
 			),
-			'footer_css' => array( // path to css files, appended with base_url(). these are declared before </body> closing tag. example: base_url().'assets/css/bootstrap.min.css'
-				''
-			),
-			'footer_js' => array( // path to js files, appended with base_url(). these are declared before </body> closing tag. example: base_url().'assets/js/jquery.min.js'
-				base_url().'assets/js/jquery.min.js',
-				base_url().'assets/js/bootstrap.min.js',
-				base_url().'assets/js/chartjs/Chart.bundle.min.js',
-				base_url().'assets/js/chartjs/charts.js',
-				base_url().'assets/js/slider.js',
-				base_url().'assets/js/fitext.js',
-				base_url().'assets/js/main.js'
-			),
+			'footer_css' => $this->default('footer_css'),
+			'footer_js' => $this->default('footer_js', [
+				base_url('assets/js/chartjs/Chart.bundle.min.js'),
+				base_url('assets/js/chartjs/charts.js'),
+			]),
 			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
 				''
 			),

@@ -45,4 +45,50 @@ class MY_Controller extends CI_Controller {
 		// debug($this->session, 1);
 	}
 
+	public function default($ext=false, $additional=[])
+	{
+		$default = [];
+		if ($ext) {
+			switch (strtolower($ext)) {
+				case 'head_js':
+					$default = array();
+					break;
+
+				case 'footer_js':
+					$default = array(
+						base_url('assets/js/jquery.min.js'),
+						base_url('assets/js/bootstrap.min.js'),
+						base_url('assets/js/slider.js'),
+						base_url('assets/js/fitext.js'),
+						base_url('assets/js/main.js'),
+					);
+					break;
+				
+				case 'head_css': /*head_css*/
+					$default = array(
+						base_url('assets/css/bootstrap.min.css'),
+						base_url('assets/css/font-awesome.min.css'),
+						base_url('assets/css/slider.css'),
+						base_url('assets/css/slick-theme.css'),
+						base_url('assets/css/global.css'),
+						base_url('assets/css/category-slider.css'),
+						base_url('assets/css/featured-slider.css'),
+						base_url('assets/css/home.css'),
+						base_url('assets/css/responsive.css'),
+					);
+					break;
+
+				case 'footer_css':
+					$default = array();
+					break;
+			}
+		}
+
+		if (count($additional)) {
+			$default = array_merge($default, $additional);
+		}
+
+		return $default;
+	}
+
 }
