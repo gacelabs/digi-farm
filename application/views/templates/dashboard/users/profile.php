@@ -68,9 +68,7 @@
 						</div>
 					</form>
 				</div>
-			</div>
 
-			<div class="col-lg-6 col-md-6">
 				<?php
 					$settings = $profile_data['app_settings'];
 					// debug($settings);
@@ -84,25 +82,29 @@
 
 					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
 						<div class="card-body">
-						<?php foreach ($settings as $id => $row): ?>
-							<label>
+							<div class="row">
+							<?php foreach ($settings as $id => $row): ?>
 								<?php if ($row['checkbox']): ?>
 									<?php if ($row['value'] == 'checked'): ?>
 										<div class="custom-control custom-checkbox">
 											<input type="checkbox" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" checked="checked" value="1" />
 										</div>
-										<?php else: ?>
-											<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" value="1" />
-											</div>
-										<?php endif ?>
+									<?php else: ?>
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" value="1" />
+										</div>
+									<?php endif ?>
 								<?php else: ?>
-									<?php echo $row['label'];?>
-									<input type="text" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
+									<div class="col-6 form-group">
+										<input type="text" class="form-control" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
+									</div>
+									<div class="col-6 form-group">
+										<?php echo $row['label'];?>
+									</div>
 								<?php endif ?>
 								<input type="hidden" name="user_app_settings[<?php echo $id;?>][checkbox]" value="<?php echo $row['checkbox'];?>" />
-							</label>
-						<?php endforeach ?>
+							<?php endforeach ?>
+							</div>
 						</div>
 						<!-- /.card-body -->
 
@@ -115,11 +117,11 @@
 
 			<div class="col-lg-6">
 				<?php
-				$locations = $profile_data['profile']['user_location'];
-	// debug($locations);
+					$locations = $profile_data['profile']['user_location'];
+					// debug($locations);
 				?>
 				<!-- MULTIPLE TO KAYA DAPAT MATRON UI NG ADD ANOTHER -->
-				<div class="card card-secondary">
+				<div class="card card-success">
 					<div class="card-header">
 						<h3 class="card-title">Farm Locations</h3>
 					</div>
@@ -133,9 +135,11 @@
 								}
 								?>
 								<div class="location-panel">
-									<div class="map-box" style="width: 100%; height: 200pt;"></div>
+									<div class="map-box" style="width: 100%; height: 200pt; margin-bottom: 15px;"></div>
+
 									<input type="hidden" class="id" name="user_location[<?php echo $key;?>][id]" value="<?php echo $row['id'];?>" />
-									<div class="col-6 form-group">
+									
+									<div class="form-group">
 										<label for="address">Address</label>
 										<input type="text" id="address" class="address form-control" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
 									</div>
@@ -151,6 +155,12 @@
 					</form>
 				</div>
 			</div>
+
+			<div class="col-lg-6 col-md-6">
+				
+			</div>
+
+			
 		</div>
 	</div>
 </section>
