@@ -81,3 +81,4 @@
 	<?php endforeach ?>
 	<button>Save</button>
 </form>
+<button>Add Location</button>
