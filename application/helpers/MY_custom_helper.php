@@ -323,20 +323,6 @@ function create_dirs($dir='')
 	return $uploaddir;
 }
 
-function construct_where($id_post_id=FALSE, $table_or_alias='') {
-	// debug($id_post_id);
-	if ($id_post_id) {
-		$data = explode('-', $id_post_id);
-		// debug($data, 1);
-		if (count($data) == 2) {
-			return $table_or_alias.'id = '.$data[0].' AND '.$table_or_alias.'user_id = '.$data[1];
-		} elseif (count($data) == 1) {
-			return $table_or_alias.'id = '.$data[0];
-		}
-	}
-	return FALSE;
-}
-
 function fix_title($title=FALSE) {
 	if ($title) {
 		return ucwords(preg_replace('/[-]/', ' ', $title));
@@ -487,11 +473,6 @@ function in_str($string='', $search='')
 	return (bool)strstr($string, $search);
 }
 
-function is_url_parsable()
-{
-	return (in_str(current_full_url(), '_') OR in_str(current_full_url(), '~')) AND in_str(current_full_url(), ':');
-}
-
 function current_full_url()
 {
 	$CI =& get_instance();
@@ -503,60 +484,11 @@ function current_full_url()
 	return $url;
 }
 
-function parse_mtb_query($uri=FALSE)
-{
-	$parsed = [];
-	if ($uri) {
-		$separate = explode(':', $uri);
-		foreach ($separate as $key => $string) {
-			$col_val = explode('_', $string);
-			$num = $col_val[0][strlen($col_val[0])-1];
-			$column = is_numeric($num) ? remove_in_str($col_val[0], $num).'_'.$num : $col_val[0];
-			$value = $col_val[1];
-			if (!isset($parsed[$column])) {
-				$parsed[$column] = get_col_val($value);
-			} else {
-				if (is_array($parsed[$column])) {
-					$parsed[$column][] = get_col_val($value);
-				} else {
-					$parsed[$column] = [$parsed[$column]];
-					$parsed[$column][] = get_col_val($value);
-				}
-			}
-		}
-		// debug($parsed, 1);
-	}
-	return $parsed;
-}
-
 function remove_in_str($string=FALSE, $remove='')
 {
 	if ($string) {
 		return preg_replace('/'.$remove.'/', '', $string);
 	}
-}
-
-function get_col_val($string=FALSE, $delimiter='~')
-{
-	$parsed = $string;
-	if ($string AND in_str($string, $delimiter)) {
-		$parsed = [];
-		$col_val = explode($delimiter, $string);
-		// debug($col_val, 1);
-		$column = $col_val[0];
-		$value = $col_val[1];
-		if (!isset($parsed[$column])) {
-			$parsed[$column] = $value;
-		} else {
-			if (is_array($parsed[$column])) {
-				$parsed[$column][] = $value;
-			} else {
-				$parsed[$column] = [$parsed[$column]];
-				$parsed[$column][] = $value;
-			}
-		}
-	}
-	return $parsed;
 }
 
 function tinymce_upload($dir='', $filename='upload')
@@ -657,151 +589,6 @@ function calculate($data=FALSE, $mode=FALSE)
 	return $result;
 }
 
-function manipulate_bike_display_data($items_data=FALSE, $id=FALSE, $table=FALSE)
-{
-	if ($items_data) {
-		$ci =& get_instance();
-		$ci->load->model('custom_model');
-		// debug($items_data, 1);
-
-		$bike_items = [];
-		foreach ($items_data as $key => $bike) {
-			foreach ($bike as $field => $data) {
-				if (in_array($field, ['id','user_id','bike_model','feat_photo','view_count','share_count','like_count','added','updated','version','store_name','bike_url'])) {
-					if (in_array($field, ['id','view_count','share_count','like_count'])) {
-						if ($field == 'id') {
-							$bike_items['other']['id'] = $id;
-							$bike_items['other']['table'] = $table;
-							$bike_items['other']['bike_ids'][] = $data;
-							$bike_items['info'][$key]['id'] = $data;
-						} else {
-							if ($id) {
-								$data = $ci->custom_model->get($table, ['id'=>$id], $field, 'row');
-								$data = $data[$field];
-							}
-							$bike_items['other'][$field] = $data;
-						}
-					} else {
-						$bike_items['info'][$key][$field] = $data;
-					}
-				} else {
-					if ($field == 'fields_data') {
-						if (!is_array($data)) $data = json_decode($data, TRUE);
-						// debug($data, 1);
-						if ($data) {
-							foreach ($data as $base => $row) {
-								foreach ($row as $column => $json) {
-									$mapped = [];
-									$parsed = $json;
-									if (!is_array($json)) $parsed = json_decode($json, TRUE);
-									if ($parsed) {
-										foreach ($parsed as $idx => $tags) $mapped[] = $tags['value'];
-									}
-									$bike_items['fields'][$base][$column][$key] = count($mapped) ? implode(', ', $mapped) : 'Unspecified';
-								}
-							}
-						}
-					} else {
-						$bike_items['fields'][str_replace('_', ' ', $field)][$key] = $data;
-					}
-				}
-			}
-		}
-		// debug($bike_items, 1);
-		$bike_items['table'] = $table;
-		return $bike_items;
-	}
-	return FALSE;
-}
-
-function check_and_save_matchup($items_data=FALSE)
-{
-	if ($items_data) {
-		$ci =& get_instance();
-		$today = date('Y-m-d');
-		$ci->load->model('custom_model');
-		$ids = [];
-		foreach ($items_data as $key => $row) {
-			$ids[] = $row['id'];
-		}
-		// debug($ids, 1);
-		// $data = $ci->custom_model->get('match_ups', ['bike_data' => $json, 'today' => $today], FALSE, 'row');
-		if (isset($ids[1])) {
-			$bike_data_1 = json_encode(['id'=>[$ids[0], $ids[1]]]);
-			$bike_data_2 = json_encode(['id'=>[$ids[1], $ids[0]]]);
-			$data = $ci->custom_model->get('match_ups', "(bike_data = '$bike_data_1' OR bike_data = '$bike_data_2')", FALSE, 'row');
-			$json = $bike_data_1;
-		} else {
-			$bike_data = json_encode(['id'=>[$ids[0]]]);
-			$data = $ci->custom_model->get('match_ups', "bike_data = '$bike_data'", FALSE, 'row');
-			$json = $bike_data;
-		}
-
-		if ($data == FALSE) {
-			$id = $ci->custom_model->new('match_ups', ['bike_data' => $json, 'today' => $today]);
-			return ['id' => $id, 'table' => 'match_ups'];
-		} else {
-			$data = $ci->custom_model->get('match_ups', "today = '".$today."'", FALSE, 'row');
-			// debug($data == FALSE, 1);
-			if ($data == FALSE) {
-				/*get random compares*/
-				$ci->db->order_by('id', 'RANDOM');
-				$ci->db->limit(1);
-				$query = $ci->db->get('compares');
-				$data = $query->row_array();
-				if ($query->num_rows()) {
-					$items_data = $ci->custom_model->compared_bikes(['id'=>$data['id']]);
-					return check_and_save_matchup($items_data);
-				}
-			}
-			return ['id' => $data['id'], 'table' => 'match_ups'];
-		}
-	}
-}
-
-function assemble_fields_data($data=FALSE)
-{
-	if ($data) {
-		// debug($data, 1);
-		$result = [];
-		$ci =& get_instance();
-		$ci->load->model('custom_model');
-
-		foreach ($data as $base => $fields) {
-			$field_data = $ci->custom_model->get('fields_data', ['base' => $base], FALSE, 'row');
-			// debug($fields, 1);
-			$field_data['values'] = json_decode($field_data['values'], TRUE);
-			// debug($field_data);
-			if (is_array($field_data['values'])) {
-				foreach ($fields as $column => $values) {
-				// debug(array_values($values));
-					foreach ($field_data['values'] as $key => $row) {
-						if ($row['column'] === $column AND is_array($values)) {
-							$column_values = strlen(trim($row['data'])) ? explode(',', $row['data']) : [];
-							foreach ($values as $index => $input) {
-								if (!in_array($input['value'], $column_values)) {
-									$column_values[] = $input['value'];
-								}
-							}
-							$field_data['values'][$key]['data'] = implode(',', $column_values);
-						}
-					}
-				}
-				if (!isset($field_data['path'])) {
-					$field_data['path'] = "assets/data/jsons/spec_template/".clean_string_name($base).".json";
-				}
-				unset($field_data['added']);
-				unset($field_data['updated']);
-				$result[] = $field_data;
-			}
-			// debug($field_data, 1);
-		}
-		// debug(['fields_data' => $result], 1);
-		return ['fields_data' => $result];
-	}
-	return FALSE;
-}
-
 function csv_to_array($filename='', $delimiter=',')
 {
 	if(!file_exists(get_root_path($filename)) OR !is_readable(get_root_path($filename))) {
@@ -820,108 +607,6 @@ function csv_to_array($filename='', $delimiter=',')
 		fclose($handle);
 	}
 	return $data;
-}
-
-function get_shortcode_values($data=FALSE)
-{
-	if ($data) {
-		preg_match_all('/\[(.*?)\]/', $data, $matches);
-		if (isset($matches[1])) {
-			$ci =& get_instance();
-			$ci->load->model('custom_model');
-
-			$values = $matches[1];
-			$tags = $methods = $queries = [];
-			foreach ($values as $key => $value) {
-				$tags[$key] = explode('|', $value);
-			}
-			foreach ($tags as $key => $tag) {
-				foreach ($tag as $index => $row) {
-					$conditions = explode('=', $row);
-					$methods[$key][$conditions[0]] = str_replace('"', '', $conditions[1]);
-				}
-			}
-			// debug($methods);
-			foreach ($methods as $key => $method) {
-				if (isset($method['data'])) {
-					switch (strtolower($method['data'])) {
-						case 'compare': case 'bike':
-							$queries[$key]['field'] = 'bike_model';
-							$queries[$key]['table'] = 'bike_items';
-							break;
-						case 'profile':
-							$queries[$key]['field'] = 'store_name';
-							$queries[$key]['table'] = 'users';
-							break;
-					}
-					if (isset($method['search'])) {
-						switch (strtolower($method['data'])) {
-							case 'compare':
-								$ci->db->like('bike_model', $method['search']);
-								$items = $ci->db->get('bike_items');
-								if ($items->num_rows()) {
-									$bike_items = $items->result_array();
-									$queries[$key]['where'] = '';
-									$ids = [];
-									foreach ($bike_items as $bike) $ids[] = $bike['id'];
-									$queries[$key]['where'] .= "id IN (".implode(',', $ids).")";
-								}
-								break;
-							case 'bike':
-								$queries[$key]['where'] = "bike_model = '".$method['search']."'";
-								break;
-							case 'profile':
-								$queries[$key]['where'] = "store_name LIKE '%".$method['search']."%'";
-								break;
-						}
-					}
-					if (isset($method['limit']) AND (is_numeric($method['limit']) AND $method['limit'])) {
-						$queries[$key]['limit'] = ' LIMIT '.$method['limit'];
-					}
-					if (isset($method['style']) AND strlen(trim($method['style']))) {
-						$queries[$key]['class'] = trim($method['style']);
-					}
-				}
-			}
-			// debug($queries);
-			$statements = [];
-			foreach ($queries as $key => $query) {
-				if (isset($query['where'])) {
-					$string = "SELECT ".$query['field']." FROM ".$query['table']." WHERE ".$query['where'];
-				} else {
-					$string = "SELECT ".$query['field']." FROM ".$query['table'];
-				}
-				if (isset($query['limit'])) {
-					$string .= $query['limit'];
-				}
-				$code_data = $ci->custom_model->query($string);
-				// debug($code_data);
-				if ($code_data) {
-					$statements[$key] = '';
-					foreach ($code_data as $index => $code) {
-						if (isset($query['class'])) {
-							$statements[$key] .= '<span class="sc-'.$query['class'].'">'.$code[$query['field']].'</span>&nbsp;';
-						} else {
-							$statements[$key] .= '<span class="sc-default">'.$code[$query['field']].'</span>&nbsp;';
-						}
-					}
-				}
-			}
-			// debug($matches[0]);
-			foreach ($matches[0] as $key => $value) {
-				$data = str_replace($value, $statements[$key], $data);
-			}
-			// debug($data);
-			// debug($statements, 1);
-		}
-	}
-	return $data;
-}
-
-function whats_the_day($in='tomorrow')
-{
-	$datetime = new DateTime($in);
-	return $datetime->format('Y-m-d');
 }
 
 function cookies($name=false, $method='get', $value=false, $expire=604800) /*for a week*/

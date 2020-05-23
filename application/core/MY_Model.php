@@ -44,7 +44,7 @@ class MY_Model extends CI_Model {
 		return FALSE;
 	}
 
-	public function new($table=FALSE, $post=FALSE, $redirect_url='')
+	public function create($table=FALSE, $post=FALSE, $redirect_url='')
 	{
 		if ($table AND $post) {
 			if ($this->db->field_exists('version', $table)) {

@@ -45,7 +45,7 @@ class MY_Controller extends CI_Controller {
 		// debug($this->session, 1);
 	}
 
-	public function default($ext=false, $additional=[])
+	public function defaults($ext=false, $additional=[])
 	{
 		$default = [];
 		if ($ext) {

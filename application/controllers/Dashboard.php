@@ -12,8 +12,8 @@ class Dashboard extends MY_Controller {
 				''
 			),
 			'title' => 'Welcome to FarmApp!',
-			'head_css' => $this->default('head_css'),
-			'head_js' => $this->default('head_js'),
+			'head_css' => $this->defaults('head_css'),
+			'head_js' => $this->defaults('head_js'),
 			'body_id' => strtolower(__CLASS__),
 			'body_class' => strtolower(__CLASS__),
 			'wrapper_class' => '',
@@ -34,8 +34,8 @@ class Dashboard extends MY_Controller {
 
 				)
 			),
-			'footer_css' => $this->default('footer_css'),
-			'footer_js' => $this->default('footer_js', [
+			'footer_css' => $this->defaults('footer_css'),
+			'footer_js' => $this->defaults('footer_js', [
 				base_url('assets/js/chartjs/Chart.bundle.min.js'),
 				base_url('assets/js/chartjs/moment.min.js'),
 				base_url('assets/js/chartjs/charts.js'),
@@ -92,8 +92,8 @@ class Dashboard extends MY_Controller {
 					''
 				),
 				'title' => ucfirst(__FUNCTION__).' | Farmapp',
-				'head_css' => $this->default('head_css'),
-				'head_js' => $this->default('head_js'),
+				'head_css' => $this->defaults('head_css'),
+				'head_js' => $this->defaults('head_js'),
 				'body_id' => __FUNCTION__,
 				'body_class' => __FUNCTION__,
 				'wrapper_class' => '',
@@ -114,8 +114,8 @@ class Dashboard extends MY_Controller {
 
 					)
 				),
-				'footer_css' => $this->default('footer_css'),
-				'footer_js' => $this->default('footer_js', [
+				'footer_css' => $this->defaults('footer_css'),
+				'footer_js' => $this->defaults('footer_js', [
 					base_url('assets/js/jquery.validation.min.js'),
 					base_url('assets/js/validator.js'),
 					'https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNbxnm4HQLyFO4FkUOpam3Im14wWY0MA&libraries=places',
