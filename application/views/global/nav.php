@@ -38,7 +38,7 @@
 					<?php if (is_farmer($current_profile)): ?>
 						<li><a href="<?php echo base_url('dashboard/sell-product'); ?>">Sell Veggies!</a></li>
 					<?php endif ?>
-					<li><a href="<?php echo base_url('dashboard'); ?>" style="padding-right:0;"><?php echo get_fullname($current_profile); ?></a></li>
+					<li><a href="<?php echo base_url('dashboard'); ?>" style="padding-right:0;"><?php echo ucwords(get_fullname($current_profile)); ?></a></li>
 				<?php else: ?>
 					<li><a href="login">Login / Sign up</a></li>
 				<?php endif ?>

@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<body id="body" <?php echo (!empty($body_class) ? "class='".$body_class."'": ""); ?>>
 
-		<div id="wrapper" <?php echo (!empty($wrapper_class) ? "class='".$wrapper_class."'": "" ); ?>>
+		<div class="wrapper" <?php echo (!empty($wrapper_class) ? "class='".$wrapper_class."'": "" ); ?>>
 
 			<!-- Navbar -->
 			<nav class="main-header navbar navbar-expand navbar-white navbar-light">
