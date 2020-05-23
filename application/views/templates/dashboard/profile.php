@@ -3,6 +3,7 @@
 	// debug($profile_data);
 	$info = $profile_data['profile']['user'];
 ?>
+<h1>User Info</h1>
 <form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
 	<label>
 		First Name
@@ -37,6 +38,7 @@
 	$settings = $profile_data['app_settings'];
 	// debug($settings);
 ?>
+<h1>User Settings</h1>
 <form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
 	<?php foreach ($settings as $id => $row): ?>
 		<label>
@@ -61,6 +63,7 @@
 	// debug($locations);
 ?>
 <!-- MULTIPLE TO KAYA DAPAT MATRON UI NG ADD ANOTHER -->
+<h1>User Locations</h1>
 <form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
 	<?php foreach ($locations as $key => $row): ?>
 		<?php
