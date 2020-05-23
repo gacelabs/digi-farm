@@ -119,28 +119,37 @@
 	// debug($locations);
 				?>
 				<!-- MULTIPLE TO KAYA DAPAT MATRON UI NG ADD ANOTHER -->
-				<h1>User Locations</h1>
-				<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
-					<?php foreach ($locations as $key => $row): ?>
-						<?php
-						$latlng = '';
-						if ($row['lat'] != '' AND $row['lng'] != '') {
-							$latlng = json_encode(['lat'=>$row['lat'], 'lng'=>$row['lng']]);
-						}
-						?>
-						<div class="location-panel">
-							<div class="map-box" style="width: 100%; height: 200pt;"></div>
-							<input type="hidden" class="id" name="user_location[<?php echo $key;?>][id]" value="<?php echo $row['id'];?>" />
-							<label>
-								Address
-								<input type="text" class="address" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
-							</label>
-							<input type="hidden" class="latlng" name="user_location[<?php echo $key;?>][latlng]" value='<?php echo $latlng;?>' />
+				<div class="card card-secondary">
+					<div class="card-header">
+						<h3 class="card-title">Farm Locations</h3>
+					</div>
+					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
+						<div class="card-body">
+							<?php foreach ($locations as $key => $row): ?>
+								<?php
+								$latlng = '';
+								if ($row['lat'] != '' AND $row['lng'] != '') {
+									$latlng = json_encode(['lat'=>$row['lat'], 'lng'=>$row['lng']]);
+								}
+								?>
+								<div class="location-panel">
+									<div class="map-box" style="width: 100%; height: 200pt;"></div>
+									<input type="hidden" class="id" name="user_location[<?php echo $key;?>][id]" value="<?php echo $row['id'];?>" />
+									<div class="col-6 form-group">
+										<label for="address">Address</label>
+										<input type="text" id="address" class="address form-control" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
+									</div>
+									<input type="hidden" class="latlng" name="user_location[<?php echo $key;?>][latlng]" value='<?php echo $latlng;?>' />
+								</div>
+							<?php endforeach ?>
 						</div>
-					<?php endforeach ?>
-					<button>Save</button>
-				</form>
-				<button>Add Location</button>
+
+						<div class="card-footer">
+							<button type="submit" class="btn btn-default">Save</button>
+							<button class="btn btn-default pull-right">Add Location</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

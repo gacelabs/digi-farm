@@ -31,20 +31,20 @@
 			<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
 			<li class="nav-item">
-				<a href="dashboard" class="nav-link">
+				<a href="dashboard" class="nav-link <?php echo $body_class=="profile"? "dashboard": ""; ?>">
 					<i class="nav-icon fas fa-chart-line"></i>
 					<p>Dashboard</p>
 				</a>
 			</li>
 
 			<li class="nav-item">
-				<a href="dashboard/profile" class="nav-link active">
+				<a href="dashboard/profile" class="nav-link <?php echo $body_class=="profile"? "active": ""; ?>">
 					<i class="nav-icon fas fa-address-card"></i>
 					<p>Profile</p>
 				</a>
 			</li>
 
-			<li class="nav-item has-treeview menu-open">
+			<li class="nav-item has-treeview">
 				<a href="#" class="nav-link">
 					<i class="nav-icon fas fa-boxes"></i>
 					<p>Products <i class="right fas fa-angle-left"></i></p>
