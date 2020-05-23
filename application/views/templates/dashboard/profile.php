@@ -38,7 +38,7 @@
 	$settings = $profile_data['app_settings'];
 	// debug($settings);
 ?>
-<h1>User Settings</h1>
+<h1>User App Settings</h1>
 <form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
 	<?php foreach ($settings as $id => $row): ?>
 		<label>
@@ -75,7 +75,10 @@
 		<div class="location-panel">
 			<div class="map-box" style="width: 100%; height: 100pt;"></div>
 			<input type="hidden" class="id" name="user_location[<?php echo $key;?>][id]" value="<?php echo $row['id'];?>" />
-			<input type="text" class="address" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
+			<label>
+				Address
+				<input type="text" class="address" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
+			</label>
 			<input type="hidden" class="latlng" name="user_location[<?php echo $key;?>][latlng]" value='<?php echo $latlng;?>' />
 		</div>
 	<?php endforeach ?>
