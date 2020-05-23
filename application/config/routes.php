@@ -6,6 +6,9 @@ $route['default_controller'] = 'Home';
 $route['dashboard'] = 'Dashboard';
 $route['dashboard/profile/(:num)'] = 'Dashboard/profile/$1';
 
+$route['dashboard/admin'] = 'Admin/index';
+$route['dashboard/admin/login'] = 'Admin/login';
+
 $route['login'] = 'Account/index';
 $route['sign_in'] = 'Account/sign_in';
 $route['sign_up'] = 'Account/sign_up';

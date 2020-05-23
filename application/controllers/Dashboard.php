@@ -11,44 +11,33 @@ class Dashboard extends MY_Controller {
 			'meta' => array(
 				''
 			),
-			'title' => 'Welcome to FarmApp!',
-			'head_css' => $this->defaults('head_css'),
-			'head_js' => $this->defaults('head_js'),
+			'title' => ucfirst(__CLASS__).' | Farmapp',
+			'head_css' => $this->dash_defaults('head_css'),
+			'head_js' => $this->dash_defaults('head_js'),
 			'body_id' => strtolower(__CLASS__),
 			'body_class' => strtolower(__CLASS__),
 			'wrapper_class' => '',
 			'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
 				'nav_view' => array(
-					'global/nav'
+					'templates/dashboard/global/nav'
 				),
-				'top_view' => array(
-					'templates/dashboard/index'
+				'sidebar_view' => array(
+					'templates/dashboard/global/sidebar'
 				),
-				'middle_view' => array(
-
-				),
-				'bottom_view' => array(
-
-				),
-				'footer_view' => array(
-
+				'contentdata_view' => array(
+					'templates/dashboard/users/index'
 				)
 			),
-			'footer_css' => $this->defaults('footer_css'),
-			'footer_js' => $this->defaults('footer_js', [
-				base_url('assets/js/chartjs/Chart.bundle.min.js'),
-				base_url('assets/js/chartjs/moment.min.js'),
-				base_url('assets/js/chartjs/charts.js'),
-			]),
-			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
-				''
+			'footer_css' => $this->dash_defaults('footer_css'),
+			'footer_js' => $this->dash_defaults('footer_js'),
+			'post_body' => array(
+
 			),
-			'db' => array( // data to pass specifically to this page
+			'db' => array(
 				
 			)
 		);
-
-		$this->load->view('templates/home', $data);
+		$this->load->view('templates/dashboard/landing', $data);
 	}
 
 	public function profile($id=0)
@@ -92,37 +81,31 @@ class Dashboard extends MY_Controller {
 					''
 				),
 				'title' => ucfirst(__FUNCTION__).' | Farmapp',
-				'head_css' => $this->defaults('head_css'),
-				'head_js' => $this->defaults('head_js'),
+				'head_css' => $this->dash_defaults('head_css'),
+				'head_js' => $this->dash_defaults('head_js'),
 				'body_id' => __FUNCTION__,
 				'body_class' => __FUNCTION__,
 				'wrapper_class' => '',
 				'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
 					'nav_view' => array(
-						'global/nav'
+						'templates/dashboard/global/nav'
 					),
-					'top_view' => array(
-						'templates/dashboard/profile'
+					'sidebar_view' => array(
+						'templates/dashboard/global/sidebar'
 					),
-					'middle_view' => array(
-
-					),
-					'bottom_view' => array(
-
-					),
-					'footer_view' => array(
-
+					'contentdata_view' => array(
+						'templates/dashboard/users/profile'
 					)
 				),
-				'footer_css' => $this->defaults('footer_css'),
-				'footer_js' => $this->defaults('footer_js', [
+				'footer_css' => $this->dash_defaults('footer_css'),
+				'footer_js' => $this->dash_defaults('footer_js', [
 					base_url('assets/js/jquery.validation.min.js'),
 					base_url('assets/js/validator.js'),
 					'https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNbxnm4HQLyFO4FkUOpam3Im14wWY0MA&libraries=places',
 					base_url('assets/js/profile.js'),
 				]),
-				'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
-					''
+				'post_body' => array(
+
 				),
 				'db' => function() {
 					$activity = $this->db->get('activity');
@@ -135,7 +118,7 @@ class Dashboard extends MY_Controller {
 					];
 				}
 			);
-			$this->load->view('templates/home', $data);
+			$this->load->view('templates/dashboard/landing', $data);
 		}
 	}
 

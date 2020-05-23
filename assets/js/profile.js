@@ -20,7 +20,7 @@ $(document).ready(function() {
 
 var initMap = function(latlng, mapUI) {
 	var map = new google.maps.Map(mapUI, {
-		zoom: 12,
+		zoom: 11,
 		center: latlng
 	});
 	var marker = new google.maps.Marker({
