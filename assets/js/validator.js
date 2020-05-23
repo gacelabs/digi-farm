@@ -9,14 +9,6 @@ $(document).ready(function() {
 
 	jQuery.validator.addMethod('password_rule', function(value, element, param) {
 		var result = /*this.optional(element) ||*/ (/*value.length >= 6 && *//\d/.test(value)/* && /[a-z]/i.test(value)*/);
-		if (!result) {
-			var validator = this;
-			setTimeout(function () {
-				validator.blockFocusCleanup = true;
-				element.focus();
-				validator.blockFocusCleanup = false;
-			}, 1);
-		}
 		if ($('#retype_password:visible').length) {
 			if ($.trim(value) != $.trim($('#retype_password').val())) {
 				result = false;

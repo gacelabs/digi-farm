@@ -61,7 +61,7 @@ class MY_Model extends CI_Model {
 		return FALSE;
 	}
 
-	public function save($table=FALSE, $set=FALSE, $where=FALSE, $redirect_url='')
+	public function save($table=FALSE, $set=FALSE, $where=FALSE, $redirect_url='', $callback=false)
 	{
 		if ($table AND $set AND $where) {
 			if ($this->db->field_exists('version', $table)) {
@@ -70,10 +70,14 @@ class MY_Model extends CI_Model {
 				$set['version'] = (int)$data['version'] + 1;
 			}
 			$this->db->update($table, $set, $where);
+			$id = $this->get($table, $where, 'id', 'row')['id'];
 			if ($redirect_url != '') {
+				if ($callback) {
+					$callback($id);
+				}
 				redirect(base_url($redirect_url == 'home' ? '' : $redirect_url));
 			} else {
-				return $this->db->insert_id();
+				return $id;
 			}
 		}
 		return FALSE;

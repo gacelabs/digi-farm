@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Home';
 
 $route['dashboard'] = 'Dashboard';
+$route['dashboard/profile/(:num)'] = 'Dashboard/profile/$1';
 
 $route['login'] = 'Account/index';
 $route['sign_in'] = 'Account/sign_in';

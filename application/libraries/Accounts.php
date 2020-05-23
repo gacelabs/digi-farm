@@ -168,13 +168,23 @@ class Accounts {
 		if ($id) {
 			$user = $this->class->db->get_where('user', ['id' => $id]);
 			$userdata = $user->row_array();
-			
+			unset($userdata['created']);
+			unset($userdata['last_updated']);
+
 			$user_app_settings = $this->class->db->get_where('user_app_settings', ['user_id' => $id]);
 			$user_app_settings_data = $user_app_settings->result_array();
 			// debug($user_app_settings_data, 1);
-			
+			foreach ($user_app_settings_data as $key => $row) {
+				unset($user_app_settings_data[$key]['created']);
+				unset($user_app_settings_data[$key]['last_updated']);
+			}
+
 			$user_location = $this->class->db->get_where('user_location', ['user_id' => $id]);
 			$user_location_data = $user_location->result_array();
+			foreach ($user_location_data as $key => $value) {
+				unset($user_location_data[$key]['created']);
+				unset($user_location_data[$key]['last_updated']);
+			}
 
 			return [
 				'user' => $userdata,
@@ -183,5 +193,19 @@ class Accounts {
 			];
 		}
 		return false;
+	}
+
+	public function update($id=false, $callback=false)
+	{
+		if ($id) {
+			$data = $this->assemble_profile_data($id);
+			$this->class->session->set_userdata('profile', $data);
+			$this->profile = $data;
+			if ($callback) {
+				$callback();
+			}
+			return TRUE;
+		}
+		return FALSE;
 	}
 }

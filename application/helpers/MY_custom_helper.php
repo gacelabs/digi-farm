@@ -1009,3 +1009,36 @@ function has_post($name='')
 {
 	return isset($_POST[$name]);
 }
+
+function construct($data=false, $type='', $selected=false)
+{
+	$result = false;
+	if ($data) {
+		switch (strtolower($type)) {
+			case 'dd':
+				$set = [];
+				foreach ($data as $key => $row) {
+					$set[$row['id']] = $row['label'];
+				}
+				$result = [
+					'selected' => $selected,
+					'select' => $set
+				];
+				break;
+
+			case 'avdd':
+				$result = [];
+				// debug($data, 1);
+				foreach ($data as $key => $row) {
+					$result[$row['id']] = [
+						'name' => $row['name'],
+						'label' => $row['label'],
+						'checkbox' => $row['is_toggler'],
+						'value' => $row['value']
+					];
+				}
+				break;
+		}
+	}
+	return $result;
+}
