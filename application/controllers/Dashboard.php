@@ -8,15 +8,13 @@ class Dashboard extends MY_Controller {
 	public function index()
 	{
 		$data = array(
-			'meta' => array(
-				''
-			),
+			'meta' => array(),
 			'title' => ucfirst(__CLASS__).' | Farmapp',
 			'head_css' => $this->dash_defaults('head_css'),
 			'head_js' => $this->dash_defaults('head_js'),
 			'body_id' => strtolower(__CLASS__),
 			'body_class' => strtolower(__CLASS__),
-			'wrapper_class' => '',
+			'wrapper_class' => 'dashboard',
 			'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
 				'nav_view' => array(
 					'templates/dashboard/global/nav'
@@ -25,7 +23,7 @@ class Dashboard extends MY_Controller {
 					'templates/dashboard/global/sidebar'
 				),
 				'contentdata_view' => array(
-					'templates/dashboard/users/index'
+					'templates/dashboard/users/stats'
 				)
 			),
 			'footer_css' => $this->dash_defaults('footer_css'),
@@ -35,10 +33,9 @@ class Dashboard extends MY_Controller {
 				base_url('assets/js/chartjs/charts.js'),
 			]),
 			'post_body' => array(
-
 			),
 			'db' => array(
-				
+
 			)
 		);
 		$this->load->view('templates/dashboard/landing', $data);
@@ -89,7 +86,7 @@ class Dashboard extends MY_Controller {
 				'head_js' => $this->dash_defaults('head_js'),
 				'body_id' => __FUNCTION__,
 				'body_class' => __FUNCTION__,
-				'wrapper_class' => '',
+				'wrapper_class' => 'profile',
 				'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
 					'nav_view' => array(
 						'templates/dashboard/global/nav'
@@ -124,6 +121,39 @@ class Dashboard extends MY_Controller {
 			);
 			$this->load->view('templates/dashboard/landing', $data);
 		}
+	}
+
+	public function inventory()
+	{
+		$data = array(
+			'meta' => array(),
+			'title' => ucfirst(__CLASS__).' | Farmapp',
+			'head_css' => $this->dash_defaults('head_css'),
+			'head_js' => $this->dash_defaults('head_js'),
+			'body_id' => strtolower(__CLASS__),
+			'body_class' => strtolower(__CLASS__),
+			'wrapper_class' => 'inventory',
+			'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
+				'nav_view' => array(
+					'templates/dashboard/global/nav'
+				),
+				'sidebar_view' => array(
+					'templates/dashboard/global/sidebar'
+				),
+				'contentdata_view' => array(
+					'templates/dashboard/users/inventory'
+				)
+			),
+			'footer_css' => $this->dash_defaults('footer_css'),
+			'footer_js' => $this->dash_defaults('footer_js'),
+			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
+				''
+			),
+			'db' => array(
+
+			)
+		);
+		$this->load->view('templates/dashboard/landing', $data);
 	}
 
 }

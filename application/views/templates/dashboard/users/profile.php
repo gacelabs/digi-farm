@@ -3,85 +3,198 @@
 	// debug($profile_data);
 	$info = $profile_data['profile']['user'];
 ?>
-<h1>User Info</h1>
-<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
-	<label>
-		First Name
-		<input type="text" name="user[first_name]" value="<?php echo $info['first_name'];?>">
-	</label>
-	<label>
-		Last Name
-		<input type="text" name="user[last_name]" value="<?php echo $info['last_name'];?>">
-	</label>
-	<label>
-		Email
-		<input type="email" name="user[email_address]" value="<?php echo $info['email_address'];?>">
-	</label>
-	<label>
-		Farm name
-		<input type="text" name="user[farm_name]" value="<?php echo $info['farm_name'];?>">
-	</label>
-	<label>
-		Actvity
-		<select name="user[activity_id]">
-			<?php 
-			$selected = $profile_data['profile_dropdown']['selected'];
-			$select = $profile_data['profile_dropdown']['select'];
-			foreach ($select as $id => $value): ?>
-				<option<?php echo $selected == $id ? ' selected="selected"' : '';?> value="<?php echo $id;?>"><?php echo $value;?></option>
-			<?php endforeach ?>
-		</select>
-	</label>
-	<button>Save</button>
-</form>
-<?php
-	$settings = $profile_data['app_settings'];
-	// debug($settings);
-?>
-<h1>User App Settings</h1>
-<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
-	<?php foreach ($settings as $id => $row): ?>
-		<label>
-			<?php echo $row['label'];?>
-			<?php if ($row['checkbox']): ?>
-				<?php if ($row['value'] == 'checked'): ?>
-					<input type="checkbox" name="user_app_settings[<?php echo $id;?>][value]" checked="checked" value="1" />
-				<?php else: ?>
-					<input type="checkbox" name="user_app_settings[<?php echo $id;?>][value]" value="1" />
-				<?php endif ?>
-			<?php else: ?>
-				<?php echo $row['label'];?>
-				<input type="text" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
-			<?php endif ?>
-			<input type="hidden" name="user_app_settings[<?php echo $id;?>][checkbox]" value="<?php echo $row['checkbox'];?>" />
-		</label>
-	<?php endforeach ?>
-	<button>Save</button>
-</form>
-<?php
-	$locations = $profile_data['profile']['user_location'];
-	// debug($locations);
-?>
-<!-- MULTIPLE TO KAYA DAPAT MATRON UI NG ADD ANOTHER -->
-<h1>User Locations</h1>
-<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
-	<?php foreach ($locations as $key => $row): ?>
-		<?php
-			$latlng = '';
-			if ($row['lat'] != '' AND $row['lng'] != '') {
-				$latlng = json_encode(['lat'=>$row['lat'], 'lng'=>$row['lng']]);
-			}
-		?>
-		<div class="location-panel">
-			<div class="map-box" style="width: 100%; height: 200pt;"></div>
-			<input type="hidden" class="id" name="user_location[<?php echo $key;?>][id]" value="<?php echo $row['id'];?>" />
-			<label>
-				Address
-				<input type="text" class="address" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
-			</label>
-			<input type="hidden" class="latlng" name="user_location[<?php echo $key;?>][latlng]" value='<?php echo $latlng;?>' />
+
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-lg-12">
+				<h1>Profile</h1>
+			</div>
 		</div>
-	<?php endforeach ?>
-	<button>Save</button>
-</form>
-<button>Add Location</button>
+	</div>
+</section>
+
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-6 col-md-6">
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">Profile</h3>
+					</div>
+					<!-- /.card-header -->
+					<!-- form start -->
+					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
+						<!-- <label>
+							Farm name
+							<input type="text" name="user[farm_name]" value="<?php echo $info['farm_name'];?>">
+						</label> -->
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-6 form-group">
+									<label for="first_name">First Name</label>
+									<input type="text"  class="form-control" id="first_name" name="user[first_name]" value="<?php echo $info['first_name'];?>">
+								</div>
+								<div class="col-6 form-group">
+									<label for="last_name">Last Name</label>
+									<input type="text"  class="form-control" id="last_name" name="user[last_name]" value="<?php echo $info['last_name'];?>">
+								</div>
+
+								<div class="col-6 form-group">
+									<label for="email">Email</label>
+									<input type="email" class="form-control"  id="email" name="user[email_address]" value="<?php echo $info['email_address'];?>">
+								</div>
+
+								<div class="col-6 form-group">
+									<label>Status</label>
+									<select class="form-control" name="user[activity_id]">
+										<?php 
+											$selected = $profile_data['profile_dropdown']['selected'];
+											$select = $profile_data['profile_dropdown']['select'];
+											foreach ($select as $id => $value): ?>
+
+											<option<?php echo $selected == $id ? ' selected="selected"' : '';?> value="<?php echo $id;?>"><?php echo $value;?></option>
+
+										<?php endforeach ?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- /.card-body -->
+
+						<div class="card-footer">
+							<button type="submit" class="btn btn-default">Save</button>
+						</div>
+					</form>
+				</div>
+
+				<?php
+					$settings = $profile_data['app_settings'];
+					// debug($settings);
+				?>
+				<div class="card card-secondary">
+					<div class="card-header">
+						<h3 class="card-title">App Settings</h3>
+					</div>
+					<!-- /.card-header -->
+					<!-- form start -->
+
+					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
+						<div class="card-body">
+							<div class="row">
+							<?php foreach ($settings as $id => $row): ?>
+								<?php if ($row['checkbox']): ?>
+									<?php if ($row['value'] == 'checked'): ?>
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" checked="checked" value="1" />
+										</div>
+									<?php else: ?>
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" value="1" />
+										</div>
+									<?php endif ?>
+								<?php else: ?>
+									<div class="col-6 form-group">
+										<input type="text" class="form-control" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
+									</div>
+									<div class="col-6 form-group">
+										<?php echo $row['label'];?>
+									</div>
+								<?php endif ?>
+								<input type="hidden" name="user_app_settings[<?php echo $id;?>][checkbox]" value="<?php echo $row['checkbox'];?>" />
+							<?php endforeach ?>
+							</div>
+						</div>
+						<!-- /.card-body -->
+
+						<div class="card-footer">
+							<button type="submit" class="btn btn-default">Save</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<?php
+					$locations = $profile_data['profile']['user_location'];
+					// debug($locations);
+				?>
+				<!-- MULTIPLE TO KAYA DAPAT MATRON UI NG ADD ANOTHER -->
+				<div class="card card-success">
+					<div class="card-header">
+						<h3 class="card-title">Farm Locations</h3>
+					</div>
+					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
+						<div class="card-body">
+							<?php foreach ($locations as $key => $row): ?>
+								<?php
+								$latlng = '';
+								if ($row['lat'] != '' AND $row['lng'] != '') {
+									$latlng = json_encode(['lat'=>$row['lat'], 'lng'=>$row['lng']]);
+								}
+								?>
+								<div class="location-panel">
+									<div class="map-box" style="width: 100%; height: 200pt; margin-bottom: 15px;"></div>
+
+									<input type="hidden" class="id" name="user_location[<?php echo $key;?>][id]" value="<?php echo $row['id'];?>" />
+									
+									<div class="row">
+										<div class="col-6">
+											<div class="form-group">
+												<label for="address">Farm name</label>
+												<input type="text" class="address form-control" name="user[farm_name]" value="<?php echo $info['farm_name'];?>">
+											</div>
+										</div>
+										
+										<div class="col-6">
+											<div class="form-group">
+												<label for="address">Address</label>
+												<input type="text" id="address" class="address form-control" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
+											</div>
+										</div>
+									</div>
+									<input type="hidden" class="latlng" name="user_location[<?php echo $key;?>][latlng]" value='<?php echo $latlng;?>' />
+								</div>
+							<?php endforeach ?>
+						</div>
+
+
+						<div class="card-footer">
+							<button type="submit" class="btn btn-default">Save</button>
+							<button class="btn btn-default pull-right">New farm</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="card card-default">
+					<div class="card-header">
+						<h3 class="card-title">Password Reset</h3>
+					</div>
+					<!-- /.card-header -->
+					<!-- form start -->
+					<form class="form-validate" action="" method="post">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-6 form-group">
+									<label for="current_password">Current password</label>
+									<input type="password"  class="form-control" id="current_password" name="" value="">
+								</div>
+								<div class="col-6 form-group">
+									<label for="new_password">New password</label>
+									<input type="password"  class="form-control" id="new_password" name="" value="">
+								</div>
+							</div>
+						</div>
+						<!-- /.card-body -->
+
+						<div class="card-footer">
+							<button type="submit" class="btn btn-danger">Reset</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+

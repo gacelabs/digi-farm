@@ -16,8 +16,15 @@
 			<div class="os-content" style="padding: 0px 7px; height: 100%; width: 100%;">
 				<!-- Sidebar user panel (optional) -->
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+					<?php
+						$fullName = explode(" ", ucwords(get_fullname($current_profile)));
+						$initials = "";
+						foreach ($fullName as $w) {
+							$initials .= $w[0];
+						}
+					?>
 					<div class="image">
-						<img src="assets/admin/template/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" />
+						<img src="http://placehold.it/160x160?text=<?php echo $initials; ?>" class="img-circle elevation-2" alt="">
 					</div>
 					<div class="info">
 						<a href="#" class="d-block"><?php echo get_fullname($current_profile);?></a>
@@ -28,37 +35,71 @@
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-						<li class="nav-header">DASHBOARD</li>
 						<li class="nav-item">
-							<a href="/dashboard/" class="nav-link <?php active_menu(2, '');?>">
-								<i class="nav-icon fa fa-chart-pie"></i>
-								<p>
-									Statistics
-								</p>
+							<a href="dashboard" class="nav-link <?php active_menu(2, '');?>">
+								<i class="nav-icon fas fa-chart-line"></i>
+								<p>Dashboard</p>
+							</a>
+						</li>
+						<li class="nav-item has-treeview menu-open">
+							<a href="#" class="nav-link">
+								<i class="nav-icon fas fa-boxes"></i>
+								<p>Products <i class="right fas fa-angle-left"></i></p>
+							</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Orders <span class="right badge badge-success">23</span></p>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="dashboard/inventory" class="nav-link <?php active_menu(2, 'inventory');?>">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Inventory</p>
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="nav-item">
+							<a href="dashboard/profile" class="nav-link <?php active_menu(2, 'profile');?>">
+								<i class="nav-icon fas fa-address-card"></i>
+								<p>Profile</p>
+							</a>
+						</li>
+
+						<li class="nav-item has-treeview">
+							<a href="#" class="nav-link">
+								<i class="nav-icon fas fa-users-cog"></i>
+								<p>Admin <i class="right fas fa-angle-left"></i></p>
+							</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="./index.html" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>App Stats</p>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-header">HELP</li>
+						<li class="nav-item">
+							<a href="./index.html" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>FAQs</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="/dashboard/profile/" class="nav-link <?php active_menu(2, 'profile');?>">
-								<i class="nav-icon fa fa-user"></i>
-								<p>
-									Profile
-								</p>
+							<a href="./index.html" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Policies</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="/dashboard/post-product/" class="nav-link <?php active_menu(2, 'post-product');?>">
-								<i class="nav-icon fa fa-pepper-hot"></i>
-								<p>
-									Post product
-								</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="/dashboard/inventory/" class="nav-link <?php active_menu(2, 'inventory');?>">
-								<i class="nav-icon fa fa-warehouse"></i>
-								<p>
-									Inventory
-								</p>
+							<a href="sign_out" class="nav-link">
+								<i class="fas fa-sign-out-alt nav-icon"></i>
+								<p>Log out</p>
 							</a>
 						</li>
 					</ul>

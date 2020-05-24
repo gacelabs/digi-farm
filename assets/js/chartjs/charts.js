@@ -20,8 +20,8 @@ $(document).ready(function() {
 
 	console.log(generateData());
 
-	var ctx = document.getElementById('myChart').getContext('2d');
-	var myChart = new Chart(ctx, {
+	var ctx = document.getElementById('chart2').getContext('2d');
+	var chart2 = new Chart(ctx, {
 		type: 'line',
 		data: {
 			labels: generateLabels(),
