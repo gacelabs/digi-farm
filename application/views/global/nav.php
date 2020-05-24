@@ -36,7 +36,7 @@
 				<?php if ($current_profile): /*debug($current_profile, 1);*/ ?>
 				<!-- Show if user is logged in -->
 					<?php if (is_farmer($current_profile)): ?>
-						<li><a href="<?php echo base_url('dashboard/sell-product'); ?>">Sell Veggies!</a></li>
+						<li><a href="dashboard/add-product">Sell Veggies!</a></li>
 					<?php endif ?>
 					<li><a href="<?php echo base_url('dashboard'); ?>" style="padding-right:0;"><?php echo ucwords(get_fullname($current_profile)); ?></a></li>
 				<?php else: ?>
