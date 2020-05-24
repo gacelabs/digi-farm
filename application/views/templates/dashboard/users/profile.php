@@ -139,28 +139,61 @@
 
 									<input type="hidden" class="id" name="user_location[<?php echo $key;?>][id]" value="<?php echo $row['id'];?>" />
 									
-									<div class="form-group">
-										<label for="address">Address</label>
-										<input type="text" id="address" class="address form-control" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
+									<div class="row">
+										<div class="col-6">
+											<div class="form-group">
+												<label for="address">Farm name</label>
+												<input type="text" class="address form-control" name="user[farm_name]" value="<?php echo $info['farm_name'];?>">
+											</div>
+										</div>
+										
+										<div class="col-6">
+											<div class="form-group">
+												<label for="address">Address</label>
+												<input type="text" id="address" class="address form-control" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
+											</div>
+										</div>
 									</div>
 									<input type="hidden" class="latlng" name="user_location[<?php echo $key;?>][latlng]" value='<?php echo $latlng;?>' />
 								</div>
 							<?php endforeach ?>
 						</div>
 
+
 						<div class="card-footer">
 							<button type="submit" class="btn btn-default">Save</button>
-							<button class="btn btn-default pull-right">Add Location</button>
+							<button class="btn btn-default pull-right">New farm</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="card card-default">
+					<div class="card-header">
+						<h3 class="card-title">Password Reset</h3>
+					</div>
+					<!-- /.card-header -->
+					<!-- form start -->
+					<form class="form-validate" action="" method="post">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-6 form-group">
+									<label for="current_password">Current password</label>
+									<input type="password"  class="form-control" id="current_password" name="" value="">
+								</div>
+								<div class="col-6 form-group">
+									<label for="new_password">New password</label>
+									<input type="password"  class="form-control" id="new_password" name="" value="">
+								</div>
+							</div>
+						</div>
+						<!-- /.card-body -->
+
+						<div class="card-footer">
+							<button type="submit" class="btn btn-danger">Reset</button>
 						</div>
 					</form>
 				</div>
 			</div>
-
-			<div class="col-lg-6 col-md-6">
-				
-			</div>
-
-			
 		</div>
 	</div>
 </section>

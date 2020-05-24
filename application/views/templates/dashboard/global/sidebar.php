@@ -31,20 +31,14 @@
 			<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
 			<li class="nav-item">
-				<a href="dashboard" class="nav-link <?php echo $body_class=="profile"? "dashboard": ""; ?>">
+				<a href="dashboard" class="nav-link <?php echo $wrapper_class=="dashboard"? "active": ""; ?>">
 					<i class="nav-icon fas fa-chart-line"></i>
 					<p>Dashboard</p>
 				</a>
 			</li>
 
-			<li class="nav-item">
-				<a href="dashboard/profile" class="nav-link <?php echo $body_class=="profile"? "active": ""; ?>">
-					<i class="nav-icon fas fa-address-card"></i>
-					<p>Profile</p>
-				</a>
-			</li>
 
-			<li class="nav-item has-treeview">
+			<li class="nav-item has-treeview menu-open">
 				<a href="#" class="nav-link">
 					<i class="nav-icon fas fa-boxes"></i>
 					<p>Products <i class="right fas fa-angle-left"></i></p>
@@ -53,22 +47,23 @@
 					<li class="nav-item">
 						<a href="" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
-							<p>Farm Stats</p>
+							<p>Orders <span class="right badge badge-success">23</span></p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="" class="nav-link">
+						<a href="dashboard/inventory" class="nav-link <?php echo $wrapper_class=="inventory"? "active": ""; ?>">
 							<i class="far fa-circle nav-icon"></i>
-							<p>Dashboard v2</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="" class="nav-link">
-							<i class="far fa-circle nav-icon"></i>
-							<p>Dashboard v3</p>
+							<p>Inventory</p>
 						</a>
 					</li>
 				</ul>
+			</li>
+
+			<li class="nav-item">
+				<a href="dashboard/profile" class="nav-link <?php echo $wrapper_class=="profile"? "active": ""; ?>">
+					<i class="nav-icon fas fa-address-card"></i>
+					<p>Profile</p>
+				</a>
 			</li>
 
 			<li class="nav-item has-treeview">
