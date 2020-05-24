@@ -27,7 +27,7 @@
 						<img src="http://placehold.it/160x160?text=<?php echo $initials; ?>" class="img-circle elevation-2" alt="">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block"><?php echo get_fullname($current_profile);?></a>
+						<a href="javascript:;" class="d-block"><?php echo get_fullname($current_profile);?></a>
 					</div>
 				</div>
 
@@ -41,21 +41,21 @@
 								<p>Dashboard</p>
 							</a>
 						</li>
-						<li class="nav-item has-treeview menu-open">
-							<a href="#" class="nav-link">
+						<li class="nav-item has-treeview <?php active_menu([1,2], 'dashboard/inventory', true);?> <?php active_menu([1,2], 'dashboard/orders', true);?>">
+							<a href="javascript:;" class="nav-link <?php active_menu([1,2], 'dashboard/inventory');?>">
 								<i class="nav-icon fas fa-boxes"></i>
 								<p>Products <i class="right fas fa-angle-left"></i></p>
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
 									<a href="" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
+										<i class="fas fa-shopping-cart nav-icon"></i>
 										<p>Orders <span class="right badge badge-success">23</span></p>
 									</a>
 								</li>
 								<li class="nav-item">
 									<a href="dashboard/inventory" class="nav-link <?php active_menu(2, 'inventory');?>">
-										<i class="far fa-circle nav-icon"></i>
+										<i class="fas fa-pallet nav-icon"></i>
 										<p>Inventory</p>
 									</a>
 								</li>
@@ -69,15 +69,15 @@
 							</a>
 						</li>
 
-						<li class="nav-item has-treeview">
-							<a href="#" class="nav-link">
+						<li class="nav-item has-treeview <?php active_menu([1,2], 'admin/stats', true);?>">
+							<a href="javascript:;" class="nav-link">
 								<i class="nav-icon fas fa-users-cog"></i>
 								<p>Admin <i class="right fas fa-angle-left"></i></p>
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="./index.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
+									<a href="admin/stats" class="nav-link <?php active_menu(2, 'stats', true);?>">
+										<i class="fas fa-chart-area nav-icon"></i>
 										<p>App Stats</p>
 									</a>
 								</li>
@@ -86,13 +86,13 @@
 						<li class="nav-header">HELP</li>
 						<li class="nav-item">
 							<a href="./index.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
+								<i class="fas fa-question nav-icon"></i>
 								<p>FAQs</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="./index.html" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
+								<i class="fas fa-gavel nav-icon"></i>
 								<p>Policies</p>
 							</a>
 						</li>
