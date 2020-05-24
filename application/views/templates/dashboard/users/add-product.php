@@ -10,7 +10,7 @@
 
 <section class="content">
 	<div class="container-fluid">
-		<form action="" method="post" id="add-product">
+		<form action="/dashboard/add-product/" method="post" id="add-product" class="form-validate">
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 					<div class="card card-primary">
@@ -28,7 +28,7 @@
 								<div class="col-lg-4">
 									<div class="form-group">
 										<label for="category_id">Category</label>
-										<select class="form-control custom-select" id="category_id" name="category_id">
+										<select class="form-control custom-select" id="category_id" name="category_id" required="required">
 											<option selected="" disabled="">Select one</option>
 											<option value="lettuce">Lettuce</option>
 											<option value="Tomatoes">Tomatoes</option>
@@ -40,14 +40,14 @@
 								<div class="col-lg-8 col-md-8">
 									<div class="form-group">
 										<label for="name">Name</label>
-										<input type="text" id="name" name="name" class="form-control" />
+										<input type="text" id="name" name="name" class="form-control" required="required" />
 									</div>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="description">Description</label>
-								<textarea id="description" name="description" class="form-control" rows="4"></textarea>
+								<textarea id="description" name="description" class="form-control" rows="4" required="required"></textarea>
 							</div>
 
 							<div class="row">
@@ -57,14 +57,14 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text">₱</span>
 										</div>
-										<input type="number" id="current_price" name="current_price" class="form-control" />
+										<input type="number" id="current_price" name="current_price" class="form-control" required="required" />
 									</div>
 								</div>
 
 								<div class="col-lg-4 col-md-4">
 									<div class="form-group">
 										<label for="measurement">Measurement</label>
-										<select class="form-control custom-select" id="measurement" name="measurement">
+										<select class="form-control custom-select" id="measurement" name="measurement" required="required">
 											<option selected="" disabled="">Select one</option>
 											<option value="kg">kg</option>
 											<option class="bundle">bundle</option>
@@ -76,7 +76,7 @@
 								<div class="col-lg-4 col-md-4">
 									<div class="form-group">
 										<label for="stocks">In Stock</label>
-										<input type="number" id="stocks" name="stocks" class="form-control" />
+										<input type="number" id="stocks" name="stocks" class="form-control" required="required" />
 									</div>
 								</div>
 
@@ -85,7 +85,7 @@
 									<hr>
 									<p>Which of your farms this product is available?</p>
 									<div class="form-group">
-										<select class="form-control custom-select" id="farm-branch" name="farm-branch">
+										<select class="form-control custom-select" id="farm-branch" name="farm-branch" required="required">
 											<option selected="" disabled="">Select one</option>
 											<option value="Bagong Nyaon, Antipolo">Bagong Nyaon, Antipolo</option>
 											<option class="Muzon, SJDM Bulacan">Muzon, SJDM Bulacan</option>
@@ -114,7 +114,7 @@
 								<label for="featured-photo">Featured photo</label>
 								<div class="input-group">
 									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="featured-photo">
+										<input type="file" class="custom-file-input" id="featured-photo" name="product_photo[0][name]" required="required">
 										<label class="custom-file-label" for="featured-photo">Choose file</label>
 									</div>
 								</div>
@@ -124,7 +124,7 @@
 								<label for="featured-photo">More photos</label>
 								<div class="input-group">
 									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="featured-photo">
+										<input type="file" class="custom-file-input" id="featured-photo" name="product_photo[1][name]">
 										<label class="custom-file-label" for="featured-photo">Choose file</label>
 									</div>
 								</div>

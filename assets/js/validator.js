@@ -33,6 +33,9 @@ $(document).ready(function() {
 				if (element.prop('tagName') === 'SELECT' && element.hasClass('chosen-select')) {
 					element.parent().find('.chosen-container-single').addClass('error');
 				}
+				if (element.attr('type') === 'file' && element.hasClass('custom-file-input')) {
+					element.parents('.input-group').addClass('error');
+				}
 				element.addClass('error');
 			},
 			highlight: function (element, errorClass, validClass) {

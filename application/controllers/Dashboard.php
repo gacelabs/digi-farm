@@ -208,7 +208,7 @@ class Dashboard extends MY_Controller {
 		$this->load->view('templates/dashboard/landing', $data);
 	}
 	
-	public function add_product($id=0)
+	public function add_product()
 	{
 		$post = $this->input->post();
 		if ($post) {
@@ -251,6 +251,8 @@ class Dashboard extends MY_Controller {
 					base_url('assets/admin/template/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js'),
 					base_url('assets/admin/template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'),
 					base_url('assets/admin/template/plugins/bootstrap-switch/js/bootstrap-switch.min.js'),
+					base_url('assets/js/jquery.validation.min.js'),
+					base_url('assets/js/validator.js'),
 					base_url('assets/js/products.js'),
 				]),
 				'post_body' => array(),

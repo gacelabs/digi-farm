@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<head>
 		<?php $this->load->view('templates/dashboard/global/page_head'); ?>
 		<style type="text/css">
-			input.error, textarea.error, select.error {
+			.error {
 				border-color: #f35757;
 				padding-right: 2.25rem;
 				background-image: url('assets/admin/images/error.svg');
