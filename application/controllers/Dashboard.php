@@ -174,7 +174,14 @@ class Dashboard extends MY_Controller {
 		$data = array(
 			'meta' => array(),
 			'title' => ucfirst(__CLASS__).' | Farmapp',
-			'head_css' => $this->dash_defaults('head_css'),
+			'head_css' => $this->dash_defaults('head_css', [
+				base_url('assets/admin/template/plugins/daterangepicker/daterangepicker.css'),
+				base_url('assets/admin/template/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css'),
+				base_url('assets/admin/template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'),
+				base_url('assets/admin/template/plugins/select2/css/select2.min.css'),
+				base_url('assets/admin/template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css'),
+				base_url('assets/admin/template/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css'),
+			]),
 			'head_js' => $this->dash_defaults('head_js'),
 			'body_id' => strtolower(__CLASS__),
 			'body_class' => strtolower(__CLASS__),
@@ -191,7 +198,16 @@ class Dashboard extends MY_Controller {
 				)
 			),
 			'footer_css' => $this->dash_defaults('footer_css'),
-			'footer_js' => $this->dash_defaults('footer_js'),
+			'footer_js' => $this->dash_defaults('footer_js', [
+				base_url('assets/admin/template/plugins/select2/js/select2.full.min.js'),
+				base_url('assets/admin/template/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js'),
+				base_url('assets/admin/template/plugins/moment/moment.min.js'),
+				base_url('assets/admin/template/plugins/inputmask/min/jquery.inputmask.bundle.min.js'),
+				base_url('assets/admin/template/plugins/daterangepicker/daterangepicker.js'),
+				base_url('assets/admin/template/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js'),
+				base_url('assets/admin/template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'),
+				base_url('assets/admin/template/plugins/bootstrap-switch/js/bootstrap-switch.min.js'),
+			]),
 			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
 				''
 			),
