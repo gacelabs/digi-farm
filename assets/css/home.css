@@ -1,3 +1,7 @@
+.slider-item {
+	border: 0 none !important;
+	outline: none !important;
+}
 .location-slider .slider {
 	width: 50%;
 	margin: 100px auto;

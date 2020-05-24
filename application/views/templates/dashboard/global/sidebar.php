@@ -1,6 +1,6 @@
 
 <!-- Brand Logo -->
-<a href="index3.html" class="brand-link">
+<a href="" class="brand-link">
 	<img src="assets/admin/template/dist/img/AdminLTELogo.png" alt="Logo" class="brand-image img-circle elevation-3"
 	style="opacity: .8">
 	<span class="brand-text font-weight-light">FarmApp</span>
@@ -49,7 +49,7 @@
 						</li>
 						<li class="nav-item has-treeview <?php active_menu(1, 'dashboard', true);?> <?php active_menu(1, 'inventory', true);?> <?php active_menu(1, 'orders', true);?> <?php active_menu(1, 'add-product', true);?> <?php active_menu(1, 'farm', true);?> <?php active_menu(1, 'settings', true);?>">
 							<a href="javascript:;" class="nav-link <?php active_menu(1, 'dashboard');?> <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'add-product');?> <?php active_menu(1, 'farm');?> <?php active_menu(1, 'settings');?>">
-								<i class="nav-icon fas fa-boxes"></i>
+								<i class="nav-icon fas fa-store-alt"></i>
 								<p>Farm <i class="right fas fa-angle-left"></i></p>
 							</a>
 							<ul class="nav nav-treeview">
