@@ -78,12 +78,18 @@ $(document).ready(function() {
 });
 
 var map, markers = [];
+var infowindow = new google.maps.InfoWindow({
+	content: $('#info-window').html()
+});
 var initMap = function(latlng, mapUI) {
 	map = new google.maps.Map(mapUI, {
 		zoom: 10,
 		center: latlng
 	});
 	addMarker(latlng);
+	google.maps.event.addListener(map, "click", function(event) {
+		infowindow.close();
+	});
 }
 
 var addMarker = function(latlng, add) {
@@ -132,9 +138,13 @@ var updateMap = function() {
 }
 
 var toggleAction = function(marker) {
-	if (marker.getAnimation() !== null) {
+	/*if (marker.getAnimation() !== null) {
 		marker.setAnimation(null);
 	} else {
 		marker.setAnimation(google.maps.Animation.BOUNCE);
+	}*/
+	if (marker.infowindow != undefined) {
+		marker.infowindow.close();
 	}
+	infowindow.open(map, marker);
 }

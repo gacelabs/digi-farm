@@ -210,5 +210,8 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- INFO WINDOW -->
+	<div id="info-window">UI HERE!</div>
 </section>
 
