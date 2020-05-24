@@ -753,3 +753,18 @@ function active_menu($nums=0, $current='', $treeview=false)
 	}
 	echo '';
 }
+
+function check_app_settings($field='password', $post=false)
+{
+	$ci =& get_instance();
+	$data = false;
+	if ($post == false) {
+		$post = $ci->input->post();
+	}
+	if ($post) {
+		$post = array_merge($post, ['name' => $field, 'user_id' => $ci->accounts->profile['user']['id']]);
+		$data = $ci->custom->get('user_app_settings', $post, 'value', 'row');
+	}
+	// debug($data, 1);
+	return $data;
+}

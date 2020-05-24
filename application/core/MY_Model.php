@@ -47,10 +47,10 @@ class MY_Model extends CI_Model {
 	public function create($table=FALSE, $post=FALSE, $redirect_url='')
 	{
 		if ($table AND $post) {
-			if ($this->db->field_exists('version', $table)) {
+			/*if ($this->db->field_exists('version', $table)) {
 				$post = (array)$post;
 				$post['version'] = 1;
-			}
+			}*/
 			$this->db->insert($table, $post);
 			if ($redirect_url != '') {
 				redirect(base_url($redirect_url == 'home' ? '' : $redirect_url));

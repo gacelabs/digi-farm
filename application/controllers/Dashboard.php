@@ -61,32 +61,62 @@ class Dashboard extends MY_Controller {
 	{
 		$set = $this->input->post();
 		if ($set) {
+			$user_id = $id; $message = '';
+			// debug($set, 1);
 			if (isset($set['user'])) {
 				$this->custom->save('user', $set['user'], ['id' => $id]);
 			}
 			if (isset($set['user_app_settings'])) {
-				$user_id = $id;
 				foreach ($set['user_app_settings'] as $settings_id => $values) {
-					if (!isset($values['value']) AND $values['checkbox'] == 1) {
-						$values['value'] = '';
+					if (isset($values['type'])) {
+						if (!isset($values['value']) AND $values['type'] > 0) {
+							$values['value'] = '';
+						}
+						$values['value'] = ($values['type'] > 0 AND $values['value'] == 1) ? 'checked' : $values['value'];
+						unset($values['type']);
 					}
-					$values['value'] = ($values['checkbox'] == 1 AND $values['value'] == 1) ? 'checked' : $values['value'];
-					unset($values['checkbox']);
-					$this->custom->save('user_app_settings', $values, ['user_id' => $user_id, 'id' => $settings_id]);
+					$check = true;
+					if (isset($values['current_password'])) {
+						$check = check_app_settings('password', ['value' => $values['current_password']]);
+						// debug($check, 1);
+						unset($values['current_password']);
+					}
+					if ($check) {
+						$this->custom->save('user_app_settings', $values, ['user_id' => $user_id, 'id' => $settings_id]);
+					} else {
+						$message = 'Current password not match!';
+					}
 				}
 			}
+			// debug($set['user_location'], 1);
 			if (isset($set['user_location'])) {
 				foreach ($set['user_location'] as $key => $location) {
-					$dataset = ['address' => $location['address']];
+					$location_id = (is_numeric($location['id']) AND $location['id'] > 0) ? $location['id'] : 0;
 					$latlng = json_decode($location['latlng'], true);
-					$dataset = array_merge($dataset, $latlng);
-					$this->custom->save('user_location', $dataset, ['id' => $location['id']]);
+					$location = array_merge($location, $latlng);
+					unset($location['latlng']);
+					unset($location['id']);
+					// debug($location_id);
+					$empty = (trim($location['address']) == '' OR trim($location['farm_name']) == '');
+					if ($location_id == 0 AND $empty == false) {
+						$location['user_id'] = $user_id;
+						$this->custom->create('user_location', $location);
+					} else {
+						if ($empty) {
+							$this->custom->remove('user_location', ['id' => $location_id]);
+						} else {
+							$this->custom->save('user_location', $location, ['id' => $location_id]);
+						}
+					}
 				}
 			}
-			$this->accounts->update($id, function() {
-				redirect(base_url('dashboard/profile'));
-			});
-			// debug($set, 1);
+			
+			$this->accounts->update($id);
+			$url = base_url('dashboard/profile');
+			if ($message != '') {
+				$url = base_url('dashboard/profile?error='.$message);
+			}
+			redirect($url);
 		} else {
 			$data = array(
 				'meta' => array(

@@ -98,4 +98,14 @@ class Account extends MY_Controller {
 	{
 		return $this->accounts->logout(); /*this will redirect to default page */
 	}
+
+	public function app_settings($field='password')
+	{
+		$data = check_app_settings($field);
+		if ($this->input->is_ajax_request()) {
+			echo json_encode($data);
+		} else {
+			return $data;
+		}
+	}
 }

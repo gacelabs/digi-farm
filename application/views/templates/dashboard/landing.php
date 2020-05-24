@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 	<head>
 		<?php $this->load->view('templates/dashboard/global/page_head'); ?>
+		<style type="text/css">input.error, textarea.error, select.error {border-color: #f35757;}</style>
 	</head>
 
 	<body id="body" <?php echo (!empty($body_class) ? "class='".$body_class."'": ""); ?>>
