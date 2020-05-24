@@ -429,15 +429,16 @@ function bike_search($query='', $and_clause='')
 function clean_string_name($string=FALSE, $replaced=FALSE, $delimiter='-')
 {
 	if ($string) {
-		/*now replace space and underscores with the delimiter*/
-		$string = preg_replace('/\s/', $delimiter, $string);
-		$string = preg_replace('/_/', $delimiter, $string);
-		/*clean all unnecessary symbols and characters*/
-		$string = preg_replace('/[^a-z0-9\.-]/', '', strtolower($string));
-		$string = preg_replace('/[()]/', '', strtolower($string));
-		$string = preg_replace('/[+]/', '', strtolower($string));
 		if ($replaced) {
 			$string = preg_replace('/'.$delimiter.'/', $replaced, $string);
+		} else {
+			/*now replace space and underscores with the delimiter*/
+			$string = preg_replace('/\s/', $delimiter, $string);
+			$string = preg_replace('/_/', $delimiter, $string);
+			/*clean all unnecessary symbols and characters*/
+			$string = preg_replace('/[^a-z0-9\.-]/', '', strtolower($string));
+			$string = preg_replace('/[()]/', '', strtolower($string));
+			$string = preg_replace('/[+]/', '', strtolower($string));
 		}
 	}
 	return $string;

@@ -41,8 +41,8 @@
 								<p>Dashboard</p>
 							</a>
 						</li>
-						<li class="nav-item has-treeview <?php active_menu([1,2], 'dashboard/inventory', true);?> <?php active_menu([1,2], 'dashboard/orders', true);?>">
-							<a href="javascript:;" class="nav-link <?php active_menu([1,2], 'dashboard/inventory');?>">
+						<li class="nav-item has-treeview <?php active_menu([1,2], 'dashboard/inventory', true);?> <?php active_menu([1,2], 'dashboard/orders', true);?> <?php active_menu([1,2], 'dashboard/add-product', true);?>">
+							<a href="javascript:;" class="nav-link <?php active_menu([1,2], 'dashboard/inventory');?> <?php active_menu([1,2], 'dashboard/add-product');?>">
 								<i class="nav-icon fas fa-boxes"></i>
 								<p>Products <i class="right fas fa-angle-left"></i></p>
 							</a>
@@ -54,7 +54,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="dashboard/inventory" class="nav-link <?php active_menu(2, 'inventory');?>">
+									<a href="dashboard/inventory" class="nav-link <?php active_menu(2, 'inventory');?> <?php active_menu([1,2], 'dashboard/add-product');?>">
 										<i class="fas fa-warehouse nav-icon"></i>
 										<p>Inventory</p>
 									</a>

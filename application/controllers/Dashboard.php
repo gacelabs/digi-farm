@@ -170,14 +170,14 @@ class Dashboard extends MY_Controller {
 	{
 		$data = array(
 			'meta' => array(),
-			'title' => ucfirst(__CLASS__).' | Farmapp',
+			'title' => ucfirst(__FUNCTION__).' | Farmapp',
 			'head_css' => $this->dash_defaults('head_css', [
 				base_url('assets/admin/template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'),
 				base_url('assets/admin/template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css'),
 			]),
 			'head_js' => $this->dash_defaults('head_js'),
-			'body_id' => strtolower(__CLASS__),
-			'body_class' => strtolower(__CLASS__),
+			'body_id' => strtolower(__FUNCTION__),
+			'body_class' => strtolower(__FUNCTION__),
 			'wrapper_class' => 'inventory',
 			'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
 				'nav_view' => array(
@@ -216,7 +216,7 @@ class Dashboard extends MY_Controller {
 		} else {
 			$data = array(
 				'meta' => array(),
-				'title' => ucfirst(__CLASS__).' | Farmapp',
+				'title' => ucwords(clean_string_name(__FUNCTION__, ' ', '_')).' | Farmapp',
 				'head_css' => $this->dash_defaults('head_css', [
 					base_url('assets/admin/template/plugins/daterangepicker/daterangepicker.css'),
 					base_url('assets/admin/template/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css'),
@@ -226,8 +226,8 @@ class Dashboard extends MY_Controller {
 					base_url('assets/admin/template/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css'),
 				]),
 				'head_js' => $this->dash_defaults('head_js'),
-				'body_id' => strtolower(__CLASS__),
-				'body_class' => strtolower(__CLASS__),
+				'body_id' => strtolower(__FUNCTION__),
+				'body_class' => strtolower(__FUNCTION__),
 				'wrapper_class' => 'add-product',
 				'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
 					'nav_view' => array(
@@ -242,6 +242,7 @@ class Dashboard extends MY_Controller {
 				),
 				'footer_css' => $this->dash_defaults('footer_css'),
 				'footer_js' => $this->dash_defaults('footer_js', [
+					base_url('assets/admin/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js'),
 					base_url('assets/admin/template/plugins/select2/js/select2.full.min.js'),
 					base_url('assets/admin/template/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js'),
 					base_url('assets/admin/template/plugins/moment/moment.min.js'),
@@ -250,10 +251,9 @@ class Dashboard extends MY_Controller {
 					base_url('assets/admin/template/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js'),
 					base_url('assets/admin/template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'),
 					base_url('assets/admin/template/plugins/bootstrap-switch/js/bootstrap-switch.min.js'),
+					base_url('assets/js/products.js'),
 				]),
-				'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
-					''
-				),
+				'post_body' => array(),
 				'db' => array(
 
 				)
