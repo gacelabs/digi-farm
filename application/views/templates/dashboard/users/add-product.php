@@ -1,16 +1,16 @@
-<form action="/dashboard/add-product/" method="post" id="add-product" class="form-validate" enctype="multipart/form-data">
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-lg-12">
-					<h3 class="m-0 text-dark">New Product <input type="submit" value="Post Product" class="btn btn-success float-right" /></h3>
-				</div>
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-lg-12">
+				<h3 class="m-0 text-dark">New Product <input type="submit" value="Post Product" class="btn btn-success float-right" /></h3>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 
-	<section class="content">
-		<div class="container-fluid">
+<section class="content">
+	<div class="container-fluid">
+		<form action="/dashboard/add-product/" method="post" id="add-product" class="form-validate" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 					<div class="card card-primary">
@@ -142,13 +142,13 @@
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="col-12">
-						<a href="dashboard/inventory" class="btn btn-default">Cancel</a>
-						<input type="submit" value="Post Product" class="btn btn-success float-right" />
-					</div>
+			<div class="row">
+				<div class="col-12">
+					<a href="dashboard/inventory" class="btn btn-default">Cancel</a>
+					<input type="submit" value="Post Product" class="btn btn-success float-right" />
 				</div>
 			</div>
-		</section>
-	</form>
+		</form>
+	</div>
+</section>
 
