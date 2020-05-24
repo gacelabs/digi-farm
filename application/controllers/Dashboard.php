@@ -97,7 +97,7 @@ class Dashboard extends MY_Controller {
 					unset($location['latlng']);
 					unset($location['id']);
 					// debug($location_id);
-					$empty = (trim($location['address']) == '' OR trim($location['farm_name']) == '');
+					$empty = ((trim($location['address']) == '' OR trim($location['farm_name']) == '') AND $key > 0);
 					if ($location_id == 0 AND $empty == false) {
 						$location['user_id'] = $user_id;
 						$this->custom->create('user_location', $location);
@@ -110,7 +110,7 @@ class Dashboard extends MY_Controller {
 					}
 				}
 			}
-			
+
 			$this->accounts->update($id);
 			$url = base_url('dashboard/profile');
 			if ($message != '') {

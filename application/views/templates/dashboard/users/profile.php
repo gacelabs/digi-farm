@@ -140,7 +140,9 @@
 					</div>
 					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
 						<div class="card-body">
-							<div id="map-box" style="width: 100%; height: 200pt; margin-bottom: 15px;"></div>
+							<div id="map-box" style="width: 100%; height: 225px; margin-bottom: 15px;">
+								<img src="http://placehold.it/565x225?text=Map">
+							</div>
 							<?php foreach ($locations as $key => $row): ?>
 								<?php
 								$latlng = '';
@@ -212,6 +214,6 @@
 	</div>
 
 	<!-- INFO WINDOW -->
-	<div id="info-window">UI HERE!</div>
+	<div id="info-window" style="position: fixed;">UI HERE!</div>
 </section>
 

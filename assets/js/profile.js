@@ -79,7 +79,7 @@ $(document).ready(function() {
 
 var map, markers = [];
 var infowindow = new google.maps.InfoWindow({
-	content: $('#info-window').html()
+	content: $('#info-window')/*.clone().removeClass('hide')*/.html()
 });
 var initMap = function(latlng, mapUI) {
 	map = new google.maps.Map(mapUI, {

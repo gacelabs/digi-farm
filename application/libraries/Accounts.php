@@ -25,7 +25,8 @@ class Accounts {
 				unset($credits['password']);
 				$email_address_query = $this->class->db->get_where('user', ['email_address' => $credits['email_address']]);
 				if ($email_address_query->num_rows()) {
-					$query = $this->class->db->get_where('user_app_settings', ['name' => 'password', 'value' => $password]);
+					$user = $email_address_query->row();
+					$query = $this->class->db->get_where('user_app_settings', ['user_id' => $user->id, 'name' => 'password', 'value' => $password]);
 					// debug($query->row_array(), 1);
 					if ($query->num_rows()) {
 						$allowed = TRUE;
