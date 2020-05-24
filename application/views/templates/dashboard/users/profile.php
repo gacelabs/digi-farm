@@ -84,25 +84,34 @@
 						<div class="card-body">
 							<div class="row">
 							<?php foreach ($settings as $id => $row): ?>
-								<?php if ($row['checkbox']): ?>
-									<?php if ($row['value'] == 'checked'): ?>
+								<?php 
+								switch ($row['type']) {
+									case '1': /*checkbox*/
+									?>
 										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" checked="checked" value="1" />
+											<input type="checkbox" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" <?php echo ($row['value'] == 'checked') ? 'checked="checked"' : '' ?> value="1" />
 										</div>
-									<?php else: ?>
-										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" value="1" />
+									<?php
+									break;
+									case '2': /*radio*/
+									?>
+										<div class="custom-control custom-radio">
+											<input type="radio" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" <?php echo ($row['value'] == 'checked') ? 'checked="checked"' : '' ?> value="1" />
 										</div>
-									<?php endif ?>
-								<?php else: ?>
-									<div class="col-6 form-group">
-										<input type="text" class="form-control" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
-									</div>
-									<div class="col-6 form-group">
-										<?php echo $row['label'];?>
-									</div>
-								<?php endif ?>
-								<input type="hidden" name="user_app_settings[<?php echo $id;?>][checkbox]" value="<?php echo $row['checkbox'];?>" />
+									<?php
+									break;
+									default: /*input*/
+									?>
+										<div class="col-6 form-group">
+											<input type="text" class="form-control" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
+										</div>
+										<div class="col-6 form-group">
+											<?php echo $row['label'];?>
+										</div>
+									<?php
+									break;
+								}?>
+						<input type="hidden" name="user_app_settings[<?php echo $id;?>][type]" value="<?php echo $row['type'];?>" />
 							<?php endforeach ?>
 							</div>
 						</div>

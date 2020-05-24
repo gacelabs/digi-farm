@@ -718,7 +718,7 @@ function construct($data=false, $type='', $selected=false)
 					$result[$row['id']] = [
 						'name' => $row['name'],
 						'label' => $row['label'],
-						'checkbox' => $row['is_toggler'],
+						'type' => $row['type'],
 						'value' => $row['value']
 					];
 				}

@@ -109,12 +109,14 @@ class Dashboard extends MY_Controller {
 
 				),
 				'db' => function() {
-					$activity = $this->db->get('activity');
+					$activity = $this->custom->get('activity');
 					$user = $this->accounts->profile['user'];
+					$this->accounts->update($user['id']);
+					// debug($this->accounts->profile, 1);
 					$app_settings = $this->accounts->profile['user_app_settings'];
 					return [
 						'profile' => $this->accounts->profile,
-						'profile_dropdown' => construct($activity->result_array(), 'dd', $user['activity_id']),
+						'profile_dropdown' => construct($activity, 'dd', $user['activity_id']),
 						'app_settings' => construct($app_settings, 'avdd'),
 					];
 				}
