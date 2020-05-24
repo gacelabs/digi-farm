@@ -16,11 +16,15 @@ $(document).ready(function() {
 			initMap(latlng, $(elem).find('.map-box').get(0));
 		}
 	});
+
+	$('.new-farm').off('click').on('click', function(e) {
+
+	});
 });
 
 var initMap = function(latlng, mapUI) {
 	var map = new google.maps.Map(mapUI, {
-		zoom: 11,
+		zoom: 10,
 		center: latlng
 	});
 	var marker = new google.maps.Marker({
