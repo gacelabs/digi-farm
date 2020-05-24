@@ -36,6 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
+				<?php echo active_menu(2, 'dashboard');?>
 			<?php
 				if (!empty($view['contentdata_view'])) {
 					foreach ($view['contentdata_view'] as $value) {
@@ -49,9 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php $this->load->view('templates/dashboard/global/page_footer'); ?>
 
 			<!-- Control Sidebar -->
-			<aside class="control-sidebar control-sidebar-dark">
+			<!-- <aside class="control-sidebar control-sidebar-dark"> -->
 				<!-- Control sidebar content goes here -->
-			</aside>
+			<!-- </aside> -->
 			<!-- /.control-sidebar -->
 
 		</div>

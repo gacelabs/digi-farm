@@ -29,7 +29,11 @@ class Dashboard extends MY_Controller {
 				)
 			),
 			'footer_css' => $this->dash_defaults('footer_css'),
-			'footer_js' => $this->dash_defaults('footer_js'),
+			'footer_js' => $this->dash_defaults('footer_js', [
+				base_url('assets/js/chartjs/Chart.bundle.min.js'),
+				base_url('assets/js/chartjs/moment.min.js'),
+				base_url('assets/js/chartjs/charts.js'),
+			]),
 			'post_body' => array(
 
 			),

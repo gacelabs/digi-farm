@@ -10,8 +10,8 @@ class Admin extends CI_Controller {
 		$data = array(
 			'meta' => array(),
 			'title' => ucfirst(__CLASS__).' | Farmapp',
-			'head_css' => $this->dash_defaults('head_css'),
-			'head_js' => $this->dash_defaults('head_js'),
+			'head_css' => $this->admin_defaults('head_css'),
+			'head_js' => $this->admin_defaults('head_js'),
 			'body_id' => strtolower(__CLASS__),
 			'body_class' => strtolower(__CLASS__),
 			'wrapper_class' => '',
@@ -26,14 +26,10 @@ class Admin extends CI_Controller {
 					'templates/dashboard/admin/index'
 				)
 			),
-			'footer_css' => $this->dash_defaults('footer_css'),
-			'footer_js' => $this->dash_defaults('footer_js'),
-			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
-				''
-			),
-			'db' => array(
-
-			)
+			'footer_css' => $this->admin_defaults('footer_css'),
+			'footer_js' => $this->admin_defaults('footer_js'),
+			'post_body' => array(),
+			'db' => array()
 		);
 		$this->load->view('templates/dashboard/landing', $data);
 	}
@@ -43,7 +39,7 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/dashboard/admin/login');
 	}
 
-	public function dash_defaults($ext=false, $additional=[])
+	public function admin_defaults($ext=false, $additional=[])
 	{
 		$default = [];
 		if ($ext) {

@@ -727,3 +727,29 @@ function construct($data=false, $type='', $selected=false)
 	}
 	return $result;
 }
+
+function active_menu($nums=0, $current='', $treeview=false)
+{
+	$ci =& get_instance();
+	$is_active = false;
+	if (is_array($nums)) {
+		$current_links = explode('/', $current);
+		foreach ($nums as $num) {
+			if (in_array($ci->uri->segment($num), $current_links)) {
+				$is_active = true;
+			} else {
+				$is_active = false;
+			}
+		}
+	} else {
+		$is_active = ($ci->uri->segment($nums) == $current);
+	}
+	if ($is_active) {
+		if ($treeview) {
+			echo 'menu-open';
+		} else {
+			echo 'active';
+		}
+	}
+	echo '';
+}
