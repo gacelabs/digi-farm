@@ -105,19 +105,8 @@ class MY_Controller extends CI_Controller {
 						base_url('assets/admin/template/plugins/jquery/jquery.min.js'),
 						base_url('assets/admin/template/plugins/jquery-ui/jquery-ui.min.js'),
 						base_url('assets/admin/template/plugins/bootstrap/js/bootstrap.bundle.min.js'),
-						// base_url('assets/admin/template/plugins/chart.js/Chart.min.js'),
-						// base_url('assets/admin/template/plugins/sparklines/sparkline.js'),
-						// base_url('assets/admin/template/plugins/jqvmap/jquery.vmap.min.js'),
-						// base_url('assets/admin/template/plugins/jqvmap/maps/jquery.vmap.usa.js'),
-						// base_url('assets/admin/template/plugins/jquery-knob/jquery.knob.min.js'),
-						base_url('assets/admin/template/plugins/moment/moment.min.js'),
-						// base_url('assets/admin/template/plugins/daterangepicker/daterangepicker.js'),
-						// base_url('assets/admin/template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'),
-						// base_url('assets/admin/template/plugins/summernote/summernote-bs4.min.js'),
 						base_url('assets/admin/template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js'),
 						base_url('assets/admin/template/dist/js/adminlte.js'),
-						// base_url('assets/admin/template/dist/js/pages/dashboard.js'),
-						// base_url('assets/admin/template/dist/js/demo.js'),
 					);
 					break;
 				
@@ -125,13 +114,9 @@ class MY_Controller extends CI_Controller {
 					$default = array(
 						base_url('assets/admin/template/plugins/fontawesome-free/css/all.min.css'),
 						base_url('assets/admin/css/ionicons.min.css'),
-						// base_url('assets/admin/template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'),
 						base_url('assets/admin/template/plugins/icheck-bootstrap/icheck-bootstrap.min.css'),
-						// base_url('assets/admin/template/plugins/jqvmap/jqvmap.min.css'),
 						base_url('assets/admin/template/dist/css/adminlte.min.css'),
 						base_url('assets/admin/template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css'),
-						// base_url('assets/admin/template/plugins/daterangepicker/daterangepicker.css'),
-						// base_url('assets/admin/template/plugins/summernote/summernote-bs4.css'),
 						base_url('assets/admin/css/sourcesanspro.css'),
 					);
 					break;

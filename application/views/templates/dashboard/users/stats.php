@@ -92,10 +92,10 @@
 							<div class="card-tools">
 								<ul class="nav nav-pills ml-auto">
 									<li class="nav-item">
-										<a class="nav-link active" href="#revenue-chart" data-toggle="tab">Time Chart</a>
+										<a class="nav-link active" href="#sales-chart" data-toggle="tab">Line Chart</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="#sales-chart" data-toggle="tab">Line Chart</a>
+										<a class="nav-link" href="#revenue-chart" data-toggle="tab">Time Chart</a>
 									</li>
 								</ul>
 							</div>
@@ -103,11 +103,11 @@
 						<div class="card-body">
 							<div class="tab-content p-0">
 								<!-- Morris chart - Sales -->
-								<div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
-									<canvas id="chart1" height="300" style="height: 300px;"></canvas>                         
+								<div class="chart tab-pane active" id="sales-chart">
+									<canvas id="chart2" height="300"></canvas>                         
 								</div>
-								<div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-									<canvas id="chart2" height="300" style="height: 300px;"></canvas>                         
+								<div class="chart tab-pane" id="revenue-chart">
+									<canvas id="chart1" height="300"></canvas>                         
 								</div>
 							</div>
 						</div><!-- /.card-body -->

@@ -10,7 +10,12 @@ class Dashboard extends MY_Controller {
 		$data = array(
 			'meta' => array(),
 			'title' => ucfirst(__CLASS__).' | Farmapp',
-			'head_css' => $this->dash_defaults('head_css'),
+			'head_css' => $this->dash_defaults('head_css', [
+				base_url('assets/admin/template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'),
+				base_url('assets/admin/template/plugins/jqvmap/jqvmap.min.css'),
+				base_url('assets/admin/template/plugins/daterangepicker/daterangepicker.css'),
+				base_url('assets/admin/template/plugins/summernote/summernote-bs4.css'),
+			]),
 			'head_js' => $this->dash_defaults('head_js'),
 			'body_id' => strtolower(__CLASS__),
 			'body_class' => strtolower(__CLASS__),
@@ -28,6 +33,17 @@ class Dashboard extends MY_Controller {
 			),
 			'footer_css' => $this->dash_defaults('footer_css'),
 			'footer_js' => $this->dash_defaults('footer_js', [
+				base_url('assets/admin/template/plugins/chart.js/Chart.min.js'),
+				base_url('assets/admin/template/plugins/sparklines/sparkline.js'),
+				base_url('assets/admin/template/plugins/jqvmap/jquery.vmap.min.js'),
+				base_url('assets/admin/template/plugins/jqvmap/maps/jquery.vmap.usa.js'),
+				base_url('assets/admin/template/plugins/jquery-knob/jquery.knob.min.js'),
+				base_url('assets/admin/template/plugins/moment/moment.min.js'),
+				base_url('assets/admin/template/plugins/daterangepicker/daterangepicker.js'),
+				base_url('assets/admin/template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'),
+				base_url('assets/admin/template/plugins/summernote/summernote-bs4.min.js'),
+				base_url('assets/admin/template/dist/js/pages/dashboard.js'),
+				base_url('assets/admin/template/dist/js/demo.js'),
 				base_url('assets/js/chartjs/Chart.bundle.min.js'),
 				base_url('assets/js/chartjs/moment.min.js'),
 				base_url('assets/js/chartjs/charts.js'),
@@ -46,9 +62,7 @@ class Dashboard extends MY_Controller {
 		$set = $this->input->post();
 		if ($set) {
 			if (isset($set['user'])) {
-				$this->custom->save('user', $set['user'], ['id' => $id], 'dashboard/profile', function($id) {
-					$this->accounts->update($id);
-				});
+				$this->custom->save('user', $set['user'], ['id' => $id]);
 			}
 			if (isset($set['user_app_settings'])) {
 				$user_id = $id;
@@ -60,9 +74,6 @@ class Dashboard extends MY_Controller {
 					unset($values['checkbox']);
 					$this->custom->save('user_app_settings', $values, ['user_id' => $user_id, 'id' => $settings_id]);
 				}
-				$this->accounts->update($id, function() {
-					redirect(base_url('dashboard/profile'));
-				});
 			}
 			if (isset($set['user_location'])) {
 				foreach ($set['user_location'] as $key => $location) {
@@ -71,10 +82,10 @@ class Dashboard extends MY_Controller {
 					$dataset = array_merge($dataset, $latlng);
 					$this->custom->save('user_location', $dataset, ['id' => $location['id']]);
 				}
-				$this->accounts->update($id, function() {
-					redirect(base_url('dashboard/profile'));
-				});
 			}
+			$this->accounts->update($id, function() {
+				redirect(base_url('dashboard/profile'));
+			});
 			// debug($set, 1);
 		} else {
 			$data = array(

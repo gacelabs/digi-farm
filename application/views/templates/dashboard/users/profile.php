@@ -152,7 +152,7 @@
 										<div class="col-6">
 											<div class="form-group">
 												<label for="address">Farm name</label>
-												<input type="text" class="address form-control" name="user[farm_name]" value="<?php echo $info['farm_name'];?>">
+												<input type="text" class="form-control" name="user[farm_name]" value="<?php echo $info['farm_name'];?>">
 											</div>
 										</div>
 										
@@ -171,7 +171,7 @@
 
 						<div class="card-footer">
 							<button type="submit" class="btn btn-default">Save</button>
-							<button class="btn btn-default pull-right">New farm</button>
+							<button type="button" class="btn btn-default pull-right new-farm">New farm</button>
 						</div>
 					</form>
 				</div>
