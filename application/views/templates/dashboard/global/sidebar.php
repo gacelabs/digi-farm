@@ -27,46 +27,57 @@
 						<img src="http://placehold.it/160x160?text=<?php echo $initials; ?>" class="img-circle elevation-2" alt="">
 					</div>
 					<div class="info">
-						<a href="javascript:;" class="d-block"><?php echo get_fullname($current_profile);?></a>
+						<a href="profile/<?php print_r($current_profile['user']['id']);?>" class="d-block"><?php echo get_fullname($current_profile);?> <small><i class="fas fa-cog"></small></i></a>
 					</div>
 				</div>
-
+						
 				<!-- Sidebar Menu -->
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 						<li class="nav-item">
-							<a href="dashboard" class="nav-link <?php active_menu(2, '');?>">
-								<i class="nav-icon fas fa-chart-line"></i>
-								<p>Dashboard</p>
+							<a href="" class="nav-link <?php active_menu(1, '');?>">
+								<i class="nav-icon fas fa-store"></i>
+								<p>Marketplace</p>
 							</a>
 						</li>
-						<li class="nav-item has-treeview <?php active_menu([1,2], 'dashboard/inventory', true);?> <?php active_menu([1,2], 'dashboard/orders', true);?> <?php active_menu([1,2], 'dashboard/add-product', true);?>">
-							<a href="javascript:;" class="nav-link <?php active_menu([1,2], 'dashboard/inventory');?> <?php active_menu([1,2], 'dashboard/add-product');?>">
+						<li class="nav-item">
+							<a href="" class="nav-link">
+								<i class="fas fa-shopping-basket nav-icon"></i>
+								<p>Orders <span class="right badge badge-success">23</span></p>
+							</a>
+						</li>
+						<li class="nav-item has-treeview <?php active_menu(1, 'dashboard', true);?> <?php active_menu(1, 'inventory', true);?> <?php active_menu(1, 'orders', true);?> <?php active_menu(1, 'add-product', true);?> <?php active_menu(1, 'farm', true);?> <?php active_menu(1, 'settings', true);?>">
+							<a href="javascript:;" class="nav-link <?php active_menu(1, 'dashboard');?> <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'add-product');?> <?php active_menu(1, 'farm');?> <?php active_menu(1, 'settings');?>">
 								<i class="nav-icon fas fa-boxes"></i>
-								<p>Products <i class="right fas fa-angle-left"></i></p>
+								<p>Farm <i class="right fas fa-angle-left"></i></p>
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="" class="nav-link">
-										<i class="fas fa-shopping-cart nav-icon"></i>
-										<p>Orders <span class="right badge badge-success">23</span></p>
+									<a href="farm" class="nav-link <?php active_menu(1, 'farm');?>">
+										<i class="fas fa-seedling nav-icon"></i>
+										<p>My Farm</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="dashboard/inventory" class="nav-link <?php active_menu(2, 'inventory');?> <?php active_menu([1,2], 'dashboard/add-product');?>">
+									<a href="inventory" class="nav-link <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'add-product');?>">
 										<i class="fas fa-warehouse nav-icon"></i>
 										<p>Inventory</p>
 									</a>
 								</li>
+								<li class="nav-item">
+									<a href="dashboard" class="nav-link <?php active_menu(1, 'dashboard');?>">
+										<i class="nav-icon fas fa-chart-line"></i>
+										<p>Dashboard</p>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="settings" class="nav-link <?php active_menu(1, 'settings');?>">
+										<i class="fas fa-sliders-h nav-icon"></i>
+										<p>Settings</p>
+									</a>
+								</li>
 							</ul>
-						</li>
-
-						<li class="nav-item">
-							<a href="dashboard/profile" class="nav-link <?php active_menu(2, 'profile');?>">
-								<i class="nav-icon fas fa-address-card"></i>
-								<p>Profile</p>
-							</a>
 						</li>
 
 						<li class="nav-item has-treeview <?php active_menu([1,2], 'admin/stats', true);?>">

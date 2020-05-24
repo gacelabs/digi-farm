@@ -8,7 +8,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-lg-12">
-				<h1>Profile</h1>
+				<h3 class="m-0 text-dark">Profile</h3>
 			</div>
 		</div>
 	</div>
@@ -25,11 +25,6 @@
 					<!-- /.card-header -->
 					<!-- form start -->
 					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
-						<!-- <label>
-							Farm name
-							<input type="text" name="user[farm_name]" value="<?php echo $info['farm_name'];?>">
-						</label> -->
-
 						<div class="card-body">
 							<div class="row">
 								<div class="col-6 form-group">

@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-lg-12">
-				<h1>Inventory</h1>
+				<h3 class="m-0 text-dark">Inventory</h3>
 			</div>
 		</div>
 	</div>
@@ -18,7 +18,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">
-						<a href="dashboard/add-product" class="btn btn-sm btn-primary">Add a product</a>
+						<a href="add-product" class="btn btn-sm btn-primary">Add a product</a>
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">

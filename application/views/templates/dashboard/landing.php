@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</style>
 	</head>
 
-	<body id="body" <?php echo (!empty($body_class) ? "class='".$body_class."'": ""); ?>>
+	<body id="body" <?php echo (!empty($body_class) ? "class='".$body_class." layout-navbar-fixed layout-fixed'": ""); ?>>
 
 		<div class="wrapper" <?php echo (!empty($wrapper_class) ? "class='".$wrapper_class."'": "" ); ?>>
 

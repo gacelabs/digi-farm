@@ -4,9 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Home';
 
 $route['dashboard'] = 'Dashboard';
-$route['dashboard/inventory'] = 'Dashboard/inventory';
-$route['dashboard/add-product'] = 'Dashboard/add_product';
-$route['dashboard/profile/(:num)'] = 'Dashboard/profile/$1';
+$route['inventory'] = 'Dashboard/inventory';
+$route['add-product'] = 'Dashboard/add_product';
+$route['profile/(:num)'] = 'Dashboard/profile/$1';
+$route['farm'] = 'Dashboard/my_farm';
+$route['settings'] = 'Dashboard/settings';
 
 $route['dashboard/admin'] = 'Admin/index';
 $route['dashboard/admin/login'] = 'Admin/login';

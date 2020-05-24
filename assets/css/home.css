@@ -1,0 +1,31 @@
+.location-slider .slider {
+	width: 50%;
+	margin: 100px auto;
+}
+.location-slider .slick-slide {
+	margin: 0 10px;
+	border: 0 none !important;
+	outline: none !important;
+}
+.location-slider .slick-slide img {
+	object-fit: cover;
+	object-position: center center;
+	width: 100%;
+	height: 100%;
+}
+.location-slider .slick-prev:before,
+.location-slider .slick-next:before {
+	color: #000;
+}
+.location-slider .slick-slide {
+	transition: all ease-in-out .3s;
+}
+.location-slider .card-header {
+	padding: 0 !important;
+}
+.location-slider .card-tools {
+	position: absolute;
+	top: 0;
+	left: 5px;
+}
+

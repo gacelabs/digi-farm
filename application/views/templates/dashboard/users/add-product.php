@@ -1,16 +1,16 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-lg-12">
-				<h1>New Product</h1>
+<form action="/dashboard/add-product/" method="post" id="add-product" class="form-validate" enctype="multipart/form-data">
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-lg-12">
+					<h3 class="m-0 text-dark">New Product <input type="submit" value="Post Product" class="btn btn-success float-right" /></h3>
+				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
-<section class="content">
-	<div class="container-fluid">
-		<form action="/dashboard/add-product/" method="post" id="add-product" class="form-validate" enctype="multipart/form-data">
+	<section class="content">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 					<div class="card card-primary">
@@ -91,14 +91,50 @@
 									<p>Which of your farms this product is available?</p>
 									<div class="form-group">
 										<!-- <select class="form-control select2" id="farm-branch" name="product[location_id][]" multiple required="required"> -->
-										<select class="form-control custom-select" id="farm-branch" name="product[location_id]" required="required">
-											<option value="0">Select one</option>
-											<?php if ($locations): ?>
-												<?php foreach ($locations['select'] as $id => $address): ?>
-													<option value="<?php echo $id;?>" <?php echo ($locations['selected']==$id) ? 'selected' : '';?>><?php echo $address;?></option>
-												<?php endforeach ?>
-											<?php endif ?>
-										</select>
+											<select class="form-control custom-select" id="farm-branch" name="product[location_id]" required="required">
+												<option value="0">Select one</option>
+												<?php if ($locations): ?>
+													<?php foreach ($locations['select'] as $id => $address): ?>
+														<option value="<?php echo $id;?>" <?php echo ($locations['selected']==$id) ? 'selected' : '';?>><?php echo $address;?></option>
+													<?php endforeach ?>
+												<?php endif ?>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+						<div class="card card-secondary">
+							<div class="card-header">
+								<h3 class="card-title">Photos</h3>
+
+								<div class="card-tools">
+									<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+										<i class="fas fa-minus"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label for="featured-photo">Featured photo</label>
+									<div class="input-group">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" name="product_photo[]" required="required">
+											<label class="custom-file-label" for="featured-photo">Choose file</label>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="form-group">
+									<label for="featured-photo">More photos</label>
+									<div class="input-group">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" name="product_photo[]">
+											<label class="custom-file-label" for="featured-photo">Choose file</label>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -106,49 +142,13 @@
 					</div>
 				</div>
 
-				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-					<div class="card card-secondary">
-						<div class="card-header">
-							<h3 class="card-title">Photos</h3>
-
-							<div class="card-tools">
-								<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-									<i class="fas fa-minus"></i>
-								</button>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="form-group">
-								<label for="featured-photo">Featured photo</label>
-								<div class="input-group">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" name="product_photo[]" required="required">
-										<label class="custom-file-label" for="featured-photo">Choose file</label>
-									</div>
-								</div>
-							</div>
-							<hr>
-							<div class="form-group">
-								<label for="featured-photo">More photos</label>
-								<div class="input-group">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" name="product_photo[]">
-										<label class="custom-file-label" for="featured-photo">Choose file</label>
-									</div>
-								</div>
-							</div>
-						</div>
+				<div class="row">
+					<div class="col-12">
+						<a href="dashboard/inventory" class="btn btn-default">Cancel</a>
+						<input type="submit" value="Post Product" class="btn btn-success float-right" />
 					</div>
 				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-12">
-					<a href="dashboard/inventory" class="btn btn-default">Cancel</a>
-					<input type="submit" value="Post Product" class="btn btn-success float-right" />
-				</div>
-			</div>
-		</form>
-	</div>
-</section>
+		</section>
+	</form>
 
