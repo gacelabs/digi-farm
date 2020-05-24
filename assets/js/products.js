@@ -75,4 +75,5 @@ $(document).ready(function() {
 		$(elem).DataTable(oSettings);
 	});
 	bsCustomFileInput.init();
+	$('.select2').select2();
 });

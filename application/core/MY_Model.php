@@ -64,11 +64,11 @@ class MY_Model extends CI_Model {
 	public function save($table=FALSE, $set=FALSE, $where=FALSE, $redirect_url='', $callback=false)
 	{
 		if ($table AND $set AND $where) {
-			if ($this->db->field_exists('version', $table)) {
+			/*if ($this->db->field_exists('version', $table)) {
 				$data = $this->get($table, $where, 'version', 'row');
 				$set = (array)$set;
 				$set['version'] = (int)$data['version'] + 1;
-			}
+			}*/
 			$this->db->update($table, $set, $where);
 			$id = $this->get($table, $where, 'id', 'row')['id'];
 			if ($redirect_url != '') {

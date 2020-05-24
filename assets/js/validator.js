@@ -29,20 +29,32 @@ $(document).ready(function() {
 				var errors = validator.numberOfInvalids();
 				console.log(errors, e, validator);
 			},*/
-			errorPlacement: function(error, element) {
+			errorPlacement: function(label, element) {
+				element.addClass('error');
 				if (element.prop('tagName') === 'SELECT' && element.hasClass('chosen-select')) {
 					element.parent().find('.chosen-container-single').addClass('error');
 				}
 				if (element.attr('type') === 'file' && element.hasClass('custom-file-input')) {
 					element.parents('.input-group').addClass('error');
 				}
-				element.addClass('error');
 			},
 			highlight: function (element, errorClass, validClass) {
 				$(element).addClass('error');
+				if ($(element).prop('tagName') === 'SELECT' && $(element).hasClass('chosen-select')) {
+					$(element).parent().find('.chosen-container-single').addClass('error');
+				}
+				if ($(element).attr('type') === 'file' && $(element).hasClass('custom-file-input')) {
+					$(element).parents('.input-group').addClass('error');
+				}
 			},
 			unhighlight: function (element, errorClass, validClass) {
 				$(element).removeClass('error');
+				if ($(element).prop('tagName') === 'SELECT' && $(element).hasClass('chosen-select')) {
+					$(element).parent().find('.chosen-container-single').removeClass('error');
+				}
+				if ($(element).attr('type') === 'file' && $(element).hasClass('custom-file-input')) {
+					$(element).parents('.input-group').removeClass('error');
+				}
 			},
 			rules: {
 				'email_address': {

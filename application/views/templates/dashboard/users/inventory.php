@@ -7,7 +7,11 @@
 		</div>
 	</div>
 </section>
-
+<?php
+	$inventory = $db();
+	// debug($inventory);
+	$products = $inventory['products'];
+?>
 <section class="content">
 	<div class="container-fluid">
 		<div class="row">
@@ -31,6 +35,19 @@
 								</tr>
 							</thead>
 							<tbody>
+								<?php if ($products): ?>
+									<?php foreach ($products as $key => $product): ?>
+										<td align="center">
+											<img class="img-responsive elevation-2" src="<?php echo $product['photo'];?>" style="width: 3rem;">
+										</td>
+										<td><?php echo $product['name'];?></td>
+										<td><?php echo $product['measurement'];?></td>
+										<td><?php echo $product['current_price'];?></td>
+										<td><?php echo $product['stocks'];?></td>
+										<td><?php echo $product['created'];?></td>
+										<td><?php echo $product['status'];?></td>
+									<?php endforeach ?>
+								<?php endif ?>
 							</tbody>
 						</table>
 					</div>

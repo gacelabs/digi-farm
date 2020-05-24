@@ -205,7 +205,7 @@ function save_image($base64_string=FALSE, $dir='', $file=FALSE) {
 	return FALSE;
 }
 
-function files_upload($_files=FALSE, $return_path=FALSE, $dir='', $this_name=FALSE) {
+function files_upload($_files=FALSE, $return_path=FALSE, $dir='upload', $this_name=FALSE) {
 	if ($_files) {
 		// debug($_files, 1);
 		$uploaddir = create_dirs($dir);
@@ -222,9 +222,11 @@ function files_upload($_files=FALSE, $return_path=FALSE, $dir='', $this_name=FAL
 					if ($_files[$input]['error'][$key] == 0) {
 						$ext = strtolower(pathinfo(basename($name), PATHINFO_EXTENSION));
 						if ($this_name) {
-							$pathname = clean_string_name($this_name).'.'.$ext;
+							$pathname = clean_string_name($this_name).'-'.$key.'.'.$ext;
 						} else {
 							$pathname = basename($name);
+							$chunks = explode('.'.$ext, $pathname);
+							$pathname = $chunks[0].'-'.$key.'.'.$ext;
 						}
 						$uploadfile = $uploaddir . $pathname;
 						if (@move_uploaded_file($_files[$input]['tmp_name'][$key], $uploadfile)) {
@@ -696,7 +698,7 @@ function has_post($name='')
 	return isset($_POST[$name]);
 }
 
-function construct($data=false, $type='', $selected=false)
+function construct($data=false, $type='', $selected=false, $field='id')
 {
 	$result = false;
 	if ($data) {
@@ -704,7 +706,7 @@ function construct($data=false, $type='', $selected=false)
 			case 'dd':
 				$set = [];
 				foreach ($data as $key => $row) {
-					$set[$row['id']] = $row['label'];
+					$set[$row[$field]] = $row['label'];
 				}
 				$result = [
 					'selected' => $selected,
@@ -716,7 +718,7 @@ function construct($data=false, $type='', $selected=false)
 				$result = [];
 				// debug($data, 1);
 				foreach ($data as $key => $row) {
-					$result[$row['id']] = [
+					$result[$row[$field]] = [
 						'name' => $row['name'],
 						'label' => $row['label'],
 						'type' => $row['type'],
@@ -724,8 +726,20 @@ function construct($data=false, $type='', $selected=false)
 					];
 				}
 				break;
+
+			case 'ddloc':
+				$set = [];
+				foreach ($data as $key => $row) {
+					$set[$row[$field]] = $row['address'];
+				}
+				$result = [
+					'selected' => $selected,
+					'select' => $set
+				];
+				break;
 		}
 	}
+	// debug($result, 1);
 	return $result;
 }
 
@@ -768,4 +782,16 @@ function check_app_settings($field='password', $post=false)
 	}
 	// debug($data, 1);
 	return $data;
+}
+
+function get_data_and_construct($table=false, $field='id', $type='dd', $selected=false)
+{
+	$ci =& get_instance();
+	if ($table) {
+		$data = $ci->custom->get($table);
+		if ($data) {
+			return construct($data, $type, $selected, $field);
+		}
+	}
+	return false;
 }

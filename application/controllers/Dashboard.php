@@ -201,9 +201,17 @@ class Dashboard extends MY_Controller {
 			'post_body' => array( // html elements. these are declared before </body> closing tag. use for modals, etc. example: 'folder/filename'
 				''
 			),
-			'db' => array(
-
-			)
+			'db' => function() {
+				$products = $this->db->join('product_category', 'product_category.id = product.category_id')
+					->join('activity', 'activity.id = product.activity_id')
+					->join('product_photo', 'product_photo.product_id = product.id AND product_photo.is_main = 1')
+					->select('product.*, activity.label AS status, product_category.label AS category, product_photo.path AS photo')
+					->get('product');
+				// debug($products->result(), 1);
+				return [
+					'products' => $products->num_rows() ? $products->result_array() : false,
+				];
+			}
 		);
 		$this->load->view('templates/dashboard/landing', $data);
 	}
@@ -212,7 +220,31 @@ class Dashboard extends MY_Controller {
 	{
 		$post = $this->input->post();
 		if ($post) {
-			debug($post, 1);
+			$user = $this->accounts->profile['user'];
+			// debug($_FILES);
+			$product_id = 0;
+			if (isset($post['product'])) {
+				$post['product']['user_id'] = $user['id'];
+				$product_id = $this->custom->create('product', $post['product']);
+				// $product_id = 1;
+			}
+			if (isset($_FILES['product_photo']) AND $product_id > 0) {
+				$data = files_upload($_FILES, false, $user['id'].'/product_photo', $post['product']['name']);
+				foreach ($data as $key => $row) {
+					$photo = [];
+					if ($row['status']) {
+						$photo['product_id'] = $product_id;
+						$photo['name'] = $post['product']['name'].'-'.$key;
+						$photo['description'] = $post['product']['description'].'-'.$key;
+						$photo['path'] = $row['url_path'];
+						$photo['is_main'] = $key == 0 ? 1 : 0;
+						$this->custom->create('product_photo', $photo);
+					}
+					// debug($photo);
+				}
+			}
+			// debug($post, 1);
+			redirect(base_url('dashboard/inventory'));
 		} else {
 			$data = array(
 				'meta' => array(),
@@ -221,8 +253,8 @@ class Dashboard extends MY_Controller {
 					base_url('assets/admin/template/plugins/daterangepicker/daterangepicker.css'),
 					base_url('assets/admin/template/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css'),
 					base_url('assets/admin/template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'),
-					base_url('assets/admin/template/plugins/select2/css/select2.min.css'),
 					base_url('assets/admin/template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css'),
+					base_url('assets/admin/template/plugins/select2/css/select2.min.css'),
 					base_url('assets/admin/template/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css'),
 				]),
 				'head_js' => $this->dash_defaults('head_js'),
