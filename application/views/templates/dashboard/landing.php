@@ -5,7 +5,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 	<head>
 		<?php $this->load->view('templates/dashboard/global/page_head'); ?>
-		<style type="text/css">input.error, textarea.error, select.error {border-color: #f35757;}</style>
+		<style type="text/css">
+			input.error, textarea.error, select.error {
+				border-color: #f35757;
+				padding-right: 2.25rem;
+				background-image: url('assets/admin/images/error.svg');
+				background-repeat: no-repeat;
+				background-position: right calc(.375em + .1875rem) center;
+				background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+			}
+		</style>
 	</head>
 
 	<body id="body" <?php echo (!empty($body_class) ? "class='".$body_class."'": ""); ?>>
