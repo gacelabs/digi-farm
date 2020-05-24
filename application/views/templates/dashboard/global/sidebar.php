@@ -55,7 +55,7 @@
 								</li>
 								<li class="nav-item">
 									<a href="dashboard/inventory" class="nav-link <?php active_menu(2, 'inventory');?>">
-										<i class="fas fa-pallet nav-icon"></i>
+										<i class="fas fa-warehouse nav-icon"></i>
 										<p>Inventory</p>
 									</a>
 								</li>
