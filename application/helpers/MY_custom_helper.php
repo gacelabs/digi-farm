@@ -803,19 +803,92 @@ function get_data_and_construct($table=false, $field='id', $type='dd', $selected
 
 function check_file_and_render($file=false, $replace=false)
 {
+	$exists = false;
 	if ($file) {
 		$doc = get_root_path($file);
 		$exists = file_exists($doc);
 		// debug($exists, 1);
-		if ($exists == 0) {
-			if ($replace) {
-				echo 'http://placehold.it/'.$replace;
-			} else {
-				echo 'http://placehold.it/800X600?text=Image';
-			}
+	}
+	if ($exists == false) {
+		if ($replace) {
+			echo 'http://placehold.it/'.$replace;
 		} else {
-			echo $file;
+			echo 'http://placehold.it/800X600?text=Image';
+		}
+	} else {
+		echo $file;
+	}
+}
+
+function get_geolocation() {
+	$data = unserialize(@file_get_contents('http://www.geoplugin.net/php.gp'));
+	// debug($data, 1);
+	if ($data) {
+		return [
+			'lat' => $data['geoplugin_latitude'],
+			'lng' => $data['geoplugin_longitude'],
+		];
+	}
+	return false;
+}
+
+function nearest_locations($data=false, $distance=3, $unit='km')
+{
+	if ($data AND isset($data['latlong'])) {
+		$position = json_decode($data['latlong'], true);
+
+		if ($unit == 'km') {
+			$sql = "SELECT * FROM (
+				SELECT user.*, 
+					(
+						(
+							(
+								acos(
+									sin(( ".$position['lat']." * pi() / 180))
+									*
+									sin(( `lat` * pi() / 180)) + cos(( ".$position['lat']." * pi() /180 ))
+									*
+									cos(( `lat` * pi() / 180)) * cos((( ".$position['lng']." - `lng`) * pi()/180)))
+							) * 180/pi()
+						) * 60 * 1.1515 * 1.609344
+					) AS distance, 'km' AS unit 
+				 FROM `user_location`
+				INNER JOIN user ON user_location.id = user.id
+				WHERE user.farmer = 1 AND user.id != '".$data['id']."'
+			) user_location";
+		} else {
+			$sql = "SELECT * FROM (
+				SELECT user.*, 
+					(
+						(
+							(
+								acos(
+									sin(( ".$position['lat']." * pi() / 180))
+									*
+									sin(( `lat` * pi() / 180)) + cos(( ".$position['lat']." * pi() /180 ))
+									*
+									cos(( `lat` * pi() / 180)) * cos((( ".$position['lng']." - `lng`) * pi()/180)))
+							) * 180/pi()
+						) * 60 * 1.1515
+					) AS distance, 'mi' AS unit 
+				 FROM `user_location`
+				INNER JOIN user ON user_location.id = user.id
+				WHERE user.farmer = 1 AND user.id != '".$data['id']."'
+			) user_location";
+		}
+
+		$extends = $sql."WHERE distance <= ".$distance/*."LIMIT ".$limit.";"*/;
+
+		$record = $this->db->query($extends);
+		if ($record->num_rows()) {
+			$record = $record->result();
+			// debug($record);
+			if ($ci->input->is_ajax_request()) {
+				echo json_encode($record); exit();
+			} else {
+				return $record;
+			}
 		}
 	}
-	echo "";
+	return false;
 }
