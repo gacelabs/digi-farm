@@ -33,12 +33,10 @@
 									<label for="last_name">Last name</label>
 									<input type="text"  class="form-control" id="last_name" name="user[last_name]" value="<?php echo $info['last_name'];?>" required="required">
 								</div>
-
 								<div class="col-6 form-group">
 									<label for="email">Email</label>
 									<input type="email" class="form-control" id="email" name="user[email_address]" value="<?php echo $info['email_address'];?>" required="required">
 								</div>
-
 								<div class="col-6 form-group">
 									<label>Status</label>
 									<select class="form-control" name="user[activity_id]">
@@ -51,6 +49,12 @@
 
 										<?php endforeach ?>
 									</select>
+								</div>
+								<div class="col-6 form-group">
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" type="checkbox" id="farmer" name="user[farmer]" <?php echo(!empty($info) == 1? 'checked=""': ""); ?> />
+										<label for="farmer" class="custom-control-label">I am a farmer</label>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -70,8 +74,6 @@
 					<div class="card-header">
 						<h3 class="card-title">App Settings</h3>
 					</div>
-					<!-- /.card-header -->
-					<!-- form start -->
 					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
 						<div class="card-body">
 							<div class="row">
@@ -84,8 +86,11 @@
 								switch ($row['type']) {
 									case '1': /*checkbox*/
 									?>
-										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" name="user_app_settings[<?php echo $id;?>][value]" <?php echo ($row['value'] == 'checked') ? 'checked="checked"' : '' ?> value="1" />
+										<div class="col-12 form-group">
+											<div class="custom-control custom-checkbox">
+												<input class="custom-control-input" type="checkbox" id="<?php echo strtolower(str_replace(' ', '_', $row['label']));?>" name="user_app_settings[<?php echo $id;?>][value]" <?php echo ($row['value'] == 'checked') ? 'checked=""' : '' ?> />
+												<label for="<?php echo strtolower(str_replace(' ', '_', $row['label']));?>" class="custom-control-label"><?php echo $row['label'];?></label>
+											</div>
 										</div>
 									<?php
 									break;
@@ -99,10 +104,10 @@
 									default: /*input*/
 									?>
 										<div class="col-6 form-group">
-											<input type="text" class="form-control" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
+											<?php echo $row['label'];?>
 										</div>
 										<div class="col-6 form-group">
-											<?php echo $row['label'];?>
+											<input type="text" class="form-control" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
 										</div>
 									<?php
 									break;
@@ -111,8 +116,6 @@
 							<?php endforeach ?>
 							</div>
 						</div>
-						<!-- /.card-body -->
-
 						<div class="card-footer">
 							<button type="submit" class="btn btn-default">Save</button>
 						</div>
