@@ -14,6 +14,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				background-position: right calc(.375em + .1875rem) center;
 				background-size: calc(.75em + .375rem) calc(.75em + .375rem);
 			}
+			.elem-block {
+				width: 100%;
+				min-width: 100%;
+			}
+			.form-control.border-bottom {
+				background-color: transparent !important;
+				border: 0 none !important;
+				border-bottom: 2px solid #fff !important;
+				border-radius: 0 !important;
+			}
 		</style>
 		<script type="text/javascript">
 			var currPage = "<?php echo $body_id;?>-page";

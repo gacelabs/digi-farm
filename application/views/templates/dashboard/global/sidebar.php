@@ -32,7 +32,9 @@
 							<a href="/profile/" class="d-block"><?php echo $fullName;?><small>&nbsp;&nbsp;&nbsp;<i class="fas fa-cog"></small></i></a>
 						</div>
 					<?php else: ?>
-						<h2>SIGN UP UI HERE</h2>
+						<div class="text-center elem-block">
+							<a href="login"><h5 class="text-white">Log in | Sign up</h5></a>
+						</div>
 					<?php endif ?>
 				</div>
 						
