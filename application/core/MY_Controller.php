@@ -59,8 +59,7 @@ class MY_Controller extends CI_Controller {
 						base_url('assets/js/jquery.min.js'),
 						base_url('assets/js/bootstrap.min.js'),
 						base_url('assets/js/slider.js'),
-						base_url('assets/js/fitext.js'),
-						base_url('assets/js/main.js'),
+						base_url('assets/js/fitext.js')
 					);
 					break;
 				
@@ -70,11 +69,10 @@ class MY_Controller extends CI_Controller {
 						base_url('assets/css/font-awesome.min.css'),
 						base_url('assets/css/slider.css'),
 						base_url('assets/css/slick-theme.css'),
-						base_url('assets/css/global.css'),
 						base_url('assets/css/category-slider.css'),
 						base_url('assets/css/featured-slider.css'),
 						base_url('assets/css/home.css'),
-						base_url('assets/css/responsive.css'),
+						base_url('assets/css/responsive.css')
 					);
 					break;
 
@@ -118,6 +116,7 @@ class MY_Controller extends CI_Controller {
 						base_url('assets/admin/template/dist/css/adminlte.min.css'),
 						base_url('assets/admin/template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css'),
 						base_url('assets/admin/css/sourcesanspro.css'),
+						base_url('assets/admin/css/custom-admin.css')
 					);
 					break;
 

@@ -24,51 +24,27 @@
 				</div>
 
 				<div class="row products">
+
+					<!-- LOOP HERE -->
 					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-						<div class="slider-item">
-							<div class="card">
-								<div class="card-header" style="padding:0;">
-									<img src="http://placehold.it/300x300" width="100%" class="" alt="">
+						<div class="slider-item product-item">
+							<a href="#">
+								<div class="card">
+									<div class="card-header">
+										<img src="assets/images/props/tomatoes.jpg" class="img-fit" alt="">
+										<div class="card-tools">
+											<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> 1.3KM</span>
+										</div>
+									</div>
+									<div class="card-body text-ellipsis">
+										<h5><b>Cherry Tomatoes</b></h5>
+										<h4 class="zero-gap"><span class="currency">₱</span>100<small style="font-size:50%;color:#aaa !important;"> / kg</small></h4>
+									</div>
 								</div>
-								<div class="card-body">
-									The body of the card
-								</div>
-								<div class="card-footer">
-									The footer of the card
-								</div>
-							</div>
+							</a>
 						</div>
 					</div>
-					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-						<div class="slider-item">
-							<div class="card">
-								<div class="card-header" style="padding:0;">
-									<img src="http://placehold.it/300x300" width="100%" class="" alt="">
-								</div>
-								<div class="card-body">
-									The body of the card
-								</div>
-								<div class="card-footer">
-									The footer of the card
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-						<div class="slider-item">
-							<div class="card">
-								<div class="card-header" style="padding:0;">
-									<img src="http://placehold.it/300x300" width="100%" class="" alt="">
-								</div>
-								<div class="card-body">
-									The body of the card
-								</div>
-								<div class="card-footer">
-									The footer of the card
-								</div>
-							</div>
-						</div>
-					</div>
+					<!-- LOOP HERE -->
 				</div>
 			</div>
 

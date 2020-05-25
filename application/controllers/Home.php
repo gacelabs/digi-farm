@@ -16,7 +16,8 @@ class Home extends MY_Controller {
 			'head_css' => $this->dash_defaults('head_css', [
 				base_url().'assets/css/slider.css',
 				base_url().'assets/css/slick-theme.css',
-				base_url().'assets/css/home.css'
+				base_url().'assets/css/home.css',
+				base_url().'assets/admin/css/custom-admin.css'
 			]),
 			'head_js' => $this->dash_defaults('head_js'),
 			'body_id' => strtolower(__CLASS__),
@@ -39,7 +40,8 @@ class Home extends MY_Controller {
 				base_url().'assets/js/slider.init.js',
 				'https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNbxnm4HQLyFO4FkUOpam3Im14wWY0MA&libraries=places',
 				base_url('assets/js/map-script.js'),
-				base_url('assets/js/marketplace.js')
+				base_url('assets/js/marketplace.js'),
+				base_url().'assets/admin/js/custom-js.js'
 			]),
 			'post_body' => array(
 			),
