@@ -46,9 +46,9 @@
 											$selected = $profile_data['profile_dropdown']['selected'];
 											$select = $profile_data['profile_dropdown']['select'];
 											foreach ($select as $id => $value): ?>
-
-											<option<?php echo $selected == $id ? ' selected="selected"' : '';?> value="<?php echo $id;?>"><?php echo $value;?></option>
-
+												<?php if ($id == 1 OR $id == 2 OR $id == 6): ?>
+													<option<?php echo $selected == $id ? ' selected="selected"' : '';?> value="<?php echo $id;?>"><?php echo $value;?></option>
+												<?php endif ?>
 										<?php endforeach ?>
 									</select>
 								</div>
@@ -105,11 +105,11 @@
 									break;
 									default: /*input*/
 									?>
-										<div class="col-6 form-group">
-											<input type="text" class="form-control" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
-										</div>
-										<div class="col-6 form-group">
+										<div class="col-4 form-group">
 											<?php echo $row['label'];?>
+										</div>
+										<div class="col-8 form-group">
+											<input type="text" class="form-control" name="user_app_settings[<?php echo $id;?>][value]" value="<?php echo $row['value'];?>" />
 										</div>
 									<?php
 									break;
