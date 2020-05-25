@@ -137,7 +137,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-lg-12">
-				<h3 class="m-0 text-dark">Top Sellers</h3>
+				<h3 class="m-0 text-dark">Best Sellers</h3>
 			</div>
 		</div>
 	</div>
