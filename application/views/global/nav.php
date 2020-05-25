@@ -12,26 +12,10 @@
 				<span class="hidden-xs">FarmApp</span>
 				<i class="glyphicon glyphicon-home visible-xs"></i>
 			</a>
-			<form class="navbar-form navbar-left hidden-lg hidden-md hidden-sm">
-				<div class="input-group input-rounded">
-					<input type="text" class="form-control" placeholder="Lettuce...">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">Find</button>
-					</span>
-				</div>
-			</form>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left hidden-xs">
-				<div class="input-group input-rounded">
-					<input type="text" class="form-control" placeholder="Lettuce...">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">Find</button>
-					</span>
-				</div>
-			</form>
 			<ul class="nav navbar-nav navbar-right navbar-buttons">
 				<?php if ($current_profile): /*debug($current_profile, 1);*/ ?>
 				<!-- Show if user is logged in -->
@@ -40,6 +24,7 @@
 					<?php endif ?>
 					<li><a href="<?php echo base_url('dashboard'); ?>" style="padding-right:0;"><?php echo ucwords(get_fullname($current_profile)); ?></a></li>
 				<?php else: ?>
+					<li><a href="">Marketplace</a></li>
 					<li><a href="login">Login / Sign up</a></li>
 				<?php endif ?>
 			</ul>

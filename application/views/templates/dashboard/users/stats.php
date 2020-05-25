@@ -52,7 +52,7 @@
 						<div class="inner">
 							<h3>839</h3>
 
-							<p>Top Selling</p>
+							<p>Best Selling</p>
 						</div>
 						<div class="icon">
 							<i class="ion ion-arrow-up-a"></i>

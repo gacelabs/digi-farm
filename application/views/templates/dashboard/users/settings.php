@@ -72,7 +72,7 @@
 					</div>
 					<div class="card-body">
 						<div id="map-box" style="width: 100%; height: 425px; margin-bottom: 15px;">
-							<img src="http://placehold.it/565x225?text=Map">
+							<img src="http://placehold.it/565x225?text=Map" width="100%">
 						</div>
 					</div>
 				</div>
