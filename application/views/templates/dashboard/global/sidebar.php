@@ -29,7 +29,7 @@
 							<img src="<?php check_file_and_render($current_profile['user']['photo'], '160x160?text='.$initials);?>" class="img-circle elevation-2" alt="">
 						</div>
 						<div class="info">
-							<a href="/profile/" class="d-block"><?php echo $fullName;?><small>&nbsp;&nbsp;&nbsp;<i class="fas fa-cog"></small></i></a>
+							<a href="profile/" class="d-block"><?php echo $fullName;?><small>&nbsp;&nbsp;&nbsp;<i class="fas fa-cog"></small></i></a>
 						</div>
 					<?php else: ?>
 						<div class="text-center elem-block">
