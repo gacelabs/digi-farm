@@ -7,7 +7,11 @@
 		</div>
 	</div>
 </section>
-
+<?php
+	$marketplace_data = $db();
+	// debug($marketplace_data);
+?>
+<input type="hidden" id="veggies_position" data-value='<?php echo json_encode($marketplace_data['veggies_position']);?>'>
 <section class="content">
 	<div class="container-fluid">
 		<div class="row">
@@ -17,7 +21,7 @@
 					<div class="slider-item">
 						<div class="card">
 							<div class="card-header">
-								<img src="http://placehold.it/300x300" class="" alt="">
+								<div id="veggies-map" style="width: 100%; height: 285px;"><img src="http://placehold.it/300x300" class="" alt=""></div>
 								<div class="card-tools">
 									<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> 1.3KM</span>
 								</div>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$route['default_controller'] = 'Home';
+$route['default_controller'] = 'Marketplace';
 
 $route['dashboard'] = 'Dashboard';
 $route['inventory'] = 'Dashboard/inventory';

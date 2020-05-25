@@ -832,14 +832,20 @@ function get_geolocation() {
 	return false;
 }
 
-function nearest_locations($data=false, $distance=3, $unit='km')
+function nearest_locations($data=false, $distance=100, $unit='km')
 {
-	if ($data AND isset($data['latlong'])) {
-		$position = json_decode($data['latlong'], true);
+	if ($data AND isset($data['latlng'])) {
+		$ci =& get_instance();
+		$position = $data['latlng'];
+
+		$and_clause = "";
+		if (isset($data['id'])) {
+			$and_clause = " AND user.id != '".$data['id']."'";
+		}
 
 		if ($unit == 'km') {
 			$sql = "SELECT * FROM (
-				SELECT user.*, 
+				SELECT user_location.*, 
 					(
 						(
 							(
@@ -853,12 +859,12 @@ function nearest_locations($data=false, $distance=3, $unit='km')
 						) * 60 * 1.1515 * 1.609344
 					) AS distance, 'km' AS unit 
 				 FROM `user_location`
-				INNER JOIN user ON user_location.id = user.id
-				WHERE user.farmer = 1 AND user.id != '".$data['id']."'
+				INNER JOIN user ON user_location.user_id = user.id
+				WHERE user.farmer = 1 ".$and_clause."
 			) user_location";
 		} else {
 			$sql = "SELECT * FROM (
-				SELECT user.*, 
+				SELECT user_location.*, 
 					(
 						(
 							(
@@ -872,16 +878,17 @@ function nearest_locations($data=false, $distance=3, $unit='km')
 						) * 60 * 1.1515
 					) AS distance, 'mi' AS unit 
 				 FROM `user_location`
-				INNER JOIN user ON user_location.id = user.id
-				WHERE user.farmer = 1 AND user.id != '".$data['id']."'
+				INNER JOIN user ON user_location.user_id = user.id
+				WHERE user.farmer = 1 ".$and_clause."
 			) user_location";
 		}
 
-		$extends = $sql."WHERE distance <= ".$distance/*."LIMIT ".$limit.";"*/;
+		$extends = $sql." WHERE distance <= ".$distance/*."LIMIT ".$limit.";"*/;
 
-		$record = $this->db->query($extends);
+		// debug($extends, 1);
+		$record = $ci->db->query($extends);
 		if ($record->num_rows()) {
-			$record = $record->result();
+			$record = $record->result_array();
 			// debug($record);
 			if ($ci->input->is_ajax_request()) {
 				echo json_encode($record); exit();
