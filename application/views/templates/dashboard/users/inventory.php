@@ -37,6 +37,7 @@
 							<tbody>
 								<?php if ($products): ?>
 									<?php foreach ($products as $key => $product): ?>
+									<tr>
 										<td align="center">
 											<img class="img-responsive elevation-2" src="<?php echo $product['photo'];?>" style="width: 3rem;">
 										</td>
@@ -46,6 +47,7 @@
 										<td><?php echo $product['stocks'];?></td>
 										<td><?php echo $product['created'];?></td>
 										<td><?php echo $product['status'];?></td>
+									</tr>
 									<?php endforeach ?>
 								<?php endif ?>
 							</tbody>

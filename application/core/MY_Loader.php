@@ -140,13 +140,17 @@ class MY_Loader extends CI_Loader {
 		$ci =& get_instance();
 		if ($ci->session->userdata('profile')) {
 			$current_profile = $ci->session->userdata('profile');
+			$is_logged_in = TRUE;
 		} else {
 			$current_profile = FALSE;
+			$is_logged_in = FALSE;
 		}
 		if (is_array($vars)) {
+			$vars['is_logged_in'] = $is_logged_in;
 			$vars['current_profile'] = $current_profile;
 			$vars['device_id'] = device_id($_SERVER['REMOTE_ADDR']);
 		} else if (is_object($vars)) {
+			$vars->is_logged_in = $is_logged_in;
 			$vars->current_profile = $current_profile;
 			$vars->device_id = device_id($_SERVER['REMOTE_ADDR']);
 		}

@@ -15,9 +15,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				background-size: calc(.75em + .375rem) calc(.75em + .375rem);
 			}
 		</style>
+		<script type="text/javascript">
+			var currPage = "<?php echo $body_id;?>-page";
+		</script>
 	</head>
 
-	<body id="body" <?php echo (!empty($body_class) ? "class='".$body_class." layout-navbar-fixed layout-fixed'": ""); ?>>
+	<body id="<?php echo $body_id;?>-page" <?php echo (!empty($body_class) ? "class='".$body_class." layout-navbar-fixed layout-fixed'": ""); ?>>
 
 		<div class="wrapper" <?php echo (!empty($wrapper_class) ? "class='".$wrapper_class."'": "" ); ?>>
 

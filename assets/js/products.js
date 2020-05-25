@@ -62,7 +62,7 @@ $(document).ready(function() {
 		};
 
 		$(elem).find('tr:first th:not(:first):not(:last)').each(function(j, elemTR) {
-			if ($.trim($(elemTR).text()).toLowerCase().indexOf('updated') >= 0) {
+			if ($.trim($(elemTR).text()).toLowerCase().indexOf('posted') >= 0) {
 				oSettings.order = [[j, 'desc']];
 			}
 			if ($.trim($(elemTR).text()).toLowerCase().indexOf('price') >= 0 || 
@@ -74,6 +74,9 @@ $(document).ready(function() {
 		oSettings.columnDefs.push(currency);
 		$(elem).DataTable(oSettings);
 	});
-	bsCustomFileInput.init();
-	$('.select2').select2();
+	
+	if (currPage != 'inventory-page') {
+		bsCustomFileInput.init();
+		$('.select2').select2();
+	}
 });

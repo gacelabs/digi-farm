@@ -6,6 +6,7 @@ $route['default_controller'] = 'Home';
 $route['dashboard'] = 'Dashboard';
 $route['inventory'] = 'Dashboard/inventory';
 $route['add-product'] = 'Dashboard/add_product';
+$route['profile'] = 'Dashboard/profile';
 $route['profile/(:num)'] = 'Dashboard/profile/$1';
 $route['farm'] = 'Dashboard/my_farm';
 $route['settings'] = 'Dashboard/settings';

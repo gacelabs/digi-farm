@@ -219,6 +219,9 @@ function files_upload($_files=FALSE, $return_path=FALSE, $dir='upload', $this_na
 			if (is_array($_files[$input]['name'])) {
 				$result = [];
 				foreach ($_files[$input]['name'] as $key => $name) {
+					if (in_str($name, '.accountpicture-ms')) {
+						$name = remove_in_str($name, '.accountpicture-ms');
+					}
 					if ($_files[$input]['error'][$key] == 0) {
 						$ext = strtolower(pathinfo(basename($name), PATHINFO_EXTENSION));
 						if ($this_name) {
@@ -239,7 +242,8 @@ function files_upload($_files=FALSE, $return_path=FALSE, $dir='upload', $this_na
 						$result[] = [
 							'file_path' => $uploadfile,
 							'url_path' => 'assets/data/files/'.$dir.'/'.$pathname,
-							'status' => $status
+							'status' => $status,
+							'keyname' => $key
 						];
 					}
 				}
@@ -264,7 +268,8 @@ function files_upload($_files=FALSE, $return_path=FALSE, $dir='upload', $this_na
 					$result = [
 						'file_path' => $uploadfile,
 						'url_path' => 'assets/data/files/'.$dir.'/'.$pathname,
-						'status' => $status
+						'status' => $status,
+						'keyname' => $input
 					];
 				}
 			}
@@ -332,7 +337,7 @@ function fix_title($title=FALSE) {
 	return '';
 }
 
-function bike_search($query='', $and_clause='')
+function search_query($query='', $and_clause='')
 {
 	$ci =& get_instance();
 	/*limit words number of characters*/
@@ -794,4 +799,23 @@ function get_data_and_construct($table=false, $field='id', $type='dd', $selected
 		}
 	}
 	return false;
+}
+
+function check_file_and_render($file=false, $replace=false)
+{
+	if ($file) {
+		$doc = get_root_path($file);
+		$exists = file_exists($doc);
+		// debug($exists, 1);
+		if ($exists == 0) {
+			if ($replace) {
+				echo 'http://placehold.it/'.$replace;
+			} else {
+				echo 'http://placehold.it/800X600?text=Image';
+			}
+		} else {
+			echo $file;
+		}
+	}
+	echo "";
 }

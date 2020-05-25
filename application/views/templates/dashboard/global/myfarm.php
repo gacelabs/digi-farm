@@ -1,3 +1,10 @@
+
+<?php
+	$profile_data = $db();
+	$info = $profile_data['profile']['user'];
+	// debug($info);
+?>
+
 <section class="content" style="padding-top: 20px;">
 	<div class="container">
 		<div class="row">
@@ -6,12 +13,12 @@
 					<div class="card-tools" style="position:absolute;top:0;left:5px;">
 						<span class="badge badge-secondary" data-toggle="modal" data-target="#modal-default" style="cursor:pointer;"><i class="far fa-edit"></i> Edit</span>
 					</div>
-					<img src="http://placehold.it/1080x200" width="100%" height="150px" alt="">
+					<img src="<?php check_file_and_render($info['banner'], '1080x200?text=Banner');?>" width="100%" height="150px" alt="">
 					<div class="card-body box-profile">
 						<div class="text-center" style="margin-top: -75px;">
-							<img class="profile-user-img img-fluid img-circle" src="http://placehold.it/128x128" alt="User profile picture">
+							<img class="profile-user-img img-fluid img-circle" src="<?php check_file_and_render($info['photo'], '128x128?text=Photo');?>" alt="User profile picture">
 						</div>
-						<h3 class="profile-username text-center">Poi Garcia</h3>
+						<h3 class="profile-username text-center"><?php echo ucwords(get_fullname($current_profile));?></h3>
 					</div>
 					<!-- /.card-body -->
 				</div>
@@ -68,42 +75,27 @@
 			<div class="col-lg-4 col-md-4 col-sm-12 hidden-xs">
 				<div class="card card-success">
 					<div class="card-header">
-						<h3 class="card-title">About Poi's farm</h3>
+						<h3 class="card-title">About <?php echo $info['first_name']."'s"; ?> farm</h3>
 						<div class="card-tools">
 							<a href="settings" class="badge badge-default"><i class="far fa-edit"></i> Edit</a>
 						</div>
 					</div>
+					<?php
+						$locations = $profile_data['profile']['user_location'];
+						// debug($locations);
+					?>
 					<!-- /.card-header -->
 					<div class="card-body">
-						<div>
-							<strong><i class="fas fa-map-marker-alt mr-1"></i> Farm #1 name</strong>
-							<p class="text-muted">Bagong Nayon, Antipolo City</p>
-						</div>
-
-						<hr>
-
-						<div>
-							<strong><i class="fas fa-map-marker-alt mr-1"></i> Farm #2 name</strong>
-							<p class="text-muted">Muzon, SJDM, Bulacan</p>
-						</div>
-
-						<hr>
-
-						<div>
-							<strong><i class="fas fa-map-marker-alt mr-1"></i> Farm #3 name</strong>
-							<p class="text-muted">Tinajeros, Malabon City</p>
-						</div>
-
-						<hr>
-
+						<?php foreach ($locations as $key => $row): ?>
+							<div>
+								<strong><i class="fas fa-map-marker-alt mr-1"></i> Farm #<?php echo $key+1;?> <?php echo ucwords($row['farm_name']);?></strong>
+								<p class="text-muted"><?php echo $row['address'];?></p>
+							</div>
+							<hr>
+						<?php endforeach ?>
 						<div>
 							<strong><i class="fas fa-store-alt mr-1"></i> About</strong>
-							<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							<p class="text-muted"><?php echo $info['about'];?></p>
 						</div>
 					</div>
 					<!-- /.card-body -->
@@ -123,31 +115,31 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="" method="post">
+			<form action="/dashboard/my_farm/<?php echo $info['id'];?>" method="post" class="form-validate" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="banner_photo">Banner</label>
 						<div class="input-group">
 							<div class="custom-file">
-								<input type="file" class="custom-file-input" name="banner_photo">
+								<input type="file" class="custom-file-input" id="banner_photo" name="user[banner]">
 								<label class="custom-file-label" for="banner_photo">Choose file</label>
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="form-group">
-						<label for="banner_photo">Profile</label>
+						<label for="user_photo">Profile</label>
 						<div class="input-group">
 							<div class="custom-file">
-								<input type="file" class="custom-file-input" name="banner_photo">
-								<label class="custom-file-label" for="banner_photo">Choose file</label>
+								<input type="file" class="custom-file-input" id="user_photo" name="user[photo]">
+								<label class="custom-file-label" for="user_photo">Choose file</label>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary">Upload</button>
+					<button type="submit" class="btn btn-primary">Upload</button>
 				</div>
 			</form>
 		</div>

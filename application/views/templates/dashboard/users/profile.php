@@ -124,55 +124,6 @@
 			</div>
 
 			<div class="col-lg-6">
-				<?php
-					$locations = $profile_data['profile']['user_location'];
-					// debug($locations);
-				?>
-				<!-- MULTIPLE TO KAYA DAPAT MATRON UI NG ADD ANOTHER -->
-				<div class="card card-success">
-					<div class="card-header">
-						<h3 class="card-title">Farm Locations</h3>
-					</div>
-					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
-						<div class="card-body">
-							<div id="map-box" style="width: 100%; height: 225px; margin-bottom: 15px;">
-								<img src="http://placehold.it/565x225?text=Map">
-							</div>
-							<?php foreach ($locations as $key => $row): ?>
-								<?php
-								$latlng = '';
-								if ($row['lat'] != '' AND $row['lng'] != '') {
-									$latlng = json_encode(['lat'=>$row['lat'], 'lng'=>$row['lng']]);
-								}
-								?>
-								<div class="location-panel" <?php echo $key == 0 ? 'id="farm-location-template"' : '';?>>
-									<div class="row">
-										<input type="hidden" data-name="id" name="user_location[<?php echo $key;?>][id]" value="<?php echo $row['id'];?>" />
-										<div class="col-6">
-											<div class="form-group">
-												<?php if ($key == 0): ?><label for="farm_name">Farm name</label><?php endif ?>
-												<input type="text" id="farm_name" class="form-control" data-name="farm_name" name="user_location[<?php echo $key;?>][farm_name]" value="<?php echo $row['farm_name'];?>">
-											</div>
-										</div>
-										<div class="col-6">
-											<div class="form-group">
-												<?php if ($key == 0): ?><label for="address">Address</label><?php endif ?>
-												<input type="text" id="address" class="address form-control" data-name="address" name="user_location[<?php echo $key;?>][address]" value="<?php echo $row['address'];?>" />
-											</div>
-										</div>
-										<input type="hidden" class="latlng" data-name="latlng" name="user_location[<?php echo $key;?>][latlng]" value='<?php echo $latlng;?>' />
-									</div>
-								</div>
-							<?php endforeach ?>
-						</div>
-
-						<div class="card-footer">
-							<button type="submit" class="btn btn-default">Save</button>
-							<button type="button" class="btn btn-default pull-right new-farm">New farm</button>
-						</div>
-					</form>
-				</div>
-
 				<div class="card card-default">
 					<div class="card-header">
 						<h3 class="card-title">Password Reset</h3>
@@ -207,8 +158,5 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- INFO WINDOW -->
-	<div id="info-window" style="position: fixed;">UI HERE!</div>
 </section>
 

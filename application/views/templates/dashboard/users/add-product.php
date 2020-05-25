@@ -10,7 +10,7 @@
 
 <section class="content">
 	<div class="container-fluid">
-		<form action="/dashboard/add-product/" method="post" id="add-product" class="form-validate" enctype="multipart/form-data">
+		<form action="/add-product/" method="post" id="add-product" class="form-validate" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 					<div class="card card-primary">
@@ -26,7 +26,7 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-lg-4">
-									<?php $category = get_data_and_construct('product_category', 'value'); ?>
+									<?php $category = get_data_and_construct('product_category'); ?>
 									<div class="form-group">
 										<label for="category_id">Category</label>
 										<select class="form-control custom-select" id="category_id" name="product[category_id]" required="required">

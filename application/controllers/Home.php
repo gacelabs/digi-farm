@@ -8,7 +8,7 @@ class Home extends MY_Controller {
 		parent::__construct();
 	}
 
-public function index()
+	public function index()
 	{
 		$data = array(
 			'meta' => array(),
@@ -36,7 +36,10 @@ public function index()
 			'footer_css' => $this->dash_defaults('footer_css'),
 			'footer_js' => $this->dash_defaults('footer_js', [
 				base_url().'assets/js/slider.js',
-				base_url().'assets/js/slider.init.js'
+				base_url().'assets/js/slider.init.js',
+				'https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNbxnm4HQLyFO4FkUOpam3Im14wWY0MA&libraries=places',
+				base_url('assets/js/map-script.js'),
+				base_url('assets/js/marketplace.js')
 			]),
 			'post_body' => array(
 			),
