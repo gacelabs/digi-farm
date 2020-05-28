@@ -1,0 +1,86 @@
+.elem-block {
+	display: block;
+	width: 100%;
+}
+.text-ellipsis>p, .text-ellipsis>h1, .text-ellipsis>h2, .text-ellipsis>h3, .text-ellipsis>h4, .text-ellipsis>h5, .text-ellipsis>small, .text-ellipsis {
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.product-item {
+	max-width: 247px;
+}
+.product-item, .product-item a {
+	outline: none !important;
+	box-shadow: none !important;
+	border: 0 none !important;
+}
+.product-item .card:hover, .farmer-item .card:hover {
+	transition: all .3s ease-in-out;
+	box-shadow: 0 0 1px rgba(0,0,0,.125), 0px 1px 3px 2px rgba(0,0,0,.2);
+}
+.product-item .card-header {
+	padding: 0 !important;
+	width: 100%;
+}
+.product-item .card-tools {
+	position: absolute;
+	top: 0;
+	left: 5px;
+}
+.product-item img, .farmer-item-banner {
+	border-top-left-radius: .25rem;
+	border-top-right-radius: .25rem;
+}
+.farmer-item-banner {
+	object-fit: cover;
+	object-position: center center;
+	height: 120px;
+}
+.img-fit {
+	object-fit: cover;
+	object-position: center center;
+	width: 100%;
+	height: 100%;
+}
+.card-body {
+	padding: 1rem;
+}
+[data-toggle="modal"] {
+	cursor: pointer;
+	transition: all .3s ease-in-out;
+}
+[data-toggle="modal"]:hover {
+	filter: brightness(0.7);
+}
+.elem-block {
+	width: 100%;
+	min-width: 100%;
+}
+.form-control.border-bottom {
+	background-color: transparent !important;
+	border: 0 none !important;
+	border-bottom: 2px solid #fff !important;
+	border-radius: 0 !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+	background-color: #007bff !important;
+	border-color: #006fe6 !important;
+	color: #fff;
+	padding: 0 10px;
+	margin-top: .31rem;
+}
+.select2-container .select2-selection--single {
+	height: 38px !important;
+}
+.select2-container--default .select2-selection--single, .select2-container--default .select2-selection--multiple {
+	border-color: #ced4da !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	top: 5px;
+	right: 5px
+}
+.text-grey {
+	color: #aaa;
+}

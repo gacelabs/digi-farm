@@ -105,7 +105,7 @@
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<div class="card card-primary card-outline">
 					<div class="card-header">
-						<h3 class="card-title">Photos</h3>
+						<h3 class="card-title">My Farm - Photos</h3>
 					</div>
 					<form role="form" action="/dashboard/settings/<?php echo $info['id'];?>" method="post" class="form-validate" enctype="multipart/form-data">
 						<div class="card-body">

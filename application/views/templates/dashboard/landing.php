@@ -14,33 +14,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				background-position: right calc(.375em + .1875rem) center;
 				background-size: calc(.75em + .375rem) calc(.75em + .375rem);
 			}
-			.elem-block {
-				width: 100%;
-				min-width: 100%;
-			}
-			.form-control.border-bottom {
-				background-color: transparent !important;
-				border: 0 none !important;
-				border-bottom: 2px solid #fff !important;
-				border-radius: 0 !important;
-			}
-			.select2-container--default .select2-selection--multiple .select2-selection__choice {
-				background-color: #007bff;
-				border-color: #006fe6;
-				color: #fff;
-				padding: 0 10px;
-				margin-top: .31rem;
-			}
-			.select2-container .select2-selection--single {
-				height: 38px !important;
-			}
-			.select2-container--default .select2-selection--single, .select2-container--default .select2-selection--multiple {
-				border-color: #ced4da;
-			}
-			.select2-container--default .select2-selection--single .select2-selection__arrow {
-				top: 5px;
-				right: 5px
-			}
 		</style>
 		<script type="text/javascript">
 			var currPage = "<?php echo $body_id;?>-page";

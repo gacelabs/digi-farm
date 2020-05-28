@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-lg-12">
-				<h3 class="m-0 text-dark">Veggies in your location</h3>
+				<h3 class="m-0 text-dark">Veggies near you</h3>
 			</div>
 		</div>
 	</div>
@@ -21,24 +21,21 @@
 					<?php if ($veggies_position): ?>
 					<!-- LOOP HERE -->
 						<?php foreach ($veggies_position as $key => $product): ?>
-							<div class="slider-item">
-								<div class="card">
-									<div class="card-header">
-										<div id="veggies-map" style="width: 100%; height: 285px;">
-											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt=""></div>
-										<div class="card-tools">
-											<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i>
-												<?php echo round($product['distance'], 2);?><?php echo strtoupper($product['unit']);?>
-											</span>
+							<div class="slider-item product-item">
+								<a href="#">
+									<div class="card">
+										<div class="card-header">
+											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="">
+											<div class="card-tools">
+												<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> <?php echo round($product['distance'], 2);?><?php echo strtoupper($product['unit']);?></span>
+											</div>
+										</div>
+										<div class="card-body text-ellipsis">
+											<h5><b><?php echo $product['name'];?></b></h5>
+											<h4 class="zero-gap"><span class="currency">₱</span><?php echo $product['current_price']?><small style="font-size:50%;color:#aaa !important;"> / <?php echo $product['measurement']?></small></h4>
 										</div>
 									</div>
-									<div class="card-body">
-										<?php echo $product['description'];?>
-									</div>
-									<div class="card-footer">
-										<?php echo $product['name'];?>
-									</div>
-								</div>
+								</a>
 							</div>
 						<?php endforeach ?>
 					<!-- LOOP HERE -->
@@ -127,16 +124,22 @@
 			<div class="col-lg-12">
 				<section class="location-slider">
 					<!-- LOOP Here -->
-					<div class="slider-item">
-						<div class="card card-success card-outline">
-							<img src="http://placehold.it/1080x500" width="100%" height="500px" alt="">
-							<div class="card-body box-profile">
-								<div class="text-center" style="margin-top: -60px;">
-									<img class="profile-user-img img-fluid img-circle" src="http://placehold.it/80x80" alt="User profile picture">
+					<div class="slider-item farmer-item">
+						<a href="#">
+							<div class="card card-success card-outline">
+								<img src="http://placehold.it/1080x500" class="farmer-item-banner" />
+								<div class="box-profile">
+									<div class="card-header text-center" style="margin-top:-45px;border-bottom:0 none;">
+										<img class="profile-user-img img-fluid img-circle" src="http://placehold.it/80x80" alt="User profile picture" />
+									</div>
+									<div class="card-footer text-center text-ellipsis" style="background-color:#fff;border-bottom-left-radius:.25rem;border-bottom-right-radius:.25rem">
+										<h3 class="profile-username zero-gap">Poi Garcia</h3>
+										<small class="text-grey zero-gap elem-block">Bagong Nayon, Antipolo City</small>
+										<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> 1.3KM</span>
+									</div>
 								</div>
-								<h3 class="profile-username text-center zero-gap">Poi Garcia</h3>
 							</div>
-						</div>
+						</a>
 					</div>
 					<!-- LOOP Here -->
 				</section>
@@ -158,26 +161,26 @@
 <section class="content">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-3">
-				<!-- LOOP HERE -->
-				<div class="slider-item">
-					<div class="card">
-						<div class="card-header">
-							<img src="http://placehold.it/300x300" class="" alt="">
-							<div class="card-tools">
-								<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> 1.3KM</span>
+			<!-- LOOP HERE -->
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+				<div class="slider-item product-item">
+					<a href="#">
+						<div class="card">
+							<div class="card-header">
+								<img src="assets/images/props/lettuce.jpg" class="img-fit" alt="">
+								<div class="card-tools">
+									<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> 1.3KM</span>
+								</div>
+							</div>
+							<div class="card-body text-ellipsis">
+								<h5><b>Lettuce</b></h5>
+								<h4 class="zero-gap"><span class="currency">₱</span>80<small style="font-size:50%;color:#aaa !important;"> / pc</small></h4>
 							</div>
 						</div>
-						<div class="card-body">
-							The body of the card
-						</div>
-						<div class="card-footer">
-							The footer of the card
-						</div>
-					</div>
+					</a>
 				</div>
-				<!-- LOOP HERE -->
 			</div>
+			<!-- LOOP HERE -->
 		</div>
 	</div>
 </section>

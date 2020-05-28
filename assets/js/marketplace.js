@@ -11,6 +11,4 @@ $(document).ready(function() {
 		}
 	}
 	markerCombiner();*/
-
-	if ($('#product-data').val() != false) {}
 });

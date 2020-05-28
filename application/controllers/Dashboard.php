@@ -128,7 +128,7 @@ class Dashboard extends MY_Controller {
 					base_url('assets/js/profile.js'),
 				]),
 				'post_body' => array(
-
+					'templates/dashboard/modals/farmer-info'
 				),
 				'db' => function() {
 					$activity = $this->custom->get('activity');
@@ -364,6 +364,7 @@ class Dashboard extends MY_Controller {
 					base_url('assets/js/jquery.validation.min.js'),
 					base_url('assets/js/validator.js'),
 					base_url('assets/js/farm.js'),
+					base_url('assets/admin/js/custom-js.js')
 				]),
 				'post_body' => array(
 				),
@@ -450,7 +451,9 @@ class Dashboard extends MY_Controller {
 				),
 				'title' => ucfirst(__FUNCTION__).' | Farmapp',
 				'head_css' => $this->dash_defaults('head_css'),
-				'head_js' => $this->dash_defaults('head_js'),
+				'head_js' => $this->dash_defaults('head_js', [
+					base_url('assets/admin/css/custom-admin.css')
+				]),
 				'body_id' => __FUNCTION__,
 				'body_class' => __FUNCTION__,
 				'wrapper_class' => 'settings',
