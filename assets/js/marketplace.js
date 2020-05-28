@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var latlngs = $('#veggies_position').data('value');
+	/*var latlngs = $('#veggies_position').data('value');
 	// console.log(latlngs);
 	for(x in latlngs) {
 		latlngs[x].lat = parseFloat(latlngs[x].lat);
@@ -10,5 +10,7 @@ $(document).ready(function() {
 			addMarker(latlngs[x], true);
 		}
 	}
-	markerCombiner();
+	markerCombiner();*/
+
+	if ($('#product-data').val() != false) {}
 });

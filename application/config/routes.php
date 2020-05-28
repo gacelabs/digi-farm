@@ -5,7 +5,8 @@ $route['default_controller'] = 'Marketplace';
 
 $route['dashboard'] = 'Dashboard';
 $route['inventory'] = 'Dashboard/inventory';
-$route['add-product'] = 'Dashboard/add_product';
+$route['save-product'] = 'Dashboard/save_product';
+$route['save-product/(:num)'] = 'Dashboard/save_product/$1';
 $route['profile'] = 'Dashboard/profile';
 $route['profile/(:num)'] = 'Dashboard/profile/$1';
 $route['farm'] = 'Dashboard/my_farm';

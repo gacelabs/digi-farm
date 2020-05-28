@@ -56,8 +56,8 @@
 									<p>Orders <span class="right badge badge-success">23</span></p>
 								</a>
 							</li>
-							<li class="nav-item has-treeview <?php active_menu(1, 'dashboard', true);?> <?php active_menu(1, 'inventory', true);?> <?php active_menu(1, 'orders', true);?> <?php active_menu(1, 'add-product', true);?> <?php active_menu(1, 'farm', true);?> <?php active_menu(1, 'settings', true);?>">
-								<a href="javascript:;" class="nav-link <?php active_menu(1, 'dashboard');?> <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'add-product');?> <?php active_menu(1, 'farm');?> <?php active_menu(1, 'settings');?>">
+							<li class="nav-item has-treeview <?php active_menu(1, 'dashboard', true);?> <?php active_menu(1, 'inventory', true);?> <?php active_menu(1, 'orders', true);?> <?php active_menu(1, 'save-product', true);?> <?php active_menu(1, 'farm', true);?> <?php active_menu(1, 'settings', true);?>">
+								<a href="javascript:;" class="nav-link <?php active_menu(1, 'dashboard');?> <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'save-product');?> <?php active_menu(1, 'farm');?> <?php active_menu(1, 'settings');?>">
 									<i class="nav-icon fas fa-store-alt"></i>
 									<p>Farm <i class="right fas fa-angle-left"></i></p>
 								</a>
@@ -69,7 +69,7 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="inventory" class="nav-link <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'add-product');?>">
+										<a href="inventory" class="nav-link <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'save-product');?>">
 											<i class="fas fa-warehouse nav-icon"></i>
 											<p>Inventory</p>
 										</a>

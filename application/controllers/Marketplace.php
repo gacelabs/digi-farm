@@ -46,18 +46,25 @@ class Marketplace extends MY_Controller {
 			),
 			'db' => function() {
 				$latlng = get_geolocation();
-				$location_ids = []; $where_locations = ''; $veggies_position = false;
+				$veggies_position = false;
 				if ($latlng) {
 					$data = nearest_locations(['latlng' => $latlng]);
-					debug($data, 1);
+					// debug($data, 1);
 					if ($data) {
-						foreach ($data as $key => $loc) $location_ids[] = $loc['id'];
-						// debug($location_ids, 1);
-						$where_locations = 'WHERE location_id IN ('.implode(',', $location_ids).')';
-						// debug($where_locations, 1);
-						$veggies_position = $this->custom->query("SELECT lat, lng
-						FROM user_location
-						WHERE id IN (SELECT location_id FROM product ".$where_locations.")");
+						$veggies_position = [];
+						foreach ($data as $key => $loc) {
+							$products = $this->db->join('product_location', 'product_location.product_id = product.id', 'left')
+								->join('product_photo', 'product_photo.product_id = product.id AND product_photo.is_main = 1', 'left')
+								->select('product.*, "'.$loc['distance'].'" AS distance, "'.$loc['unit'].'" AS unit, product_photo.path AS photo')
+								->get_where('product', ['product_location.location_id'=>$loc['id']]);
+							if ($products->num_rows()) {
+								// debug($products->result_array(), 1);
+								foreach ($products->result_array() as $key => $product) {
+									$veggies_position[$product['id']] = $product;
+								}
+							}
+						}
+						// debug($veggies_position, 1);
 					}
 				}
 				// debug($veggies_position, 1);

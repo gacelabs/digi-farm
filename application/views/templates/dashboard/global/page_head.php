@@ -27,7 +27,7 @@
 	.nav.nav-treeview {
 		padding-left: 25px;
 	}
-	.add_product .content-wrapper {
+	.save_product .content-wrapper {
 		padding-bottom: 30px;
 	}
 </style>

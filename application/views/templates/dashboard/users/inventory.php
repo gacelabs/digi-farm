@@ -18,7 +18,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">
-						<a href="add-product" class="btn btn-sm btn-primary">Add a product</a>
+						<a href="save-product" class="btn btn-sm btn-primary">Add a product</a>
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
@@ -37,7 +37,7 @@
 							<tbody>
 								<?php if ($products): ?>
 									<?php foreach ($products as $key => $product): ?>
-									<tr>
+									<tr style="cursor: pointer;" onclick="window.location.href = 'save-product/<?php echo $product['id'];?>'">
 										<td align="center">
 											<img class="img-responsive elevation-2" src="<?php echo $product['photo'];?>" style="width: 3rem;">
 										</td>

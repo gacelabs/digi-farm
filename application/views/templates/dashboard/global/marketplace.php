@@ -9,32 +9,40 @@
 </section>
 <?php
 	$marketplace_data = $db();
-	// debug($marketplace_data);
+	$veggies_position = $marketplace_data['veggies_position'];
+	// debug($veggies_position);
 ?>
-<input type="hidden" id="veggies_position" data-value='<?php echo json_encode($marketplace_data['veggies_position']);?>'>
+
 <section class="content">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
 				<section class="location-slider">
+					<?php if ($veggies_position): ?>
 					<!-- LOOP HERE -->
-					<div class="slider-item">
-						<div class="card">
-							<div class="card-header">
-								<div id="veggies-map" style="width: 100%; height: 285px;"><img src="http://placehold.it/300x300" class="" alt=""></div>
-								<div class="card-tools">
-									<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> 1.3KM</span>
+						<?php foreach ($veggies_position as $key => $product): ?>
+							<div class="slider-item">
+								<div class="card">
+									<div class="card-header">
+										<div id="veggies-map" style="width: 100%; height: 285px;">
+											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt=""></div>
+										<div class="card-tools">
+											<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i>
+												<?php echo round($product['distance'], 2);?><?php echo strtoupper($product['unit']);?>
+											</span>
+										</div>
+									</div>
+									<div class="card-body">
+										<?php echo $product['description'];?>
+									</div>
+									<div class="card-footer">
+										<?php echo $product['name'];?>
+									</div>
 								</div>
 							</div>
-							<div class="card-body">
-								The body of the card
-							</div>
-							<div class="card-footer">
-								The footer of the card
-							</div>
-						</div>
-					</div>
+						<?php endforeach ?>
 					<!-- LOOP HERE -->
+					<?php endif ?>
 				</section>
 			</div>
 		</div>
