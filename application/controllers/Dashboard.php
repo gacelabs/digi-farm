@@ -66,6 +66,11 @@ class Dashboard extends MY_Controller {
 			if ($id == $user['id']) {
 				// debug($set, 1);
 				if (isset($set['user'])) {
+					if (!isset($set['user']['farmer'])) {
+						$set['user']['farmer'] = 0;
+					} else {
+						$set['user']['farmer'] = (bool)$set['user']['farmer'];
+					}
 					$this->custom->save('user', $set['user'], ['id' => $id]);
 				}
 				if (isset($set['user_app_settings'])) {
@@ -475,6 +480,7 @@ class Dashboard extends MY_Controller {
 					base_url('assets/js/jquery.validation.min.js'),
 					base_url('assets/js/validator.js'),
 					'https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNbxnm4HQLyFO4FkUOpam3Im14wWY0MA&libraries=places',
+					base_url('assets/js/markerclustererplus.min.js'),
 					base_url('assets/js/map-script.js'),
 					base_url('assets/js/settings.js'),
 				]),

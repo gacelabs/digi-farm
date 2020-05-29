@@ -38,9 +38,6 @@ class Marketplace extends MY_Controller {
 			'footer_js' => $this->dash_defaults('footer_js', [
 				base_url().'assets/js/slider.js',
 				base_url().'assets/js/slider.init.js',
-				'https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNbxnm4HQLyFO4FkUOpam3Im14wWY0MA&libraries=places',
-				base_url('assets/js/markerclustererplus.min.js'),
-				base_url('assets/js/map-script.js'),
 				base_url('assets/js/marketplace.js'),
 				base_url().'assets/admin/js/custom-js.js'
 			]),
@@ -48,12 +45,14 @@ class Marketplace extends MY_Controller {
 			),
 			'db' => function() {
 				$latlng = get_geolocation();
-				$veggies_position = false;
+				$veggies_position = $farmers_position = false;
 				if ($latlng) {
+					$profile = $this->accounts->has_session ? $this->accounts->profile['user'] : false;
 					$data = nearest_locations(['latlng' => $latlng]);
 					// debug($data, 1);
 					if ($data) {
-						$veggies_position = [];
+						$veggies_position = $farmers_position = $distances = [];
+						foreach ($data as $loc) $distances[$loc['user_id']][] = $loc['distance'];
 						foreach ($data as $key => $loc) {
 							$products = $this->db->join('product_location', 'product_location.product_id = product.id', 'left')
 								->join('product_photo', 'product_photo.product_id = product.id AND product_photo.is_main = 1', 'left')
@@ -65,14 +64,25 @@ class Marketplace extends MY_Controller {
 									$veggies_position[$product['id']] = $product;
 								}
 							}
+							$users = $this->db->join('user_location', 'user_location.user_id = user.id', 'left')
+								->select('user.*, "'.min($distances[$loc['user_id']]).'" AS distance, "'.$loc['unit'].'" AS unit, user_location.farm_name, user_location.address')
+								->get_where('user', ['user_location.user_id'=>$loc['user_id']]);
+							if ($users->num_rows()) {
+								// debug($products->result_array(), 1);
+								foreach ($users->result_array() as $key => $user) {
+									if (($profile AND $profile['id'] != $user['id']) OR $profile == false) {
+										$farmers_position[$user['id']] = $user;
+									}
+								}
+							}
 						}
-						// debug($veggies_position, 1);
 					}
 				}
 				// debug($veggies_position, 1);
+				// debug($farmers_position, 1);
 				return [
-					// 'profile' => $this->accounts->profile,
 					'veggies_position' => $veggies_position,
+					'farmers_position' => $farmers_position,
 				];
 			}
 		);

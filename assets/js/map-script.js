@@ -96,5 +96,16 @@ var markerCombiner = function() {
 		var markerCluster = new MarkerClusterer(map, markers, {
 			imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
 		});
+		/*var mcOptions = {
+			styles:[{
+				url: "/assets/admin/images/map-cluster-green.svg",
+				width: 34,
+				height:34,
+				fontFamily:"comic sans ms",
+				textSize:12,
+				textColor:"#FFFFFF",
+			}]
+		};
+		var markerCluster = new MarkerClusterer(map, markers, mcOptions);*/
 	}, 1500);
 }

@@ -17,6 +17,7 @@ $(document).ready(function() {
 					addMarker({'lat': lat, 'lng': long}, true);
 				}
 			}
+			markerCombiner();
 		});
 
 		if ($.trim($(input).val()) != '' && $.trim($(elem).find('.latlng').val())) {
@@ -27,6 +28,7 @@ $(document).ready(function() {
 			} else {
 				addMarker(latlng, true);
 			}
+			markerCombiner();
 		}
 	});
 
@@ -60,6 +62,7 @@ $(document).ready(function() {
 			} else {
 				addMarker({'lat': lat, 'lng': long}, true);
 			}
+			markerCombiner();
 		});
 	});
 
