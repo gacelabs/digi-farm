@@ -5,19 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 	<head>
 		<?php $this->load->view('templates/dashboard/global/page_head'); ?>
-		<style type="text/css">
-			.error {
-				border-color: #f35757;
-				padding-right: 2.25rem;
-				background-image: url('assets/admin/images/error.svg');
-				background-repeat: no-repeat;
-				background-position: right calc(.375em + .1875rem) center;
-				background-size: calc(.75em + .375rem) calc(.75em + .375rem);
-			}
-		</style>
-		<script type="text/javascript">
-			var currPage = "<?php echo $body_id;?>-page";
-		</script>
 	</head>
 
 	<body id="<?php echo $body_id;?>-page" <?php echo (!empty($body_class) ? "class='".$body_class." layout-navbar-fixed layout-fixed'": ""); ?>>

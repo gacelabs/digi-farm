@@ -70,7 +70,10 @@ class MY_Model extends CI_Model {
 				$set['version'] = (int)$data['version'] + 1;
 			}*/
 			$this->db->update($table, $set, $where);
-			$id = $this->get($table, $where, 'id', 'row')['id'];
+			$id = 0;
+			if ($this->db->field_exists('id', $table)) {
+				$id = $this->get($table, $where, 'id', 'row')['id'];
+			}
 			if ($redirect_url != '') {
 				if ($callback) {
 					$callback($id);

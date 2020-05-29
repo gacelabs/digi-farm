@@ -92,7 +92,7 @@
 								</div>
 								<div class="col-lg-4 col-md-4">
 									<?php
-										$selected = 0;
+										$selected = '';
 										if ($product) {
 										 	$selected = $product['measurement'];
 										} 
@@ -101,7 +101,7 @@
 									<div class="form-group">
 										<label>Measurement</label>
 										<select class="form-control select2" id="measurement" name="product[measurement]" required="required" style="width: 100%;height: 38px;">
-											<option selected="selected" disabled="disabled" value="0">Select one</option>
+											<option selected="selected" disabled="disabled" value="">Select one</option>
 											<?php if ($measurements): ?>
 												<?php foreach ($measurements['select'] as $value => $label): ?>
 													<option value="<?php echo $value;?>" <?php echo ($measurements['selected']==$value) ? 'selected' : '';?>><?php echo $label;?></option>
@@ -127,11 +127,12 @@
 								<div class="col-lg-12">
 									<hr>
 									<?php
-										$selected = 0;
+										$selected = [];
 										if ($product) {
 										 	$selected = explode(',', $product['location_id']);
 										} 
 										$locations = get_data_and_construct('user_location', 'id', 'ddloc', $selected);
+										// debug($locations, 1);
 									?>
 									<p>Which of your farms this product is available?</p>
 									<div class="form-group">

@@ -221,6 +221,7 @@ class Dashboard extends MY_Controller {
 				}
 				// $product_id = 1;
 				$check = $this->custom->get('product_location', ['user_id'=>$user['id'], 'product_id'=>$product_id]);
+				// debug($check, 1);
 				foreach ($location_ids as $location_id) {
 					if ($check) {
 						$this->custom->save('product_location', ['location_id'=>$location_id], ['user_id'=>$user['id'], 'product_id'=>$product_id]);

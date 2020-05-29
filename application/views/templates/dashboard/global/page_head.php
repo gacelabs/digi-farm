@@ -10,6 +10,19 @@
 ?>
 
 <title><?php echo $title; ?></title>
+<style type="text/css">
+	.error {
+		border: 1px solid #f35757 !important;
+		padding-right: 2.25rem;
+		background-image: url('assets/admin/images/error.svg');
+		background-repeat: no-repeat;
+		background-position: right calc(.375em + .1875rem) center;
+		background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+	}
+</style>
+<script type="text/javascript">
+	var currPage = "<?php echo $body_id;?>-page";
+</script>
 
 <?php foreach ($head_css as $key => $value) { ?>
 	<?php if (!empty($value)) { ?>
