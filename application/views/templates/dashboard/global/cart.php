@@ -39,40 +39,40 @@
 						<th class="text-center">
 							Status
 						</th>
-						<th style="width: 20%;"></th>
+						<th style="width: 30%;"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php if ($carts):
 						$row = 0;
 						?>
-						<?php foreach ($carts as $key => $cart): ?>
+						<?php foreach ($carts as $key => $product): ?>
 							<tr data-rowid="<?php echo $key;?>">
 								<td><?php echo $row+=1;?></td>
 								<td>
-									<a href="/product/view?id=<?php echo $cart['id'];?>">
-										<?php echo $cart['name'];?>
+									<a href="/product/view?id=<?php echo $product['id'];?>">
+										<?php echo $product['name'];?>
 									</a>
 									<br />
 									<small>
-										<?php $datetime = explode('.', $cart['added']);?>
+										<?php $datetime = explode('.', $product['added']);?>
 										Created | <?php echo date('F j, Y g:i a', strtotime($datetime[0]));?>
 									</small>
 								</td>
 								<td>
 									<ul class="list-inline">
 										<li class="list-inline-item">
-											<img alt="Avatar" class="table-avatar" src="<?php check_file_and_render($cart['path'], '37x37?text= ?');?>" />
+											<img alt="Avatar" class="table-avatar" src="<?php check_file_and_render($product['path'], '37x37?text= ?');?>" />
 										</li>
 									</ul>
 								</td>
 								<td>
-									<?php echo $cart['qty'];?>
+									<?php echo $product['qty'];?>
 								</td>
 								<td class="project_progress">
 									<?php
 										$progress = 10;
-										if (isset($cart['status']) AND $cart['status'] != 'Added') {
+										if (isset($product['status']) AND $product['status'] != 'Added') {
 											$progress = 100;
 										}
 									?>
@@ -86,24 +86,25 @@
 								<td class="project-state">
 									<?php
 										$status = 'Added';
-										if (isset($cart['status'])) {
-											$status = $cart['status'];
+										if (isset($product['status'])) {
+											$status = $product['status'];
 										}
 									?>
 									<span class="badge badge-success"><?php echo $status;?></span>
 								</td>
 								<td class="project-actions text-right">
+									<a href="/cart/add?id=<?php echo $product['id'];?>" class="btn btn-success btn-sm" href="#">
+										<i class="fas fa-plus"> </i>
+									</a>
+									<a href="/cart/less/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
+										<i class="fas fa-minus"> </i>
+									</a>
 									<a class="btn btn-primary btn-sm" href="#">
 										<i class="fas fa-folder"> </i>
 										Checkout
 									</a>
-									<!-- <a class="btn btn-info btn-sm" href="#">
-										<i class="fas fa-pencil-alt"> </i>
-										Edit
-									</a> -->
 									<a href="/cart/remove/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
 										<i class="fas fa-trash"> </i>
-										Cancel
 									</a>
 								</td>
 							</tr>

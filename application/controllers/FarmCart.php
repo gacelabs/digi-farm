@@ -72,7 +72,7 @@ class FarmCart extends MY_Controller {
 				$insert['status'] = $status;
 				
 				$this->cart->insert($insert);
-				redirect(base_url('cart?message=Product has been added to cart'));
+				redirect(base_url('cart?message=Product '.$insert['name'].' quantity added'));
 			} else {
 				redirect(base_url('?error=Product maybe out of stocks or been removed!'));
 			}
@@ -81,6 +81,18 @@ class FarmCart extends MY_Controller {
 			}
 		} else {
 			redirect(base_url('cart'));
+		}
+	}
+
+	public function less($rowid=false)
+	{
+		if ($rowid) {
+			$item = $this->cart->get_item($rowid);
+			$item['qty'] -= 1;
+			$this->cart->update($item);
+			redirect(base_url('cart?message=Product '.$item['name'].' quantity deducted'));
+		} else {
+			redirect(base_url('cart?error=Does nothing'));
 		}
 	}
 
