@@ -22,7 +22,7 @@ $route['sign_up'] = 'Account/sign_up';
 $route['sign_out'] = 'Account/sign_out';
 
 $route['cart'] = 'FarmCart/index';
-$route['cart/(:num)'] = 'FarmCart/index/$1';
+$route['cart/add'] = 'FarmCart/add';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

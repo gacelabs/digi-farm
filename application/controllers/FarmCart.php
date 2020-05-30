@@ -33,11 +33,55 @@ class FarmCart extends MY_Controller {
 			'footer_js' => $this->dash_defaults('footer_js'),
 			'post_body' => array(
 			),
-			'db' => array(
-
-			)
+			'db' => function() {
+				// $this->cart->destroy();
+				return $this->cart->contents();
+			}
 		);
 		$this->load->view('templates/dashboard/landing', $data);
+	}
+
+	public function add()
+	{
+		$post = $this->input->post() ? $this->input->post() : $this->input->get(); 
+		if ($post) {
+			if (!isset($post['qty'])) $post['qty'] = 1;
+			$product = $this->custom->get('product', ['id' => $post['id']], false, 'row');
+			// debug($product, 1);
+			if ($product) {
+				$insert = [
+					'id' => $product['id'],
+					'qty' => $post['qty'],
+					'price' => $product['current_price'],
+					'name' => $product['name'].' - '.$product['description'],
+				];
+				$insert['options'] = $product;
+				$insert['added'] = date('Y-m-d H:i:s.U');
+
+				$photo = $this->custom->get('product_photo', ['product_id' => $post['id'], 'is_main' => 1], false, 'row');
+				$insert['path'] = $photo['path'];
+
+				$cart_rowid = array_keys($this->cart->contents(true))[0];
+				$order = $this->custom->get('order', ['product_id' => $post['id'], 'rowid' => $cart_rowid], false, 'row');
+				// debug($order, 1);
+				$status = 'Added';
+				if ($order) {
+					$statuses = $this->custom->get('order_status', ['id' => $order['status_id']], false, 'row');
+					$status = $statuses['label'];
+				}
+				$insert['status'] = $status;
+				
+				$this->cart->insert($insert);
+				redirect(base_url('cart?message=Product has been added to cart'));
+			} else {
+				redirect(base_url('?error=Product maybe out of stocks or been removed!'));
+			}
+			if ($this->accounts->has_session == false) {
+				redirect(base_url('login?page=sign_up'));
+			}
+		} else {
+			redirect(base_url('cart'));
+		}
 	}
 
 }

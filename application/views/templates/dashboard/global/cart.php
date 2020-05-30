@@ -1,4 +1,7 @@
-
+<?php
+	$carts = $db();
+	// debug($carts);
+?>
 <!-- Main content -->
 <section class="content pt-2">
 	<!-- Default box -->
@@ -21,10 +24,10 @@
 						<th style="width: 1%;">
 							#
 						</th>
-						<th style="width: 20%;">
+						<th style="width: 30%;">
 							Product Name
 						</th>
-						<th style="width: 30%;">
+						<th style="width: 20%;">
 							Cart Items
 						</th>
 						<th>
@@ -37,61 +40,63 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>
-							#
-						</td>
-						<td>
-							<a>
-								AdminLTE v3
-							</a>
-							<br />
-							<small>
-								Ordered 01.01.2019
-							</small>
-						</td>
-						<td>
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<img alt="Avatar" class="table-avatar" src="<?php check_file_and_render(false, '37x37');?>" />
-								</li>
-								<li class="list-inline-item">
-									<img alt="Avatar" class="table-avatar" src="<?php check_file_and_render(false, '37x37');?>" />
-								</li>
-								<li class="list-inline-item">
-									<img alt="Avatar" class="table-avatar" src="<?php check_file_and_render(false, '37x37');?>" />
-								</li>
-								<li class="list-inline-item">
-									<img alt="Avatar" class="table-avatar" src="<?php check_file_and_render(false, '37x37');?>" />
-								</li>
-							</ul>
-						</td>
-						<td class="project_progress">
-							<div class="progress progress-sm">
-								<div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%;"></div>
-							</div>
-							<small>
-								57% Complete
-							</small>
-						</td>
-						<td class="project-state">
-							<span class="badge badge-success">Success</span>
-						</td>
-						<td class="project-actions text-right">
-							<a class="btn btn-primary btn-sm" href="#">
-								<i class="fas fa-folder"> </i>
-								View
-							</a>
-							<!-- <a class="btn btn-info btn-sm" href="#">
-								<i class="fas fa-pencil-alt"> </i>
-								Edit
-							</a> -->
-							<a class="btn btn-danger btn-sm" href="#">
-								<i class="fas fa-trash"> </i>
-								Cancel
-							</a>
-						</td>
-					</tr>
+					<?php if ($carts):
+						$row = 0;
+						?>
+						<?php foreach ($carts as $key => $cart): ?>
+							<tr data-rowid="<?php echo $key;?>">
+								<td><?php echo $row+=1;?></td>
+								<td>
+									<a href="/product/view?id=<?php echo $cart['id'];?>">
+										<?php echo $cart['name'];?>
+									</a>
+									<br />
+									<small>
+										<?php $datetime = explode('.', $cart['added']);?>
+										Created | <?php echo date('F j, Y g:i a', strtotime($datetime[0]));?>
+									</small>
+								</td>
+								<td>
+									<ul class="list-inline">
+										<li class="list-inline-item">
+											<img alt="Avatar" class="table-avatar" src="<?php check_file_and_render($cart['path'], '37x37?text= ?');?>" />
+										</li>
+									</ul>
+								</td>
+								<td class="project_progress">
+									<div class="progress progress-sm">
+										<div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%;"></div>
+									</div>
+									<small>
+										57% Complete
+									</small>
+								</td>
+								<td class="project-state">
+									<?php
+										$status = 'Added';
+										if (isset($cart['status'])) {
+											$status = $cart['status'];
+										}
+									?>
+									<span class="badge badge-success"><?php echo $status;?></span>
+								</td>
+								<td class="project-actions text-right">
+									<a class="btn btn-primary btn-sm" href="#">
+										<i class="fas fa-folder"> </i>
+										Checkout
+									</a>
+									<!-- <a class="btn btn-info btn-sm" href="#">
+										<i class="fas fa-pencil-alt"> </i>
+										Edit
+									</a> -->
+									<a class="btn btn-danger btn-sm" href="#">
+										<i class="fas fa-trash"> </i>
+										Cancel
+									</a>
+								</td>
+							</tr>
+						<?php endforeach ?>
+					<?php endif ?>
 				</tbody>
 			</table>
 		</div>
