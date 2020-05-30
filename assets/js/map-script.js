@@ -6,7 +6,7 @@ var infowindow = new google.maps.InfoWindow({
 
 var initMap = function(latlng, mapUI) {
 	map = new google.maps.Map(mapUI, {
-		zoom: 10,
+		zoom: 9,
 		center: latlng
 	});
 	addMarker(latlng);
@@ -57,6 +57,10 @@ var updateMap = function() {
 			}
 		}
 		map.fitBounds(bounds);
+		// markerCombiner();
+		if (markers.length == 1) {
+			map.setZoom(9);
+		}
 	}, 1000);
 }
 

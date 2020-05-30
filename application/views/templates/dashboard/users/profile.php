@@ -27,7 +27,7 @@
 							<div class="row">
 								<div class="col-6 form-group">
 									<label for="first_name">First name</label>
-									<input type="text"  class="form-control" id="first_name" name="user[first_name]" value="<?php echo $info['first_name'];?>" required="required">
+									<input type="text"  class="form-control" id="first_name" name="user[first_name]" value="<?php echo $info['first_name'];?>">
 								</div>
 								<div class="col-6 form-group">
 									<label for="last_name">Last name</label>

@@ -7,12 +7,30 @@ class Accounts {
 	public $has_session = FALSE; 
 	public $profile = FALSE;
 	public $device_id = FALSE;
+	public $geolocation = FALSE;
 
 	public function __construct()
 	{
 		$this->class =& get_instance();
 		$this->has_session = $this->class->session->userdata('profile') ? TRUE : FALSE;
 		$this->profile = $this->class->session->userdata('profile');
+		$this->set_geolocation();
+	}
+
+	private function set_geolocation()
+	{
+		if ($this->class->session->userdata('geolocation') == FALSE) {
+			$this->geolocation = get_geolocation(FALSE);
+			$this->class->session->set_userdata('geolocation', $this->geolocation);
+		} else {
+			$this->geolocation = $this->class->session->userdata('geolocation');
+			/*if 540 seconds passed reload geolocation*/
+			if (time_diff($this->geolocation['date'], date('Y-m-d'), 'seconds', 540)) { /*9 minutes*/
+				$this->geolocation = get_geolocation(FALSE);
+				$this->class->session->set_userdata('geolocation', $this->geolocation);
+			}
+		}
+		$this->device_id = device_id($this->geolocation['ip']);
 	}
 
 	public function check_credits($credits=FALSE)
@@ -69,23 +87,24 @@ class Accounts {
 							$query = $this->class->db->insert('user', $post);
 							$id = $this->class->db->insert_id();
 							/*insert user location*/
-							$this->class->db->insert('user_location', ['user_id' => $id]);
+							$this->class->db->insert('user_location', [
+								'user_id' => $id,
+								'farm_name' => $post['last_name']."'s".($post['farmer'] ? ' Farm' : ' Place'),
+								'lat' => $this->geolocation['lat'],
+								'lng' => $this->geolocation['lng'],
+							]);
 							/*after insert copy all settings to this user*/
 							$app_settings = $this->class->db->get('app_settings')->result_array();
 							// debug($app_settings, 1);
 							$user_app_settings = [];
 							foreach ($app_settings as $key => $row) {
-								$value = $row['value'];
+								unset($row['created']); unset($row['last_updated']);
+								if (!isset($row['user_id'])) $row['user_id'] = 0;
+								$row['user_id'] = $id;
 								if ($row['name'] == 'password') {
-									$value = $password;
+									$row['value'] = $password;
 								}
-								$user_app_settings = [
-									'user_id' => $id,
-									'id' => $row['id'],
-									'name' => $row['name'],
-									'label' => $row['label'],
-									'value' => $value
-								];
+								$user_app_settings = $row;
 								// debug($user_app_settings, 1);
 								$this->class->db->insert('user_app_settings', $user_app_settings);
 							}
@@ -157,14 +176,14 @@ class Accounts {
 			unset($request['password']);
 			$this->class->session->set_userdata('profile', $request);
 			$this->profile = $request;
-			$this->device_id = device_id();
+			$this->device_id = device_id($this->geolocation['ip']);
 			// debug($this, 1);
 			return $this->profile;
 		}
 		return FALSE;
 	}
 
-	public function assemble_profile_data($id=false)
+	public function assemble_profile_data($id=FALSE)
 	{
 		if ($id) {
 			$user = $this->class->db->get_where('user', ['id' => $id]);
@@ -193,10 +212,10 @@ class Accounts {
 				'user_location' => $user_location_data
 			];
 		}
-		return false;
+		return FALSE;
 	}
 
-	public function update($id=false, $callback=false)
+	public function update($id=FALSE, $callback=FALSE)
 	{
 		if ($id) {
 			$data = $this->assemble_profile_data($id);

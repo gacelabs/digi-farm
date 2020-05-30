@@ -14,11 +14,14 @@ $route['settings'] = 'Dashboard/settings';
 
 $route['dashboard/admin'] = 'Admin/index';
 $route['dashboard/admin/login'] = 'Admin/login';
+$route['dashboard/admin/sign_out'] = 'Admin/sign_out';
 
 $route['login'] = 'Account/index';
 $route['sign_in'] = 'Account/sign_in';
 $route['sign_up'] = 'Account/sign_up';
 $route['sign_out'] = 'Account/sign_out';
+
+$route['cart'] = 'FarmCart/index';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

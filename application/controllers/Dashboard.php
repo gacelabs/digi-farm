@@ -5,6 +5,17 @@ class Dashboard extends MY_Controller {
 
 	public $shall_not_pass = true;
 
+	public function __construct()
+	{
+		parent::__construct();
+		// debug($this->accounts->profile['user'], 1);
+		if ($this->accounts->profile['user']['farmer'] == 0) {
+			if (in_array($this->router->method, ['index','inventory','save_product','my_farm','settings'])) {
+				redirect(base_url());
+			}
+		}
+	}
+
 	public function index()
 	{
 		$data = array(
@@ -457,9 +468,7 @@ class Dashboard extends MY_Controller {
 				),
 				'title' => ucfirst(__FUNCTION__).' | Farmapp',
 				'head_css' => $this->dash_defaults('head_css'),
-				'head_js' => $this->dash_defaults('head_js', [
-					base_url('assets/admin/css/custom-admin.css')
-				]),
+				'head_js' => $this->dash_defaults('head_js'),
 				'body_id' => __FUNCTION__,
 				'body_class' => __FUNCTION__,
 				'wrapper_class' => 'settings',

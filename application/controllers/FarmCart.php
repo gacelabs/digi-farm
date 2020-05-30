@@ -1,15 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
-	
-	public function __construct()
-	{
-		parent::__construct();
-	}
+class FarmCart extends MY_Controller {
 
 	public function index()
 	{
+		// debug($this->cart->total_items(), 1);
 		$data = array(
 			'meta' => array(
 				''
@@ -68,7 +64,6 @@ class Home extends CI_Controller {
 				
 			)
 		);
-
 		$this->load->view('templates/home', $data);
 	}
 

@@ -2,11 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Marketplace extends MY_Controller {
-	
-	public function __construct()
-	{
-		parent::__construct();
-	}
 
 	public function index()
 	{
@@ -44,10 +39,10 @@ class Marketplace extends MY_Controller {
 			'post_body' => array(
 			),
 			'db' => function() {
-				$latlng = get_geolocation();
+				$latlng = $this->latlng;
+				// debug($latlng, 1);
 				$veggies_position = $farmers_position = false;
 				if ($latlng) {
-					$profile = $this->accounts->has_session ? $this->accounts->profile['user'] : false;
 					$data = nearest_locations(['latlng' => $latlng]);
 					// debug($data, 1);
 					if ($data) {
@@ -70,9 +65,7 @@ class Marketplace extends MY_Controller {
 							if ($users->num_rows()) {
 								// debug($products->result_array(), 1);
 								foreach ($users->result_array() as $key => $user) {
-									if (($profile AND $profile['id'] != $user['id']) OR $profile == false) {
-										$farmers_position[$user['id']] = $user;
-									}
+									$farmers_position[$user['id']] = $user;
 								}
 							}
 						}

@@ -3,40 +3,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
 
-	public $shall_not_pass = true;
-
 	public function index()
 	{
-		$data = array(
-			'meta' => array(),
-			'title' => ucfirst(__CLASS__).' | Farmapp',
-			'head_css' => $this->admin_defaults('head_css'),
-			'head_js' => $this->admin_defaults('head_js'),
-			'body_id' => strtolower(__CLASS__),
-			'body_class' => strtolower(__CLASS__),
-			'wrapper_class' => '',
-			'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
-				'nav_view' => array(
-					'templates/dashboard/global/nav'
+		if ($this->session->userdata('is_admin') == false) {
+			redirect(base_url('admin/login'));
+		} else {
+			$data = array(
+				'meta' => array(),
+				'title' => ucfirst(__CLASS__).' | Farmapp',
+				'head_css' => $this->admin_defaults('head_css'),
+				'head_js' => $this->admin_defaults('head_js'),
+				'body_id' => strtolower(__CLASS__),
+				'body_class' => strtolower(__CLASS__),
+				'wrapper_class' => '',
+				'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
+					'nav_view' => array(
+						'templates/dashboard/global/nav'
+					),
+					'sidebar_view' => array(
+						'templates/dashboard/global/sidebar'
+					),
+					'contentdata_view' => array(
+						'templates/dashboard/admin/index'
+					)
 				),
-				'sidebar_view' => array(
-					'templates/dashboard/global/sidebar'
-				),
-				'contentdata_view' => array(
-					'templates/dashboard/admin/index'
-				)
-			),
-			'footer_css' => $this->admin_defaults('footer_css'),
-			'footer_js' => $this->admin_defaults('footer_js'),
-			'post_body' => array(),
-			'db' => array()
-		);
-		$this->load->view('templates/dashboard/landing', $data);
+				'footer_css' => $this->admin_defaults('footer_css'),
+				'footer_js' => $this->admin_defaults('footer_js'),
+				'post_body' => array(),
+				'db' => array()
+			);
+			$this->load->view('templates/dashboard/landing', $data);
+		}
 	}
 
 	public function login()
 	{
-		$this->load->view('templates/dashboard/admin/login');
+		$post = $this->input->post();
+		if ($post) {
+			// debug($post, 1);
+			// debug(md5('hala-admin-ako!'));
+			if ($post['email_address'] == 'admin@farmapp.com' AND md5($post['password']) == 'b90259e5894ce47f29466b2d627159ac') {
+				$this->session->set_userdata('is_admin', 1);
+				redirect(base_url('admin/'));
+			} else {
+				redirect(base_url('admin/login?error=GET OUT OF HERE! IMPOSTOR!'));
+			}
+		} else {
+			$this->load->view('templates/dashboard/admin/login');
+		}
+	}
+
+	public function sign_out()
+	{
+		$this->session->unset_userdata('is_admin');
+		$this->session->unset_userdata('profile');
+		$this->session->sess_destroy();
+		redirect(base_url('admin/login'));
 	}
 
 	public function admin_defaults($ext=false, $additional=[])

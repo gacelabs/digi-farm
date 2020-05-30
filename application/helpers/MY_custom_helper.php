@@ -820,14 +820,25 @@ function check_file_and_render($file=false, $replace=false)
 	}
 }
 
-function get_geolocation() {
+function get_geolocation($latlng_only=true) {
 	$data = unserialize(@file_get_contents('http://www.geoplugin.net/php.gp'));
 	// debug($data, 1);
 	if ($data) {
-		return [
-			'lat' => $data['geoplugin_latitude'],
-			'lng' => $data['geoplugin_longitude'],
-		];
+		if ($latlng_only) {
+			return [
+				'lat' => $data['geoplugin_latitude'],
+				'lng' => $data['geoplugin_longitude'],
+			];
+		} else {
+			return [
+				'ip' => $data['geoplugin_request'],
+				'lat' => $data['geoplugin_latitude'],
+				'lng' => $data['geoplugin_longitude'],
+				'tz' => $data['geoplugin_timezone'],
+				'unit' => $data['geoplugin_currencySymbol'],
+				'date' => date('Y-m-d'),
+			];
+		}
 	}
 	return false;
 }
@@ -839,8 +850,8 @@ function nearest_locations($data=false, $distance=100, $unit='km')
 		$position = $data['latlng'];
 
 		$and_clause = "";
-		if (isset($data['id'])) {
-			$and_clause = " AND user.id != '".$data['id']."'";
+		if ($ci->accounts->has_session) {
+			$and_clause = " AND user.id != '".$ci->accounts->profile['user']['id']."'";
 		}
 
 		if ($unit == 'km') {
@@ -898,4 +909,17 @@ function nearest_locations($data=false, $distance=100, $unit='km')
 		}
 	}
 	return false;
+}
+
+function cart_session($function=false, $params=false)
+{
+	$ci =& get_instance();
+	if ($function) {
+		if ($params) {
+			return $ci->cart->{$function}($params);
+		} else {
+			return $ci->cart->{$function}();
+		}
+	}
+	return $ci->cart->contents($params);
 }

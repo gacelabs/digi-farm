@@ -8,7 +8,7 @@ $(document).ready(function() {
 	}, 'Please enter a valid phone number');
 
 	jQuery.validator.addMethod('password_rule', function(value, element, param) {
-		var result = /*this.optional(element) ||*/ (/*value.length >= 6 && *//\d/.test(value)/* && /[a-z]/i.test(value)*/);
+		var result = /*this.optional(element) ||*/ (/*value.length >= 6 && *//\d/.test(value) || /[a-z]/i.test(value));
 		if ($('#retype_password:visible').length) {
 			if ($.trim(value) != $.trim($('#retype_password').val())) {
 				result = false;

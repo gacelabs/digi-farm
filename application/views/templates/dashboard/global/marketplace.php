@@ -1,12 +1,3 @@
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-lg-12">
-				<h3 class="m-0 text-dark">Veggies near you</h3>
-			</div>
-		</div>
-	</div>
-</section>
 <?php
 	$marketplace_data = $db();
 	$veggies_position = $marketplace_data['veggies_position'];
@@ -14,8 +5,17 @@
 	// debug($veggies_position);
 	// debug($farmers_position);
 ?>
-
 <?php if ($veggies_position): ?>
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-lg-12">
+					<h3 class="m-0 text-dark">Veggies near you</h3>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section class="content">
 		<div class="container-fluid">
 			<div class="row">
