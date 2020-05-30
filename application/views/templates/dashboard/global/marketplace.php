@@ -24,7 +24,7 @@
 						<!-- LOOP HERE -->
 						<?php foreach ($veggies_position as $key => $product): ?>
 							<div class="slider-item product-item">
-								<a href="/product/view?id=<?php echo $product['id']?>">
+								<a href="product/view?id=<?php echo $product['id']?>">
 									<div class="card">
 										<div class="card-header">
 											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="<?php echo $product['name'];?>" style="height: 248px;">

@@ -6,6 +6,11 @@ class FarmCart extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$parse_url = parse_url($this->agent->referrer());
+		// debug(!in_array($parse_url['path'], [null,'/']), 1);
+		if (!$this->accounts->has_session AND !in_array($parse_url['path'], [null,'/'])) {
+			redirect(base_url('login?page=sign_up'));
+		}
 	}
 
 	public function index()
@@ -76,9 +81,6 @@ class FarmCart extends MY_Controller {
 			} else {
 				redirect(base_url('?error=Product maybe out of stocks or been removed!'));
 			}
-			if ($this->accounts->has_session == false) {
-				redirect(base_url('login?page=sign_up'));
-			}
 		} else {
 			redirect(base_url('cart'));
 		}
@@ -106,5 +108,7 @@ class FarmCart extends MY_Controller {
 			redirect(base_url('cart?error=Does nothing'));
 		}
 	}
+
+
 
 }
