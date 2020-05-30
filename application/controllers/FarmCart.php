@@ -84,4 +84,15 @@ class FarmCart extends MY_Controller {
 		}
 	}
 
+	public function remove($rowid=false)
+	{
+		if ($rowid) {
+			$item = $this->cart->get_item($rowid);
+			$this->cart->remove($rowid);
+			redirect(base_url('cart?message=Product '.$item['name'].' removed'));
+		} else {
+			redirect(base_url('cart?error=Does nothing'));
+		}
+	}
+
 }

@@ -89,13 +89,17 @@
 										<i class="fas fa-pencil-alt"> </i>
 										Edit
 									</a> -->
-									<a class="btn btn-danger btn-sm" href="#">
+									<a href="/cart/remove/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
 										<i class="fas fa-trash"> </i>
 										Cancel
 									</a>
 								</td>
 							</tr>
 						<?php endforeach ?>
+					<?php else: ?>
+						<tr>
+							<td colspan="100%" class="text-center">No records</td>
+						</tr>
 					<?php endif ?>
 				</tbody>
 			</table>
