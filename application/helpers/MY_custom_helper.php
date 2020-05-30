@@ -915,10 +915,14 @@ function cart_session($function=false, $params=false)
 {
 	$ci =& get_instance();
 	if ($function) {
-		if ($params) {
-			return $ci->cart->{$function}($params);
+		if ($function == 'count') {
+			return count($ci->cart->contents($params));
 		} else {
-			return $ci->cart->{$function}();
+			if ($params) {
+				return $ci->cart->{$function}($params);
+			} else {
+				return $ci->cart->{$function}();
+			}
 		}
 	}
 	return $ci->cart->contents($params);

@@ -62,4 +62,32 @@ class Product extends MY_Controller {
 		$this->load->view('templates/home', $data);
 	}
 
+	public function add()
+	{
+		$post = $this->input->post() ? $this->input->post() : $this->input->get(); 
+		if ($post) {
+			if (!isset($post['qty'])) $post['qty'] = 1;
+			$product = $this->custom->get('product', ['id'=>$post['id']], false, 'row');
+			if ($product) {
+				$insert = [
+					'id' => $product['id'],
+					'qty' => $post['qty'],
+					'price' => $product['current_price'],
+					'name' => $product['name'].' - '.$product['description'],
+				];
+				$insert['options'] = $insert;
+				$this->cart->insert($insert);
+				// debug($this->cart->contents());
+			} else {
+				redirect(base_url('?error=Product maybe out of stocks or been removed!'));
+			}
+			// debug($product, 1);
+			if ($this->accounts->has_session == false) {
+				redirect(base_url('login?page=sign_up'));
+			}
+		} else {
+			redirect(base_url('cart'));
+		}
+	}
+
 }

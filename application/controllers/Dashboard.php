@@ -77,11 +77,11 @@ class Dashboard extends MY_Controller {
 			if ($id == $user['id']) {
 				// debug($set, 1);
 				if (isset($set['user'])) {
-					if (!isset($set['user']['farmer'])) {
+					/*if (!isset($set['user']['farmer'])) {
 						$set['user']['farmer'] = 0;
 					} else {
 						$set['user']['farmer'] = (bool)$set['user']['farmer'];
-					}
+					}*/
 					$this->custom->save('user', $set['user'], ['id' => $id]);
 				}
 				if (isset($set['user_app_settings'])) {

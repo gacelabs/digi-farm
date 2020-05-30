@@ -6,7 +6,7 @@ class Account extends MY_Controller {
 	public function index() /*login page*/
 	{
 		// debug($this->accounts->has_session, 1);
-		if ($this->accounts->has_session == FALSE) {
+		if ($this->accounts->has_session == FALSE OR ($this->agent->referrer() == base_url())) {
 			$data = array(
 				'meta' => array(
 					''
@@ -59,7 +59,6 @@ class Account extends MY_Controller {
 					
 				)
 			);
-
 			$this->load->view('templates/home', $data);
 		} else {
 			redirect(base_url());

@@ -55,12 +55,18 @@
 
 						<?php if ($is_logged_in OR $this->session->userdata('is_admin')): ?>
 							<li class="nav-item">
+								<a href="/cart/" class="nav-link <?php active_menu(1, 'cart');?>">
+									<i class="fas fa-shopping-cart nav-icon"></i>
+									<p>Cart <span class="right badge badge-success"><?php echo cart_session('count');?></span></p>
+								</a>
+							</li>
+							<?php if ($current_profile['user']['farmer']): ?>
+							<li class="nav-item">
 								<a href="" class="nav-link">
 									<i class="fas fa-shopping-basket nav-icon"></i>
 									<p>Orders <span class="right badge badge-success"><?php echo cart_session('total_items');?></span></p>
 								</a>
 							</li>
-							<?php if ($current_profile['user']['farmer']): ?>
 							<li class="nav-item has-treeview <?php active_menu(1, 'dashboard', true);?> <?php active_menu(1, 'inventory', true);?> <?php active_menu(1, 'orders', true);?> <?php active_menu(1, 'save-product', true);?> <?php active_menu(1, 'farm', true);?> <?php active_menu(1, 'settings', true);?>">
 								<a href="javascript:;" class="nav-link <?php active_menu(1, 'dashboard');?> <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'save-product');?> <?php active_menu(1, 'farm');?> <?php active_menu(1, 'settings');?>">
 									<i class="nav-icon fas fa-store-alt"></i>

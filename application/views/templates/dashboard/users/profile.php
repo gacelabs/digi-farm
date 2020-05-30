@@ -46,19 +46,21 @@
 											$selected = $profile_data['profile_dropdown']['selected'];
 											$select = $profile_data['profile_dropdown']['select'];
 											foreach ($select as $id => $value): ?>
-												<?php if ($id == 1 OR $id == 2 OR $id == 6): ?>
+												<?php if ($id == 1 OR $id == 2/* OR $id == 6*/): ?>
 													<option<?php echo $selected == $id ? ' selected="selected"' : '';?> value="<?php echo $id;?>"><?php echo $value;?></option>
 												<?php endif ?>
 										<?php endforeach ?>
 									</select>
 								</div>
-								<div class="col-6 form-group">
+								<?php
+								'<div class="col-6 form-group">
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" type="checkbox" id="customCheckbox2" name="user[farmer]" <?php echo $info['farmer'] ? 'checked="checked"': ""; ?>>
+										<input class="custom-control-input" type="checkbox" id="customCheckbox2" name="user[farmer]" $info["farmer"] ? "checked="checked"": "";>
 										<label for="customCheckbox2" class="custom-control-label">I am a farmer</label> 
 										<i class="fas fa-info-circle text-grey" title="Click to learn more." data-toggle="modal" data-target="#modal-farmer-info"></i>
 									</div>
-								</div>
+								</div>';
+								?>
 							</div>
 						</div>
 
