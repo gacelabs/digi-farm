@@ -27,7 +27,7 @@
 								<a href="product/view?id=<?php echo $product['id']?>">
 									<div class="card">
 										<div class="card-header">
-											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="<?php echo $product['name'];?>" style="height: 248px;">
+											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="<?php echo $product['name'];?>">
 											<div class="card-tools">
 												<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> <?php echo round($product['distance'], 2);?><?php echo strtoupper($product['unit']);?></span>
 											</div>

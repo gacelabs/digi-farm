@@ -33,8 +33,7 @@ class Marketplace extends MY_Controller {
 			'footer_js' => $this->dash_defaults('footer_js', [
 				base_url().'assets/js/slider.js',
 				base_url().'assets/js/slider.init.js',
-				base_url('assets/js/marketplace.js'),
-				base_url().'assets/admin/js/custom-js.js'
+				base_url('assets/js/marketplace.js')
 			]),
 			'post_body' => array(
 			),

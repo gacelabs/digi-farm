@@ -31,7 +31,11 @@ class Product extends MY_Controller {
 				)
 			),
 			'footer_css' => $this->dash_defaults('footer_css'),
-			'footer_js' => $this->dash_defaults('footer_js'),
+			'footer_js' => $this->dash_defaults('footer_js', [
+				base_url('assets/admin/js/adminlte.min.js'),
+				base_url('assets/admin/js/custom-js.js'),
+				base_url('assets/admin/js/product.js')
+			]),
 			'post_body' => array(
 			),
 			'db' => function() {
