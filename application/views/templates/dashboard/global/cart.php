@@ -24,16 +24,19 @@
 						<th style="width: 1%;">
 							#
 						</th>
-						<th style="width: 30%;">
+						<th>
 							Product Name
 						</th>
-						<th style="width: 20%;">
+						<th>
 							Cart Items
+						</th>
+						<th>
+							Quantity
 						</th>
 						<th>
 							Progress
 						</th>
-						<th style="width: 8%;" class="text-center">
+						<th class="text-center">
 							Status
 						</th>
 						<th style="width: 20%;"></th>
@@ -62,6 +65,9 @@
 											<img alt="Avatar" class="table-avatar" src="<?php check_file_and_render($cart['path'], '37x37?text= ?');?>" />
 										</li>
 									</ul>
+								</td>
+								<td>
+									<?php echo $cart['qty'];?>
 								</td>
 								<td class="project_progress">
 									<div class="progress progress-sm">
