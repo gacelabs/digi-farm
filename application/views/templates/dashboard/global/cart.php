@@ -70,11 +70,17 @@
 									<?php echo $cart['qty'];?>
 								</td>
 								<td class="project_progress">
+									<?php
+										$progress = 10;
+										if (isset($cart['status']) AND $cart['status'] != 'Added') {
+											$progress = 100;
+										}
+									?>
 									<div class="progress progress-sm">
-										<div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%;"></div>
+										<div class="progress-bar bg-green" role="progressbar" aria-volumenow="<?php echo $progress;?>" aria-volumemin="0" aria-volumemax="100" style="width: <?php echo $progress;?>%;"></div>
 									</div>
 									<small>
-										57% Complete
+										<?php echo $progress;?>% Complete
 									</small>
 								</td>
 								<td class="project-state">
