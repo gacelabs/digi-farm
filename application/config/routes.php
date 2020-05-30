@@ -1,11 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$route['default_controller'] = 'Home';
+$route['default_controller'] = 'Marketplace';
 
 $route['dashboard'] = 'Dashboard';
 $route['inventory'] = 'Dashboard/inventory';
-$route['add-product'] = 'Dashboard/add_product';
+$route['save-product'] = 'Dashboard/save_product';
+$route['save-product/(:num)'] = 'Dashboard/save_product/$1';
 $route['profile'] = 'Dashboard/profile';
 $route['profile/(:num)'] = 'Dashboard/profile/$1';
 $route['farm'] = 'Dashboard/my_farm';
@@ -13,11 +14,17 @@ $route['settings'] = 'Dashboard/settings';
 
 $route['dashboard/admin'] = 'Admin/index';
 $route['dashboard/admin/login'] = 'Admin/login';
+$route['dashboard/admin/sign_out'] = 'Admin/sign_out';
 
 $route['login'] = 'Account/index';
 $route['sign_in'] = 'Account/sign_in';
 $route['sign_up'] = 'Account/sign_up';
 $route['sign_out'] = 'Account/sign_out';
+
+$route['cart'] = 'FarmCart/index';
+$route['cart/add'] = 'FarmCart/add';
+$route['cart/remove/(:any)'] = 'FarmCart/remove/$1';
+$route['cart/less/(:any)'] = 'FarmCart/less/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

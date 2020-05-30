@@ -50,7 +50,7 @@
 											<div class="input-group-prepend">
 												<label for="farm_location<?php echo $key;?>" class="input-group-text"><i class="fas fa-map-marker-alt"></i></label>
 											</div>
-											<input type="text" id="farm_location<?php echo $key;?>" class="address form-control" data-name="address" name="user_location[<?php echo $key;?>][address]" value="<?php echo $row['address'];?>" />
+											<input type="text" id="farm_location<?php echo $key;?>" class="address form-control" data-name="address" name="user_location[<?php echo $key;?>][address]" required="required" value="<?php echo $row['address'];?>" />
 										</div>
 									</div>
 									<input type="hidden" class="latlng" data-name="latlng" name="user_location[<?php echo $key;?>][latlng]" value='<?php echo $latlng;?>' />

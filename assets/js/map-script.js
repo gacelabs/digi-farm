@@ -6,7 +6,7 @@ var infowindow = new google.maps.InfoWindow({
 
 var initMap = function(latlng, mapUI) {
 	map = new google.maps.Map(mapUI, {
-		zoom: 10,
+		zoom: 9,
 		center: latlng
 	});
 	addMarker(latlng);
@@ -25,8 +25,8 @@ var addMarker = function(latlng, add) {
 	markers.push(marker);
 	if (add == true) {
 		marker.setMap(map);
-		updateMap();
 	}
+	updateMap();
 	marker.addListener('click', function() {
 		toggleAction(this);
 	});
@@ -57,6 +57,10 @@ var updateMap = function() {
 			}
 		}
 		map.fitBounds(bounds);
+		// markerCombiner();
+		if (markers.length == 1) {
+			map.setZoom(9);
+		}
 	}, 1000);
 }
 
@@ -80,8 +84,8 @@ var geoLocation = function(mapUI) {
 				lng: position.coords.longitude
 			};
 			initMap(pos, mapUI);
-		}, function(a,b,c) {
-			console.log(a,b,c);
+		}, function(error) {
+			console.log(error);
 			// handleLocationError(true, infoWindow, map.getCenter());
 		});
 	} else {
@@ -89,4 +93,23 @@ var geoLocation = function(mapUI) {
 		console.log("Browser doesn't support Geolocation");
 		// handleLocationError(false, infoWindow, map.getCenter());
 	}
+}
+
+var markerCombiner = function() {
+	setTimeout(function() {
+		var markerCluster = new MarkerClusterer(map, markers, {
+			imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+		});
+		/*var mcOptions = {
+			styles:[{
+				url: "/assets/admin/images/map-cluster-green.svg",
+				width: 34,
+				height:34,
+				fontFamily:"comic sans ms",
+				textSize:12,
+				textColor:"#FFFFFF",
+			}]
+		};
+		var markerCluster = new MarkerClusterer(map, markers, mcOptions);*/
+	}, 1500);
 }

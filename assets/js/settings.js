@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$('.location-panel').each(function(i, elem) {
-		var input = $(elem).find('.address').get(0);
+		var input = $(elem).find('.address').attr('data-index', i).get(0);
 		var autocomplete = new google.maps.places.Autocomplete(input);
 
 		google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -19,7 +19,7 @@ $(document).ready(function() {
 			}
 		});
 
-		if ($.trim($(input).val()) != '' && $.trim($(elem).find('.latlng').val())) {
+		if ($.trim($(elem).find('.latlng').val())) {
 			var latlng = $.parseJSON($(elem).find('.latlng').val());
 			for (x in latlng) latlng[x] = parseFloat(latlng[x]);
 			if (i == 0) {
@@ -28,6 +28,11 @@ $(document).ready(function() {
 				addMarker(latlng, true);
 			}
 		}
+		$(input).off('blur').on('blur', function() {
+			if ($.trim($(this).val()) == '' && markers.length > 1) {
+				markers[$(this).data('index')].setMap(null);
+			}
+		});
 	});
 
 	$('.new-farm').off('click').on('click', function(e) {
@@ -48,7 +53,7 @@ $(document).ready(function() {
 			$(elem).attr({'name':'user_location['+index+']['+$(elem).data('name')+']', 'id':$(elem).data('name')+index});
 		});
 
-		var input = template.find('.address').get(0);
+		var input = template.find('.address').attr('data-index', index).get(0);
 		var autocomplete = new google.maps.places.Autocomplete(input);
 		google.maps.event.addListener(autocomplete, 'place_changed', function () {
 			var place = autocomplete.getPlace();
@@ -59,6 +64,11 @@ $(document).ready(function() {
 				replaceMarker({'lat': lat, 'lng': long}, index);
 			} else {
 				addMarker({'lat': lat, 'lng': long}, true);
+			}
+		});
+		$(input).off('blur').on('blur', function() {
+			if ($.trim($(this).val()) == '' && markers.length > 1) {
+				markers[$(this).data('index')].setMap(null);
 			}
 		});
 	});

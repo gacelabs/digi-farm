@@ -8,7 +8,7 @@ $(document).ready(function() {
 	}, 'Please enter a valid phone number');
 
 	jQuery.validator.addMethod('password_rule', function(value, element, param) {
-		var result = /*this.optional(element) ||*/ (/*value.length >= 6 && *//\d/.test(value)/* && /[a-z]/i.test(value)*/);
+		var result = /*this.optional(element) ||*/ (/*value.length >= 6 && *//\d/.test(value) || /[a-z]/i.test(value));
 		if ($('#retype_password:visible').length) {
 			if ($.trim(value) != $.trim($('#retype_password').val())) {
 				result = false;
@@ -31,8 +31,12 @@ $(document).ready(function() {
 			},*/
 			errorPlacement: function(label, element) {
 				element.addClass('error');
-				if (element.prop('tagName') === 'SELECT' && element.hasClass('chosen-select')) {
-					element.parent().find('.chosen-container-single').addClass('error');
+				if (element.prop('tagName') === 'SELECT') {
+					if (element.hasClass('chosen-select')) {
+						element.parent().find('.chosen-container-single').addClass('error');
+					} else if (element.hasClass('select2')) {
+						element.next('.select2').find('.selection .select2-selection').addClass('error');
+					}
 				}
 				if (element.attr('type') === 'file' && element.hasClass('custom-file-input')) {
 					element.parents('.input-group').addClass('error');
@@ -40,8 +44,12 @@ $(document).ready(function() {
 			},
 			highlight: function (element, errorClass, validClass) {
 				$(element).addClass('error');
-				if ($(element).prop('tagName') === 'SELECT' && $(element).hasClass('chosen-select')) {
-					$(element).parent().find('.chosen-container-single').addClass('error');
+				if ($(element).prop('tagName') === 'SELECT') {
+					if ($(element).hasClass('chosen-select')) {
+						$(element).parent().find('.chosen-container-single').addClass('error');
+					} else if ($(element).hasClass('select2')) {
+						$(element).next('.select2').find('.selection .select2-selection').addClass('error');
+					}
 				}
 				if ($(element).attr('type') === 'file' && $(element).hasClass('custom-file-input')) {
 					$(element).parents('.input-group').addClass('error');
@@ -49,8 +57,12 @@ $(document).ready(function() {
 			},
 			unhighlight: function (element, errorClass, validClass) {
 				$(element).removeClass('error');
-				if ($(element).prop('tagName') === 'SELECT' && $(element).hasClass('chosen-select')) {
-					$(element).parent().find('.chosen-container-single').removeClass('error');
+				if ($(element).prop('tagName') === 'SELECT') {
+					if ($(element).hasClass('chosen-select')) {
+						$(element).parent().find('.chosen-container-single').removeClass('error');
+					} else if ($(element).hasClass('select2')) {
+						$(element).next('.select2').find('.selection .select2-selection').removeClass('error');
+					}
 				}
 				if ($(element).attr('type') === 'file' && $(element).hasClass('custom-file-input')) {
 					$(element).parents('.input-group').removeClass('error');

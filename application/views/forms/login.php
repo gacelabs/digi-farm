@@ -2,7 +2,7 @@
 	<?php if (has_get('error')): ?>
 		<br>
 		<div class="alert alert-danger alert-dismissible">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none;">&times;</a>
 			<strong>Error!</strong> <?php echo get_url_var('error');?>
 		</div>
 	<?php endif ?>
@@ -37,7 +37,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<div class="form-group">
 							<label for="last_name">Last name</label>
-							<input type="text" class="form-control" id="last_name" name="last_name"/>
+							<input type="text" class="form-control" id="last_name" name="last_name" required="required" />
 						</div>
 					</div>
 					

@@ -820,26 +820,43 @@ function check_file_and_render($file=false, $replace=false)
 	}
 }
 
-function get_geolocation() {
+function get_geolocation($latlng_only=true) {
 	$data = unserialize(@file_get_contents('http://www.geoplugin.net/php.gp'));
 	// debug($data, 1);
 	if ($data) {
-		return [
-			'lat' => $data['geoplugin_latitude'],
-			'lng' => $data['geoplugin_longitude'],
-		];
+		if ($latlng_only) {
+			return [
+				'lat' => $data['geoplugin_latitude'],
+				'lng' => $data['geoplugin_longitude'],
+			];
+		} else {
+			return [
+				'ip' => $data['geoplugin_request'],
+				'lat' => $data['geoplugin_latitude'],
+				'lng' => $data['geoplugin_longitude'],
+				'tz' => $data['geoplugin_timezone'],
+				'unit' => $data['geoplugin_currencySymbol'],
+				'date' => date('Y-m-d'),
+			];
+		}
 	}
 	return false;
 }
 
-function nearest_locations($data=false, $distance=3, $unit='km')
+function nearest_locations($data=false, $distance=100, $unit='km')
 {
-	if ($data AND isset($data['latlong'])) {
-		$position = json_decode($data['latlong'], true);
+	if ($data AND isset($data['latlng'])) {
+		$ci =& get_instance();
+		$position = $data['latlng'];
+
+		$and_clause = "";
+		if ($ci->accounts->has_session) {
+			$and_clause = " AND user.id != '".$ci->accounts->profile['user']['id']."'";
+		}
 
 		if ($unit == 'km') {
 			$sql = "SELECT * FROM (
-				SELECT user.*, 
+				SELECT user_location.*, 
 					(
 						(
 							(
@@ -853,12 +870,12 @@ function nearest_locations($data=false, $distance=3, $unit='km')
 						) * 60 * 1.1515 * 1.609344
 					) AS distance, 'km' AS unit 
 				 FROM `user_location`
-				INNER JOIN user ON user_location.id = user.id
-				WHERE user.farmer = 1 AND user.id != '".$data['id']."'
+				INNER JOIN user ON user_location.user_id = user.id
+				WHERE user.farmer = 1 ".$and_clause."
 			) user_location";
 		} else {
 			$sql = "SELECT * FROM (
-				SELECT user.*, 
+				SELECT user_location.*, 
 					(
 						(
 							(
@@ -872,16 +889,17 @@ function nearest_locations($data=false, $distance=3, $unit='km')
 						) * 60 * 1.1515
 					) AS distance, 'mi' AS unit 
 				 FROM `user_location`
-				INNER JOIN user ON user_location.id = user.id
-				WHERE user.farmer = 1 AND user.id != '".$data['id']."'
+				INNER JOIN user ON user_location.user_id = user.id
+				WHERE user.farmer = 1 ".$and_clause."
 			) user_location";
 		}
 
-		$extends = $sql."WHERE distance <= ".$distance/*."LIMIT ".$limit.";"*/;
+		$extends = $sql." WHERE distance <= ".$distance/*."LIMIT ".$limit.";"*/;
 
-		$record = $this->db->query($extends);
+		// debug($extends, 1);
+		$record = $ci->db->query($extends);
 		if ($record->num_rows()) {
-			$record = $record->result();
+			$record = $record->result_array();
 			// debug($record);
 			if ($ci->input->is_ajax_request()) {
 				echo json_encode($record); exit();
@@ -891,4 +909,21 @@ function nearest_locations($data=false, $distance=3, $unit='km')
 		}
 	}
 	return false;
+}
+
+function cart_session($function=false, $params=false)
+{
+	$ci =& get_instance();
+	if ($function) {
+		if ($function == 'count') {
+			return count($ci->cart->contents($params));
+		} else {
+			if ($params) {
+				return $ci->cart->{$function}($params);
+			} else {
+				return $ci->cart->{$function}();
+			}
+		}
+	}
+	return $ci->cart->contents($params);
 }

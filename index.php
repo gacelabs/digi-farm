@@ -304,6 +304,9 @@ switch (ENVIRONMENT)
 	}
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+	
+	define('TIMEZONE', 'Asia/Manila');
+	date_default_timezone_set(TIMEZONE);
 
 /*
  * --------------------------------------------------------------------

@@ -22,7 +22,7 @@
 							$chunks = explode(" ", $fullName);
 							$initials = "";
 							foreach ($chunks as $w) {
-								$initials .= $w[0];
+								$initials .= isset($w[0]) ? $w[0] : '';
 							}
 						?>
 						<div class="image">
@@ -31,9 +31,13 @@
 						<div class="info">
 							<a href="profile/" class="d-block"><?php echo $fullName;?><small>&nbsp;&nbsp;&nbsp;<i class="fas fa-cog"></small></i></a>
 						</div>
-					<?php else: ?>
+					<?php elseif (!$this->session->userdata('is_admin')) : ?>
 						<div class="text-center elem-block">
 							<a href="login"><h5 class="text-white">Log in | Sign up</h5></a>
+						</div>
+					<?php else: ?>
+						<div class="text-center elem-block">
+							<a href="javascript:;"><h5 class="text-white">Administrator</h5></a>
 						</div>
 					<?php endif ?>
 				</div>
@@ -49,15 +53,22 @@
 							</a>
 						</li>
 
-						<?php if ($is_logged_in): ?>
+						<?php if ($is_logged_in OR $this->session->userdata('is_admin')): ?>
+							<li class="nav-item">
+								<a href="/cart/" class="nav-link <?php active_menu(1, 'cart');?>">
+									<i class="fas fa-shopping-cart nav-icon"></i>
+									<p>Cart <span class="right badge badge-success"><?php echo cart_session('count');?></span></p>
+								</a>
+							</li>
+							<?php if ($current_profile['user']['farmer']): ?>
 							<li class="nav-item">
 								<a href="" class="nav-link">
 									<i class="fas fa-shopping-basket nav-icon"></i>
-									<p>Orders <span class="right badge badge-success">23</span></p>
+									<p>Orders <span class="right badge badge-success"><?php echo cart_session('total_items');?></span></p>
 								</a>
 							</li>
-							<li class="nav-item has-treeview <?php active_menu(1, 'dashboard', true);?> <?php active_menu(1, 'inventory', true);?> <?php active_menu(1, 'orders', true);?> <?php active_menu(1, 'add-product', true);?> <?php active_menu(1, 'farm', true);?> <?php active_menu(1, 'settings', true);?>">
-								<a href="javascript:;" class="nav-link <?php active_menu(1, 'dashboard');?> <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'add-product');?> <?php active_menu(1, 'farm');?> <?php active_menu(1, 'settings');?>">
+							<li class="nav-item has-treeview <?php active_menu(1, 'dashboard', true);?> <?php active_menu(1, 'inventory', true);?> <?php active_menu(1, 'orders', true);?> <?php active_menu(1, 'save-product', true);?> <?php active_menu(1, 'farm', true);?> <?php active_menu(1, 'settings', true);?>">
+								<a href="javascript:;" class="nav-link <?php active_menu(1, 'dashboard');?> <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'save-product');?> <?php active_menu(1, 'farm');?> <?php active_menu(1, 'settings');?>">
 									<i class="nav-icon fas fa-store-alt"></i>
 									<p>Farm <i class="right fas fa-angle-left"></i></p>
 								</a>
@@ -69,7 +80,7 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="inventory" class="nav-link <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'add-product');?>">
+										<a href="inventory" class="nav-link <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'save-product');?>">
 											<i class="fas fa-warehouse nav-icon"></i>
 											<p>Inventory</p>
 										</a>
@@ -88,9 +99,10 @@
 									</li>
 								</ul>
 							</li>
-
+							<?php endif ?>
+							<?php if ($this->session->userdata('is_admin')): ?>
 							<li class="nav-item has-treeview <?php active_menu([1,2], 'admin/stats', true);?>">
-								<a href="javascript:;" class="nav-link">
+								<a href="javascript:;" class="nav-link <?php active_menu(1, 'admin');?>">
 									<i class="nav-icon fas fa-users-cog"></i>
 									<p>Admin <i class="right fas fa-angle-left"></i></p>
 								</a>
@@ -103,6 +115,7 @@
 									</li>
 								</ul>
 							</li>
+							<?php endif ?>
 						<?php endif ?>
 
 						<li class="nav-header">HELP</li>
@@ -119,9 +132,9 @@
 							</a>
 						</li>
 
-						<?php if ($is_logged_in): ?>	
+						<?php if ($is_logged_in OR $this->session->userdata('is_admin')): ?>	
 							<li class="nav-item">
-								<a href="sign_out" class="nav-link">
+								<a href="<?php echo $this->session->userdata('is_admin') ? 'admin/sign_out' : 'sign_out';?>" class="nav-link">
 									<i class="fas fa-sign-out-alt nav-icon"></i>
 									<p>Log out</p>
 								</a>

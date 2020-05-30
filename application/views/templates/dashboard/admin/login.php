@@ -20,11 +20,18 @@
 </head>
 <body class="hold-transition login-page">
 	<div class="login-box">
+	<?php if (has_get('error')): ?>
+		<br>
+		<div class="alert alert-danger alert-dismissible text-center">
+			<a href="javascript:;" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none;">&times;</a>
+			<i class="fas fa-exclamation-circle"></i>&nbsp;&nbsp;<?php echo get_url_var('error');?>
+		</div>
+	<?php endif ?>
 		<div class="card">
 			<div class="card-body login-card-body">
 				<p class="login-box-msg">Sign into Admin Panel</p>
 
-				<form action="" method="post" class="form-validate">
+				<form action="admin/login" method="post" class="form-validate">
 					<div class="input-group mb-3">
 						<input type="email" name="email_address" id="email_address" class="form-control" placeholder="Email">
 						<div class="input-group-append">
@@ -43,12 +50,12 @@
 					</div>
 					<div class="row">
 						<div class="col-8">
-							<div class="icheck-primary">
+							<!-- <div class="icheck-primary">
 								<input type="checkbox" id="remember">
 								<label for="remember">
 									Remember Me
 								</label>
-							</div>
+							</div> -->
 						</div>
 						<!-- /.col -->
 						<div class="col-4">

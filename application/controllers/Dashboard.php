@@ -5,6 +5,17 @@ class Dashboard extends MY_Controller {
 
 	public $shall_not_pass = true;
 
+	public function __construct()
+	{
+		parent::__construct();
+		// debug($this->accounts->profile['user'], 1);
+		if ($this->accounts->profile['user']['farmer'] == 0) {
+			if (in_array($this->router->method, ['index','inventory','save_product','my_farm','settings'])) {
+				redirect(base_url());
+			}
+		}
+	}
+
 	public function index()
 	{
 		$data = array(
@@ -66,6 +77,11 @@ class Dashboard extends MY_Controller {
 			if ($id == $user['id']) {
 				// debug($set, 1);
 				if (isset($set['user'])) {
+					/*if (!isset($set['user']['farmer'])) {
+						$set['user']['farmer'] = 0;
+					} else {
+						$set['user']['farmer'] = (bool)$set['user']['farmer'];
+					}*/
 					$this->custom->save('user', $set['user'], ['id' => $id]);
 				}
 				if (isset($set['user_app_settings'])) {
@@ -183,11 +199,12 @@ class Dashboard extends MY_Controller {
 				''
 			),
 			'db' => function() {
-				$products = $this->db->join('product_category', 'product_category.id = product.category_id')
-					->join('activity', 'activity.id = product.activity_id')
-					->join('product_photo', 'product_photo.product_id = product.id AND product_photo.is_main = 1')
+				$user = $this->accounts->profile['user'];
+				$products = $this->db->join('product_category', 'product_category.id = product.category_id', 'left')
+					->join('activity', 'activity.id = product.activity_id', 'left')
+					->join('product_photo', 'product_photo.product_id = product.id AND product_photo.is_main = 1', 'left')
 					->select('product.*, activity.label AS status, product_category.label AS category, product_photo.path AS photo')
-					->get('product');
+					->get_where('product', ['product.user_id'=>$user['id']]);
 				// debug($products->result(), 1);
 				return [
 					'products' => $products->num_rows() ? $products->result_array() : false,
@@ -197,18 +214,37 @@ class Dashboard extends MY_Controller {
 		$this->load->view('templates/dashboard/landing', $data);
 	}
 	
-	public function add_product()
+	public function save_product($id=0)
 	{
 		$post = $this->input->post();
 		if ($post) {
-			debug($post, 1);
+			// debug($post, 1);
 			$user = $this->accounts->profile['user'];
 			// debug($_FILES);
 			$product_id = 0;
 			if (isset($post['product'])) {
 				$post['product']['user_id'] = $user['id'];
-				$product_id = $this->custom->create('product', $post['product']);
+				$location_ids = $post['product']['location_id'];
+				if (is_array($post['product']['location_id'])) {
+					$post['product']['location_id'] = implode(',', $post['product']['location_id']);
+				}
+				// debug($post, 1);
+				if ($id) {
+					$this->custom->save('product', $post['product'], ['id'=>$id]);
+					$product_id = $id;
+				} else {
+					$product_id = $this->custom->create('product', $post['product']);
+				}
 				// $product_id = 1;
+				$check = $this->custom->get('product_location', ['user_id'=>$user['id'], 'product_id'=>$product_id]);
+				// debug($check, 1);
+				foreach ($location_ids as $location_id) {
+					if ($check) {
+						$this->custom->save('product_location', ['location_id'=>$location_id], ['user_id'=>$user['id'], 'product_id'=>$product_id]);
+					} else {
+						$this->custom->create('product_location', ['user_id'=>$user['id'], 'product_id'=>$product_id, 'location_id'=>$location_id]);
+					}
+				}
 			}
 			if (isset($_FILES['product_photo']) AND $product_id > 0) {
 				$data = files_upload($_FILES, false, $user['id'].'/product_photo', $post['product']['name']);
@@ -242,7 +278,7 @@ class Dashboard extends MY_Controller {
 				'head_js' => $this->dash_defaults('head_js'),
 				'body_id' => strtolower(__FUNCTION__),
 				'body_class' => strtolower(__FUNCTION__),
-				'wrapper_class' => 'add-product',
+				'wrapper_class' => 'save-product',
 				'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
 					'nav_view' => array(
 						'templates/dashboard/global/nav'
@@ -251,7 +287,7 @@ class Dashboard extends MY_Controller {
 						'templates/dashboard/global/sidebar'
 					),
 					'contentdata_view' => array(
-						'templates/dashboard/users/add-product'
+						'templates/dashboard/users/save-product'
 					)
 				),
 				'footer_css' => $this->dash_defaults('footer_css'),
@@ -270,9 +306,17 @@ class Dashboard extends MY_Controller {
 					base_url('assets/js/products.js'),
 				]),
 				'post_body' => array(),
-				'db' => array(
-
-				)
+				'db' => function($id=0) {
+					$product_id = ''; $product = false;
+					if ($id) {
+						$product = $this->custom->get('product', ['id'=>$id], false, 'row');
+						$product_id = $id;
+					}
+					return [
+						'product' => $product,
+						'product_id' => $product_id,
+					];
+				}
 			);
 			$this->load->view('templates/dashboard/landing', $data);
 		}
@@ -424,9 +468,7 @@ class Dashboard extends MY_Controller {
 				),
 				'title' => ucfirst(__FUNCTION__).' | Farmapp',
 				'head_css' => $this->dash_defaults('head_css'),
-				'head_js' => $this->dash_defaults('head_js', [
-					base_url('assets/admin/css/custom-admin.css')
-				]),
+				'head_js' => $this->dash_defaults('head_js'),
 				'body_id' => __FUNCTION__,
 				'body_class' => __FUNCTION__,
 				'wrapper_class' => 'settings',
@@ -447,6 +489,7 @@ class Dashboard extends MY_Controller {
 					base_url('assets/js/jquery.validation.min.js'),
 					base_url('assets/js/validator.js'),
 					'https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNbxnm4HQLyFO4FkUOpam3Im14wWY0MA&libraries=places',
+					base_url('assets/js/markerclustererplus.min.js'),
 					base_url('assets/js/map-script.js'),
 					base_url('assets/js/settings.js'),
 				]),
