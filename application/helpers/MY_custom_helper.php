@@ -851,7 +851,7 @@ function nearest_locations($data=false, $distance=100, $unit='km')
 
 		$and_clause = "";
 		if ($ci->accounts->has_session) {
-			$and_clause = " AND user.id != '".$ci->accounts->profile['user']['id']."'";
+			// $and_clause = " AND user.id != '".$ci->accounts->profile['user']['id']."'";
 		}
 
 		if ($unit == 'km') {
