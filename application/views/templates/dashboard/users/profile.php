@@ -52,13 +52,6 @@
 										<?php endforeach ?>
 									</select>
 								</div>
-								<div class="col-6 form-group">
-									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" type="checkbox" id="customCheckbox2" name="user[farmer]" <?php echo(!empty($info) == 1? 'checked=""': ""); ?>>
-										<label for="customCheckbox2" class="custom-control-label">I am a farmer</label> 
-										<i class="fas fa-info-circle text-grey" title="Click to learn more." data-toggle="modal" data-target="#modal-farmer-info"></i>
-									</div>
-								</div>
 							</div>
 						</div>
 

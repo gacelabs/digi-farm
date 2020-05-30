@@ -62,14 +62,6 @@
 					</div>
 
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="farmer" /> I am a farmer
-							</label>
-						</div>
-					</div>
-
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<button type="submit" class="btn btn-success btn-block">Sign up!</button>
 					</div>
 				</div>
