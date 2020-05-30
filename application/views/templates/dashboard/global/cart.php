@@ -9,7 +9,7 @@
 		<div class="card-header">
 			<h3 class="card-title">Cart</h3>
 			<div class="card-tools">
-				<a href="/" class="btn btn-sm btn-primary">
+				<a href="" class="btn btn-sm btn-primary">
 					<i class="fas fa-shopping-bag"></i> Continue Shopping
 				</a>
 				<!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
@@ -50,7 +50,7 @@
 							<tr data-rowid="<?php echo $key;?>">
 								<td><?php echo $row+=1;?></td>
 								<td>
-									<a href="/product/view?id=<?php echo $product['id'];?>">
+									<a href="product/view?id=<?php echo $product['id'];?>">
 										<?php echo $product['name'];?>
 									</a>
 									<br />
@@ -93,17 +93,17 @@
 									<span class="badge badge-success"><?php echo $status;?></span>
 								</td>
 								<td class="project-actions text-right">
-									<a href="/cart/add?id=<?php echo $product['id'];?>" class="btn btn-success btn-sm" href="#">
+									<a href="cart/add?id=<?php echo $product['id'];?>" class="btn btn-success btn-sm" href="#">
 										<i class="fas fa-plus"> </i>
 									</a>
-									<a href="/cart/less/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
+									<a href="cart/less/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
 										<i class="fas fa-minus"> </i>
 									</a>
 									<a class="btn btn-primary btn-sm" href="#">
 										<i class="fas fa-folder"> </i>
 										Checkout
 									</a>
-									<a href="/cart/remove/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
+									<a href="cart/remove/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
 										<i class="fas fa-trash"> </i>
 									</a>
 								</td>

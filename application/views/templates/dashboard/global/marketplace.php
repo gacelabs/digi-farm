@@ -24,7 +24,7 @@
 						<!-- LOOP HERE -->
 						<?php foreach ($veggies_position as $key => $product): ?>
 							<div class="slider-item product-item">
-								<a href="/product/view?id=<?php echo $product['id']?>">
+								<a href="product/view?id=<?php echo $product['id']?>">
 									<div class="card">
 										<div class="card-header">
 											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="<?php echo $product['name'];?>" style="height: 248px;">
@@ -52,58 +52,56 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="container padding-zero-sm margin-bottom-15">
-					<div class="division-inner box-shadow">
-						<div class="row mb-2">
-							<div class="col-lg-12">
-								<h5 class="m-0 text-dark">Categories</h5>
-							</div>
+				<div class="division-inner box-shadow">
+					<div class="row mb-2">
+						<div class="col-lg-12">
+							<h5 class="m-0 text-dark">Categories</h5>
 						</div>
-						<section class="center category-slider">
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/lettuce.jpg">
-									<h2 class="slider-title">Lettuce</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/tomatoes.jpg">
-									<h2 class="slider-title">Tomatoes</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/chilis.jpg">
-									<h2 class="slider-title">Chilis</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/eggplants.jpg">
-									<h2 class="slider-title">Eggplants</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/potatoes.jpg">
-									<h2 class="slider-title">Potatoes</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/beans.jpg">
-									<h2 class="slider-title">Beans</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/peppers.jpg">
-									<h2 class="slider-title">Peppers</h2>
-								</a>
-							</div>
-						</section>
 					</div>
+					<section class="center category-slider">
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/lettuce.jpg">
+								<h2 class="slider-title">Lettuce</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/tomatoes.jpg">
+								<h2 class="slider-title">Tomatoes</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/chilis.jpg">
+								<h2 class="slider-title">Chilis</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/eggplants.jpg">
+								<h2 class="slider-title">Eggplants</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/potatoes.jpg">
+								<h2 class="slider-title">Potatoes</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/beans.jpg">
+								<h2 class="slider-title">Beans</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/peppers.jpg">
+								<h2 class="slider-title">Peppers</h2>
+							</a>
+						</div>
+					</section>
 				</div>
 			</div>
 		</div>

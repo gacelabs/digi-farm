@@ -52,8 +52,7 @@
 										<?php endforeach ?>
 									</select>
 								</div>
-<<<<<<< HEAD
-=======
+
 								<?php
 								'<div class="col-6 form-group">
 									<div class="custom-control custom-checkbox">
@@ -63,7 +62,6 @@
 									</div>
 								</div>';
 								?>
->>>>>>> 1dc2b1dbad95c9972760a1ba781396385319efc2
 							</div>
 						</div>
 

@@ -6,7 +6,13 @@ class Product extends MY_Controller {
 	public function view()
 	{
 		$data = array(
-			'meta' => array(),
+			'meta' => array(
+				'<meta name="og:url" content="" />', // URL to the page
+				'<meta name="og:title" content="" />', // Product title
+				'<meta name="og:type" content="product" />',
+				'<meta name="og:description" content="" />', // Product description
+				'<meta name="og:image" content="" />' // URL to featured image
+			),
 			'title' => ucfirst(__CLASS__).' | Farmapp',
 			'head_css' => $this->dash_defaults('head_css'),
 			'head_js' => $this->dash_defaults('head_js'),

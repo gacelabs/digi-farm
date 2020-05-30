@@ -29,7 +29,7 @@
 							<img src="<?php check_file_and_render($current_profile['user']['photo'], '160x160?text='.$initials);?>" class="img-circle elevation-2" alt="">
 						</div>
 						<div class="info">
-							<a href="profile/" class="d-block"><?php echo $fullName;?><small>&nbsp;&nbsp;&nbsp;<i class="fas fa-cog"></small></i></a>
+							<a href="profile" class="d-block"><?php echo $fullName;?><small>&nbsp;&nbsp;&nbsp;<i class="fas fa-cog"></small></i></a>
 						</div>
 					<?php elseif (!$this->session->userdata('is_admin')) : ?>
 						<div class="text-center elem-block">
@@ -55,7 +55,7 @@
 
 						<?php if ($is_logged_in OR $this->session->userdata('is_admin')): ?>
 							<li class="nav-item">
-								<a href="/cart/" class="nav-link <?php active_menu(1, 'cart');?>">
+								<a href="cart" class="nav-link <?php active_menu(1, 'cart');?>">
 									<i class="fas fa-shopping-cart nav-icon"></i>
 									<p>Cart <span class="right badge badge-success"><?php echo cart_session('count');?></span></p>
 								</a>
@@ -120,13 +120,13 @@
 
 						<li class="nav-header">HELP</li>
 						<li class="nav-item">
-							<a href="./index.html" class="nav-link">
+							<a href="" class="nav-link">
 								<i class="fas fa-question nav-icon"></i>
 								<p>FAQs</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="./index.html" class="nav-link">
+							<a href="" class="nav-link">
 								<i class="fas fa-gavel nav-icon"></i>
 								<p>Policies</p>
 							</a>
