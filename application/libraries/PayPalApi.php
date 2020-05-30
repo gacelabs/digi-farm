@@ -4,6 +4,7 @@ require dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 require dirname(dirname(__DIR__)) . '/application/libraries/paypal/autoload.php';
 
 use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
 
 class PayPalApi /*implements PayPalFunctions*/ {
 
@@ -33,8 +34,8 @@ class PayPalApi /*implements PayPalFunctions*/ {
 
 		try {
 			$root_dir = (isset($_SERVER['CONTEXT_DOCUMENT_ROOT']) ? $_SERVER['CONTEXT_DOCUMENT_ROOT'] : dirname(dirname(__DIR__)));
-			$this->context = new \PayPal\Rest\ApiContext(
-				new \PayPal\Auth\OAuthTokenCredential($this->credits['key'], $this->credits['secret'])
+			$this->context = new ApiContext(
+				new OAuthTokenCredential($this->credits['key'], $this->credits['secret'])
 			);
 			$this->context->setConfig([
 				'mode' => (((bool)strstr($_SERVER['SERVER_NAME'], 'local')==TRUE) ? 'sandbox' : 'live'),

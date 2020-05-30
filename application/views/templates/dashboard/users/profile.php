@@ -46,12 +46,13 @@
 											$selected = $profile_data['profile_dropdown']['selected'];
 											$select = $profile_data['profile_dropdown']['select'];
 											foreach ($select as $id => $value): ?>
-												<?php if ($id == 1 OR $id == 2/* OR $id == 6*/): ?>
+												<?php if ($id == 1 OR $id == 2): ?>
 													<option<?php echo $selected == $id ? ' selected="selected"' : '';?> value="<?php echo $id;?>"><?php echo $value;?></option>
 												<?php endif ?>
 										<?php endforeach ?>
 									</select>
 								</div>
+<<<<<<< HEAD
 
 								<?php
 								'<div class="col-6 form-group">
@@ -62,6 +63,8 @@
 									</div>
 								</div>';
 								?>
+=======
+>>>>>>> 82213e474a4cda5898788c534a81dca710cd4781
 							</div>
 						</div>
 

@@ -87,3 +87,31 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 /*APP CONSTANTS*/
 defined('GACELABS_SUPER_KEY')  OR define('GACELABS_SUPER_KEY', '&@c3L4b$-5uP3R-k3y');
 defined('GACELABS_KEY')		   OR define('GACELABS_KEY', '&@c3L4b$-k3y');
+
+/*PAYPAL*/
+if (((bool)strstr($_SERVER['HTTP_HOST'], 'local.') == TRUE) OR ((bool)strstr($_SERVER['HTTP_HOST'], 'localhost/localfarm') == TRUE)) {
+/*SANDBOX*/
+	defined('PAYPAL_CLIENTID') OR define('PAYPAL_CLIENTID', 'AfindPSl6vVQHmBbYPBys15hjV3FF_O9twzlAdrgbkz-vqX4WBrSCZREJuDQlxCtP03GpbUj2wPE5sIZ');
+	defined('PAYPAL_SECRET')    OR define('PAYPAL_SECRET', 'EFo6Mv3g8_wkVPZ8mftD5vJmpjRwd529okTq8IDIGGkeNCbVBvwKn7SJQAPeNWcF_kaGcQXaGQtTwBEQ');
+} else {
+/*LIVE*/
+	defined('PAYPAL_CLIENTID') OR define('PAYPAL_CLIENTID', 'AaiGPnmTbNHlXYgiRoP4X5-e1vKDtrq7npFEiEw1KXBLezF4P33Q-FGORxohfF971fVUPyrF6-C-KvQT');
+	defined('PAYPAL_SECRET')    OR define('PAYPAL_SECRET', 'EC8tSw1jN81-NjlEc8ZABZzkp7g2EprS3ZuBRqziSFMlaT5NTRBQ_k979keHJZhW8f00JRbyPt7z2gW3');
+}
+
+/*LALAMOVE*/
+if (((bool)strstr($_SERVER['HTTP_HOST'], 'local.') == TRUE) OR ((bool)strstr($_SERVER['HTTP_HOST'], 'localhost/localfarm') == TRUE)) {
+/*SANDBOX*/
+	defined('LALAMOVE_ID') OR define('LALAMOVE_ID', 'wgmsqqh208fxic9vcqwruk2tciicielf');
+	defined('LALAMOVE_KEY')    OR define('LALAMOVE_KEY', 'kGEX69NLd33+J/FQGdx8jOLAO1JZVPrHzQpuZDrWGxlftbu2tKFiVkptTSfPaj==');
+} else {
+/*LIVE*/
+	defined('LALAMOVE_ID') OR define('LALAMOVE_ID', 'wgmsqqh208fxic9vcqwruk2tciicielf');
+	defined('LALAMOVE_KEY')    OR define('LALAMOVE_KEY', 'kGEX69NLd33+J/FQGdx8jOLAO1JZVPrHzQpuZDrWGxlftbu2tKFiVkptTSfPaj==');
+}
+
+
+
+
+
+

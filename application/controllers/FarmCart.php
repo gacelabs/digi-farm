@@ -11,6 +11,10 @@ class FarmCart extends MY_Controller {
 		if (!$this->accounts->has_session AND !in_array($parse_url['path'], [null,'/'])) {
 			redirect(base_url('login?page=sign_up'));
 		}
+		$this->load->library('paypalapi', ['key'=>PAYPAL_CLIENTID, 'secret'=>PAYPAL_SECRET], 'paypal');
+		$this->load->library('lalamoveapi', ['id'=>LALAMOVE_ID, 'key'=>LALAMOVE_KEY], 'lalamove');
+		// debug($this->paypal);
+		debug($this->lalamove, 1);
 	}
 
 	public function index()
@@ -65,18 +69,20 @@ class FarmCart extends MY_Controller {
 
 				$photo = $this->custom->get('product_photo', ['product_id' => $post['id'], 'is_main' => 1], false, 'row');
 				$insert['path'] = $photo['path'];
+				
+				$rowid = $this->cart->insert($insert);
 
-				$cart_rowid = array_keys($this->cart->contents(true))[0];
-				$order = $this->custom->get('order', ['product_id' => $post['id'], 'rowid' => $cart_rowid], false, 'row');
+				$order = $this->custom->get('order', ['product_id' => $post['id'], 'rowid' => $rowid], false, 'row');
 				// debug($order, 1);
 				$status = 'Added';
 				if ($order) {
 					$statuses = $this->custom->get('order_status', ['id' => $order['status_id']], false, 'row');
 					$status = $statuses['label'];
 				}
-				$insert['status'] = $status;
+				$item = $this->cart->get_item($rowid);
+				$item['status'] = $status;
+				$this->cart->update($item);
 				
-				$this->cart->insert($insert);
 				redirect(base_url('cart?message=Product '.$insert['name'].' quantity added'));
 			} else {
 				redirect(base_url('?error=Product maybe out of stocks or been removed!'));
