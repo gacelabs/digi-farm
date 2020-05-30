@@ -29,7 +29,7 @@ class Product extends MY_Controller {
 			'post_body' => array(
 			),
 			'db' => function() {
-				$post = $this->input->post() ? $this->input->post() : $this->input->get(); 
+				$post = $this->input->post() ? $this->input->post() : ($this->input->get() ? $this->input->get() : false); 
 				return $post;
 			}
 		);
