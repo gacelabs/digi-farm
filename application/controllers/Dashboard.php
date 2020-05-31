@@ -108,7 +108,7 @@ class Dashboard extends MY_Controller {
 				}
 				$this->accounts->update($id);
 			} else {
-				$message = 'This is not You!';
+				$message = 'That was not your profile! Stop hacking the system!';
 			}
 			$url = base_url('profile');
 			if ($message != '') {
@@ -236,18 +236,16 @@ class Dashboard extends MY_Controller {
 					$product_id = $this->custom->create('product', $post['product']);
 				}
 				// $product_id = 1;
-				$check = $this->custom->get('product_location', ['user_id'=>$user['id'], 'product_id'=>$product_id]);
-				// debug($check, 1);
-				foreach ($location_ids as $location_id) {
-					if ($check) {
-						$this->custom->save('product_location', ['location_id'=>$location_id], ['user_id'=>$user['id'], 'product_id'=>$product_id]);
-					} else {
+				if (count($location_ids)) {
+					$this->custom->remove('product_location', ['user_id'=>$user['id'], 'product_id'=>$product_id]);
+					foreach ($location_ids as $location_id) {
 						$this->custom->create('product_location', ['user_id'=>$user['id'], 'product_id'=>$product_id, 'location_id'=>$location_id]);
 					}
 				}
 			}
 			if (isset($_FILES['product_photo']) AND $product_id > 0) {
 				$data = files_upload($_FILES, false, $user['id'].'/product_photo', $post['product']['name']);
+				// debug($data, 1);
 				foreach ($data as $key => $row) {
 					$photo = [];
 					if ($row['status']) {
@@ -255,7 +253,9 @@ class Dashboard extends MY_Controller {
 						$photo['name'] = $post['product']['name'].'-'.$key;
 						$photo['description'] = $post['product']['description'].'-'.$key;
 						$photo['path'] = $row['url_path'];
-						$photo['is_main'] = $key == 0 ? 1 : 0;
+						$photo['is_main'] = $row['keyname'] == 0 ? 1 : 0;
+						$check = $this->custom->get('product_photo', ['product_id'=>$product_id, 'is_main'=>1], false, 'row');
+						if ($check) $photo['is_main'] = 0;
 						$this->custom->create('product_photo', $photo);
 					}
 					// debug($photo);

@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use Lalamove\Client\Settings;
 use Lalamove\Client\Client;

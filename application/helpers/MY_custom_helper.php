@@ -225,11 +225,11 @@ function files_upload($_files=FALSE, $return_path=FALSE, $dir='upload', $this_na
 					if ($_files[$input]['error'][$key] == 0) {
 						$ext = strtolower(pathinfo(basename($name), PATHINFO_EXTENSION));
 						if ($this_name) {
-							$pathname = clean_string_name($this_name).'-'.$key.'.'.$ext;
+							$pathname = clean_string_name($this_name).'-'.time().'.'.$ext;
 						} else {
 							$pathname = basename($name);
 							$chunks = explode('.'.$ext, $pathname);
-							$pathname = $chunks[0].'-'.$key.'.'.$ext;
+							$pathname = $chunks[0].'-'.time().'.'.$ext;
 						}
 						$uploadfile = $uploaddir . $pathname;
 						if (@move_uploaded_file($_files[$input]['tmp_name'][$key], $uploadfile)) {
@@ -251,9 +251,11 @@ function files_upload($_files=FALSE, $return_path=FALSE, $dir='upload', $this_na
 				if ($_files[$input]['error'] == 0) {
 					$ext = strtolower(pathinfo(basename($_files[$input]['name']), PATHINFO_EXTENSION));
 					if ($this_name) {
-						$pathname = clean_string_name($this_name).'.'.$ext;
+						$pathname = clean_string_name($this_name).'-'.time().'.'.$ext;
 					} else {
 						$pathname = basename($_files[$input]['name']);
+						$chunks = explode('.'.$ext, $pathname);
+						$pathname = $chunks[0].'-'.time().'.'.$ext;
 					}
 					$uploadfile = $uploaddir . $pathname;
 					// debug($ext);
@@ -693,6 +695,26 @@ function get_url_var($name='')
 	return '';
 }
 
+function calculate_distance($distance=false)
+{
+	if ($distance) {
+		return round(((float) $distance * 1.8) / 60, 1);
+	}
+	return 0;
+}
+
+function actual_estimate($mins=0)
+{
+	if ($mins) {
+		if (in_str($mins, '.')) {
+			$chunks = explode('.', $mins);
+			$butal = ('0.'.$chunks[1]) * 60;
+			$mins = $chunks[0] . ' min'.($chunks[0] > 1 ? 's' : '').' '. $butal . ' sec'.($butal > 1 ? 's' : '');
+		}
+	}
+	return $mins;
+}
+
 function has_get($name='')
 {
 	return isset($_GET[$name]);
@@ -1025,4 +1047,75 @@ function generate_invoice($user=FALSE)
 	} else {
 		return generate_invoice($user);
 	}
+}
+
+function driving_time_distance($lat1, $lat2, $long1, $long2)
+{
+	$url = "https://maps.googleapis.com/maps/api/distancematrix/json?key=AIzaSyBbNbxnm4HQLyFO4FkUOpam3Im14wWY0MA&origins=".$lat1.",".$long1."&destinations=".$lat2.",".$long2."&mode=driving&language=en-EN";
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	$response = curl_exec($ch);
+	curl_close($ch);
+	
+	$response_a = json_decode($response, true);
+	$dist = $response_a['rows'][0]['elements'][0]['distance']['text'];
+	$time = $response_a['rows'][0]['elements'][0]['duration']['text'];
+
+	return array('distance' => $dist, 'time' => $time);
+}
+
+function products_by_location($products=false, $location=false, $data=false)
+{
+	if ($products AND $location) {
+		$ci =& get_instance();
+		$user_location = $ci->custom->get('user_location', ['id'=>$location['id']], false, 'row');
+		unset($user_location['created']); unset($user_location['last_updated']);
+
+		foreach ($products as $key => $row) {
+			$product = $ci->custom->get('product', ['id'=>$row['product_id']], false, 'row');
+			if ($product) {
+				unset($product['created']); unset($product['last_updated']);
+				unset($product['location_id']);
+
+				$product['farm_name'] = $user_location['farm_name'];
+				$product['address'] = $user_location['address'];
+				$product['distance'] = $location['distance'];
+				$product['unit'] = $location['unit'];
+				$product['lat'] = $location['lat'];
+				$product['lng'] = $location['lng'];
+
+				$category = $ci->custom->get('product_category', ['id'=>$product['category_id']], false, 'row');
+				unset($category['created']); unset($category['last_updated']);
+				$product['category'] = $category['label'];
+				unset($product['category_id']);
+
+				$activity = $ci->custom->get('activity', ['id'=>$product['activity_id']], false, 'row');
+				unset($activity['created']); unset($activity['last_updated']);
+				$product['activity'] = $activity['label'];
+				unset($product['activity_id']);
+
+				$product_photo = $ci->custom->get('product_photo', ['product_id'=>$product['id'], 'is_main'=>1], false, 'row');
+				unset($product_photo['created']); unset($product_photo['last_updated']);
+				$product['photo'] = $product_photo['path'];
+
+				$product_photos = $ci->custom->get('product_photo', ['product_id'=>$product['id'], 'is_main'=>0]);
+				unset($product_photos['created']); unset($product_photos['last_updated']);
+				// debug($product_photos, 1);
+				$product['photos'] = [];
+				if ($product_photos) {
+					foreach ($product_photos as $key => $photo) {
+						$product['photos'][] = $photo['path'];
+					}
+				}
+
+				$data[] = $product;
+			}
+		}
+		// debug($data, 1);
+	}
+	return $data;
 }

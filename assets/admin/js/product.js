@@ -7,4 +7,15 @@ $(document).ready(function() {
 		$(this).addClass('active');
 	});
 
+	$('#qty').bind('blur input', function() {
+		if ($.trim($(this).val()) == '' || (!isNaN($(this).val()) && parseInt($(this).val()) < 0)) {
+			$(this).val(1);
+		}
+		// console.log($(this).val())
+		var iVal = parseInt($(this).val());
+		if (iVal > $(this).data('max')) {
+			$(this).val($(this).data('max'));
+		}
+	});
+
 });

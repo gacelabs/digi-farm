@@ -162,10 +162,16 @@ class Accounts {
 	public function logout($redirect_url='')
 	{
 		$profile = $this->class->session->userdata('profile');
+		$near_veggies = $this->class->session->userdata('near_veggies');
+		$near_farmers = $this->class->session->userdata('near_farmers');
+		
 		$this->class->session->unset_userdata('profile');
 		$this->class->session->sess_destroy();
 		$this->profile = FALSE;
 		$this->has_session = FALSE;
+
+		$this->class->session->set_userdata('near_veggies', $near_veggies);
+		$this->class->session->set_userdata('near_farmers', $near_farmers);
 		// $this->class->pushthru->trigger('logout-profile', 'browser-'.$this->device_id.'-sessions-logout', $profile);
 		redirect(base_url($redirect_url));
 	}

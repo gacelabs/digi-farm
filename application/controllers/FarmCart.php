@@ -9,7 +9,7 @@ class FarmCart extends MY_Controller {
 		// $this->load->library('paypalapi', ['key'=>PAYPAL_CLIENTID, 'secret'=>PAYPAL_SECRET], 'paypal');
 		$this->load->library('lalamoveapi', ['id'=>LALAMOVE_ID, 'key'=>LALAMOVE_KEY], 'lalamove');
 		// debug($this->paypal);
-		// debug($this->lalamove->add_client(123456), 1);
+		// debug($this->lalamove, 1);
 	}
 
 	public function index()
@@ -52,25 +52,37 @@ class FarmCart extends MY_Controller {
 	public function add()
 	{
 		$post = get_form_data();
-		if ($post) {
+		if ($post AND (isset($post['pos']) AND is_numeric($post['pos']))) {
+			// debug($this->cart->contents(), 1);
+			// debug($post, 1);
+			$pos = $post['pos'];
 			if (!isset($post['qty'])) $post['qty'] = 1;
-			$product = $this->custom->get('product', ['id' => $post['id']], false, 'row');
+			$near_veggies = $this->session->userdata('near_veggies');
+			// debug($this->latlng);
+			$product = $estimated = false;
+			if (isset($near_veggies[$pos])) {
+				$product = $near_veggies[$pos];
+				$product['pos'] = $pos;
+				$estimated = calculate_distance($product['distance']);
+				$product['estimated'] = actual_estimate($estimated);
+			}
 			// debug($product, 1);
 			if ($product) {
 				$insert = [
 					'id' => $product['id'],
 					'qty' => $post['qty'],
 					'price' => $product['current_price'],
-					'name' => $product['name'].' - '.$product['description'],
+					'name' => $product['name'],
 				];
 				$insert['options'] = $product;
 				$insert['options']['device_id'] = $this->device_id;
-				$insert['added'] = date('Y-m-d H:i:s.U');
+				$insert['added'] = date('Y-m-d H:i:s');
 
 				$photo = $this->custom->get('product_photo', ['product_id' => $post['id'], 'is_main' => 1], false, 'row');
 				$insert['path'] = $photo['path'];
-				
+				// debug($insert, 1);
 				$rowid = $this->cart->insert($insert);
+				// debug($this->cart->contents(), 1);
 
 				$order = $this->custom->get('order', ['product_id' => $post['id'], 'rowid' => $rowid], false, 'row');
 				// debug($order, 1);
@@ -85,7 +97,6 @@ class FarmCart extends MY_Controller {
 				$up = $this->update_cart($rowid, $item);
 
 				$parse_url = parse_url($this->agent->referrer());
-				// debug($parse_url, 1);
 				if (!$this->accounts->has_session AND !in_array($parse_url['path'], [null,'/'])) {
 					$this->session->set_userdata('prev_url', base_url('cart'));
 					redirect(base_url('login?page=sign_up'));
@@ -110,7 +121,7 @@ class FarmCart extends MY_Controller {
 			$item['qty'] -= 1;
 			$this->cart->update($item);
 			
-			if ($item['qty'] < 0) {
+			if ($item['qty'] <= 0) {
 				$this->custom->remove('cart', ['rowid' => $rowid, 'device_id' => $this->device_id]);
 				redirect(base_url('cart?message=Product '.$item['name'].' quantity deducted'));
 			} else {

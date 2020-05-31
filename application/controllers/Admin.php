@@ -55,9 +55,15 @@ class Admin extends CI_Controller {
 
 	public function sign_out()
 	{
+		$near_veggies = $this->session->userdata('near_veggies');
+		$near_farmers = $this->session->userdata('near_farmers');
+
 		$this->session->unset_userdata('is_admin');
 		$this->session->unset_userdata('profile');
 		$this->session->sess_destroy();
+
+		$this->session->set_userdata('near_veggies', $near_veggies);
+		$this->session->set_userdata('near_farmers', $near_farmers);
 		redirect(base_url('admin/login'));
 	}
 

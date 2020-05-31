@@ -16,13 +16,19 @@
 
 <section class="content">
 	<div class="container-fluid">
+		<?php if (has_get('error')): ?>
+			<div class="alert alert-danger alert-dismissible">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none;">&times;</a>
+				<strong>Error!</strong> <?php echo get_url_var('error');?>
+			</div>
+		<?php endif ?>
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<div class="card card-primary">
 					<div class="card-header">
 						<h3 class="card-title">Profile</h3>
 					</div>
-					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
+					<form class="form-validate" action="profile/<?php echo $info['id'];?>" method="post">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-6 form-group">
@@ -52,15 +58,6 @@
 										<?php endforeach ?>
 									</select>
 								</div>
-								<?php
-								'<div class="col-6 form-group">
-									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" type="checkbox" id="customCheckbox2" name="user[farmer]" $info["farmer"] ? "checked="checked"": "";>
-										<label for="customCheckbox2" class="custom-control-label">I am a farmer</label> 
-										<i class="fas fa-info-circle text-grey" title="Click to learn more." data-toggle="modal" data-target="#modal-farmer-info"></i>
-									</div>
-								</div>';
-								?>
 							</div>
 						</div>
 
@@ -75,7 +72,7 @@
 						<h3 class="card-title">Home Address</h3>
 					</div>
 					<!-- form start -->
-					<form class="form-validate" action="" method="post">
+					<form class="form-validate" action="profile/<?php echo $info['id'];?>" method="post">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
@@ -85,7 +82,7 @@
 										</div>
 										<input type="text" id="home_address_1" class="form-control" name="home_address_1" placeholder="My house" />
 										<div class="input-group-prepend">
-											<span class="input-group-text">Default <input type="radio" name="home_default" style="margin-left: 10px;" /></span>
+											<label class="input-group-text">Default <input type="radio" name="home_default" style="margin-left: 10px;" /></label>
 										</div>
 									</div>
 								</div>
@@ -124,7 +121,7 @@
 										</div>
 										<input type="text" id="home_address_1" class="form-control" name="home_address_1" placeholder="My mother's house" />
 										<div class="input-group-prepend">
-											<span class="input-group-text">Default <input type="radio" name="home_default" style="margin-left: 10px;" /></span>
+											<label class="input-group-text">Default <input type="radio" name="home_default" style="margin-left: 10px;" /></label>
 										</div>
 									</div>
 								</div>
@@ -165,7 +162,6 @@
 			</div>
 
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-
 				<?php
 					$settings = $profile_data['app_settings'];
 					// debug($settings);
@@ -175,7 +171,7 @@
 					<div class="card-header">
 						<h3 class="card-title">App Settings</h3>
 					</div>
-					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
+					<form class="form-validate" action="profile/<?php echo $info['id'];?>" method="post">
 						<div class="card-body">
 							<div class="row">
 							<?php foreach ($settings as $id => $row): ?>
@@ -228,14 +224,8 @@
 						<h3 class="card-title">Password Reset</h3>
 					</div>
 					<!-- /.card-header -->
-					<?php if (has_get('error')): ?>
-						<div class="alert alert-danger alert-dismissible">
-							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							<strong>Error!</strong> <?php echo get_url_var('error');?>
-						</div>
-					<?php endif ?>
 					<!-- form start -->
-					<form class="form-validate" action="dashboard/profile/<?php echo $info['id'];?>" method="post">
+					<form class="form-validate" action="profile/<?php echo $info['id'];?>" method="post">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">

@@ -55,30 +55,27 @@ class Marketplace extends MY_Controller {
 						$veggies_position = $farmers_position = $distances = [];
 						foreach ($data as $loc) $distances[$loc['user_id']][] = $loc['distance'];
 						foreach ($data as $key => $loc) {
-							$products = $this->db->join('product_location', 'product_location.product_id = product.id', 'left')
-								->join('product_photo', 'product_photo.product_id = product.id AND product_photo.is_main = 1', 'left')
-								->select('product.*, "'.$loc['distance'].'" AS distance, "'.$loc['unit'].'" AS unit, product_photo.path AS photo')
-								->get_where('product', ['product_location.location_id'=>$loc['id']]);
-							if ($products->num_rows()) {
-								// debug($products->result_array(), 1);
-								foreach ($products->result_array() as $key => $product) {
-									$veggies_position[$product['id']] = $product;
-								}
-							}
+							unset($loc['created']); unset($loc['last_updated']);
+
+							$products = $this->custom->get('product_location', ['location_id'=>$loc['id']]);
+							$veggies_position = products_by_location($products, $loc, $veggies_position);
+
 							$users = $this->db->join('user_location', 'user_location.user_id = user.id', 'left')
-								->select('user.*, "'.min($distances[$loc['user_id']]).'" AS distance, "'.$loc['unit'].'" AS unit, user_location.farm_name, user_location.address')
-								->get_where('user', ['user_location.user_id'=>$loc['user_id']]);
+								->select('user.*, "'.$loc['distance'].'" AS distance, "'.$loc['unit'].'" AS unit, user_location.farm_name, user_location.address')
+								->get_where('user', ['user_location.user_id'=>$loc['user_id'], 'user_location.id'=>$loc['id']]);
 							if ($users->num_rows()) {
-								// debug($products->result_array(), 1);
+								// debug($users->result_array(), 1);
 								foreach ($users->result_array() as $key => $user) {
-									$farmers_position[$user['id']] = $user;
+									$farmers_position[] = $user;
 								}
 							}
 						}
 					}
 				}
 				// debug($veggies_position, 1);
+				$this->session->set_userdata('near_veggies', $veggies_position);
 				// debug($farmers_position, 1);
+				$this->session->set_userdata('near_farmers', $farmers_position);
 				return [
 					'veggies_position' => $veggies_position,
 					'farmers_position' => $farmers_position,

@@ -25,7 +25,7 @@
 						<?php foreach ($veggies_position as $key => $product): ?>
 							<div class="slider-item product-item">
 								<!-- <a href="product/view?id=<?php echo $product['id']?>"> -->
-								<a href="product/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
+								<a href="product/<?php echo $key?>/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
 									<div class="card">
 										<div class="card-header">
 											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="<?php echo $product['name'];?>">
@@ -136,7 +136,7 @@
 												<img class="profile-user-img img-fluid img-circle" src="<?php check_file_and_render($farmer['photo'], '80x80?text=Photo');?>" alt="User profile picture" />
 											</div>
 											<div class="card-footer text-center text-ellipsis" style="background-color:#fff;border-bottom-left-radius:.25rem;border-bottom-right-radius:.25rem">
-												<h3 class="profile-username zero-gap"><?php echo get_fullname(['user'=>$farmer]);?></h3>
+												<h3 class="profile-username zero-gap"><?php echo $farmer['farm_name'];?></h3>
 												<small class="text-grey zero-gap elem-block"><?php echo $farmer['address'];?></small>
 												<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> <?php echo round($farmer['distance'], 2);?><?php echo strtoupper($farmer['unit']);?></span>
 											</div>
