@@ -40,18 +40,23 @@ class Product extends MY_Controller {
 				'post_body' => array(
 				),
 				'db' => function() {
-					$pos = $this->uri->segment(2);
-					$product_id = $this->uri->segment(3);
-					$near_veggies = $this->session->userdata('near_veggies');
 					// debug($this->latlng);
+					$product_id = $this->uri->segment(3);
+					$pos = $this->uri->segment(2);
 
-					$product = $estimated = false;
-					if (isset($near_veggies[$pos])) {
-						$product = $near_veggies[$pos];
-						$product['pos'] = $pos;
-						$estimated = calculate_distance($product['distance']);
-						$product['estimated'] = actual_estimate($estimated);
+					if (is_numeric($pos)) {
+						$near_veggies = $this->session->userdata('near_veggies');
+						$product = $estimated = false;
+						if (isset($near_veggies[$pos])) {
+							$product = $near_veggies[$pos];
+							$product['pos'] = $pos;
+							$estimated = calculate_distance($product['distance']);
+							$product['estimated'] = actual_estimate($estimated);
+						}
+					} else {
+						
 					}
+
 					// debug($product, 1);
 					return $product;
 				}

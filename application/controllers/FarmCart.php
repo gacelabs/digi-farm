@@ -43,6 +43,7 @@ class FarmCart extends MY_Controller {
 				if ($cart) {
 					redirect(base_url('cart'));
 				}
+				// debug($this->cart->contents(), 1);
 				return $this->cart->contents();
 			}
 		);
@@ -52,20 +53,24 @@ class FarmCart extends MY_Controller {
 	public function add()
 	{
 		$post = get_form_data();
-		if ($post AND (isset($post['pos']) AND is_numeric($post['pos']))) {
+		// debug($post, 1);
+		if ($post) {
 			// debug($this->cart->contents(), 1);
-			// debug($post, 1);
-			$pos = $post['pos'];
 			if (!isset($post['qty'])) $post['qty'] = 1;
-			$near_veggies = $this->session->userdata('near_veggies');
-			// debug($this->latlng);
+			
 			$product = $estimated = false;
-			if (isset($near_veggies[$pos])) {
-				$product = $near_veggies[$pos];
-				$product['pos'] = $pos;
-				$estimated = calculate_distance($product['distance']);
-				$product['estimated'] = actual_estimate($estimated);
+			if ((isset($post['pos']) AND is_numeric($post['pos']))) {
+				$pos = $post['pos'];
+				$near_veggies = $this->session->userdata('near_veggies');
+				// debug($this->latlng);
+				if (isset($near_veggies[$pos])) {
+					$product = $near_veggies[$pos];
+					$product['pos'] = $pos;
+					$estimated = calculate_distance($product['distance']);
+					$product['estimated'] = actual_estimate($estimated);
+				}
 			}
+
 			// debug($product, 1);
 			if ($product) {
 				$insert = [
@@ -77,6 +82,7 @@ class FarmCart extends MY_Controller {
 				$insert['options'] = $product;
 				$insert['options']['device_id'] = $this->device_id;
 				$insert['added'] = date('Y-m-d H:i:s');
+				$insert['pos'] = $product['pos'];
 
 				$photo = $this->custom->get('product_photo', ['product_id' => $post['id'], 'is_main' => 1], false, 'row');
 				$insert['path'] = $photo['path'];

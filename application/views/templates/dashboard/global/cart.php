@@ -50,8 +50,7 @@
 							<tr data-rowid="<?php echo $key;?>">
 								<td><?php echo $row+=1;?></td>
 								<td>
-									<a href="product/view?id=<?php echo $product['id'];?>">
-									<!-- <a href="product/<?php //echo $product['id'];?>/<?php // echo clean_string_name($product['name']);?>"> -->
+									<a href="product/<?php echo $product['pos']?>/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
 										<?php echo $product['name'];?>
 									</a>
 									<br />
@@ -94,7 +93,7 @@
 									<span class="badge badge-success"><?php echo $status;?></span>
 								</td>
 								<td class="project-actions text-right">
-									<a href="cart/add?id=<?php echo $product['id'];?>" class="btn btn-success btn-sm" href="#">
+									<a href="cart/add?id=<?php echo $product['id'];?>&pos=<?php echo $product['pos']?>" class="btn btn-success btn-sm" href="#">
 										<i class="fas fa-plus"> </i>
 									</a>
 									<a href="cart/less/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">

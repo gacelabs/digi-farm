@@ -48,7 +48,7 @@
 													Quantity
 												</span>
 											</div>
-											<input type="number" min="1" max="<?php echo $product['stocks'];?>" id='qty' name='qty' class="form-control" required="required" data-max="<?php echo $product['stocks'];?>" />
+											<input type="number" min="1" max="<?php echo $product['stocks'];?>" id='qty' name='qty' class="form-control" required="required" data-max="<?php echo $product['stocks'];?>" value="1" />
 											<div class="input-group-append">
 												<div class="input-group-text"><?php echo $product['measurement'];?></div>
 											</div>
