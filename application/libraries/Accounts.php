@@ -117,6 +117,7 @@ class Accounts {
 								$this->class->session->set_userdata('profile', $data);
 								$this->profile = $data;
 							}
+							redirect_prev_url();
 							if ($redirect_url != '') {
 								redirect(base_url($redirect_url == 'home' ? '' : $redirect_url));
 							}
@@ -146,6 +147,7 @@ class Accounts {
 				// debug($data, 1);
 				$this->class->session->set_userdata('profile', $data);
 				$this->profile = $data;
+				redirect_prev_url();
 				if ($redirect_url != '') {
 					redirect(base_url($redirect_url == 'home' ? '' : $redirect_url));
 				} else {

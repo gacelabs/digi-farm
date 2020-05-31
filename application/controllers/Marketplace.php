@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Marketplace extends MY_Controller {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$cart = getsave_prev_cart();
+		if ($cart) redirect(base_url());
+	}
+
 	public function index()
 	{
 		$data = array(

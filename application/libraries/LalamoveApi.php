@@ -60,6 +60,7 @@ class LalamoveApi {
 				$this->errors['message'] = $ex->getMessage();
 			}
 		}
+		debug($this);
 		return $this;
 	}
 
@@ -149,6 +150,6 @@ class LalamoveApi {
 
 	private function check_client($rowid=FALSE)
 	{
-		return ($rowid AND isset($this->clients[$rowid]));
+		return !($rowid AND isset($this->clients[$rowid]));
 	}
 }

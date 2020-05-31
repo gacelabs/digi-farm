@@ -433,7 +433,7 @@ function search_query($query='', $and_clause='')
 	return [];
 }
 
-function clean_string_name($string=FALSE, $replaced=FALSE, $delimiter='-')
+function clean_string_name($string=FALSE, $replaced=FALSE, $delimiter='')
 {
 	if ($string) {
 		if ($replaced) {
@@ -703,6 +703,35 @@ function has_post($name='')
 	return isset($_POST[$name]);
 }
 
+function get_form_data()
+{
+	$ci =& get_instance();
+	return $ci->input->post() ? $ci->input->post() : ($ci->input->get() ? $ci->input->get() : FALSE);
+}
+
+function redirect_prev_url()
+{
+	$ci =& get_instance();
+	if ($ci->session->userdata('prev_url')) {
+		redirect($ci->session->userdata('prev_url'));
+	}
+	return false;
+}
+
+function getsave_prev_cart()
+{
+	$ci =& get_instance();
+	$carts = $ci->custom->get('cart', ['device_id' => $ci->device_id]);
+	// debug($carts AND empty($ci->cart->contents()), 1);
+	if ($carts AND empty($ci->cart->contents())) {
+		foreach ($carts as $key => $cart) {
+			$data = unserialize($cart['data']);
+			$ci->cart->insert($data);
+		}
+	}
+	return false;
+}
+
 function construct($data=false, $type='', $selected=false, $field='id')
 {
 	$result = false;
@@ -926,4 +955,74 @@ function cart_session($function=false, $params=false)
 		}
 	}
 	return $ci->cart->contents($params);
+}
+
+function construct_paypal($data=FALSE, $paypal_api=FALSE, $user=FALSE)
+{
+	if ($data AND $paypal_api AND $user) {
+		$user = (array)$user;
+		$post = array( 
+			'method' => 'SinglePayment',
+			'data' => array(
+				'payment_method' => 'paypal', // credit_card or paypal by default
+				'items' => [
+					[
+						'sku' => $data['sku'], // 'Customed-1000',
+						'name' => $data['name'], // 'Customed Service | 1K Metered Payload for Php 1000',
+						'price' => $data['price'], // 1000,
+						'quantity' => $data['quantity'], // 1
+					]
+				],
+				/*if there are other details you want to set like shipping_fee, tax or subtotal*/
+				'details' => [
+					'shipping_fee' => 0,
+					'tax' => 0,
+					'subtotal' => 0 // pre computed by default
+				],
+				'currency' => $data['currency'], // 'PHP',
+				'payment_description' => 'Realtime data transmission Service',
+				'invoice_number' => $data['invoice_number'],
+				'return_url' => base_url('accounts/payment_url?success=true&id='.$user['id'].'&number='.$data['invoice_number']),
+				'cancel_url' => base_url('accounts/payment_url?success=false&id='.$user['id'].'&number='.$data['invoice_number'])
+			)
+		);
+		if (isset($data['urls'])) {
+			$post['data']['return_url'] = $data['urls']['return'];
+			$post['data']['cancel_url'] = $data['urls']['cancel'];
+		}
+		// debug($post); exit();
+		$paypal_api->submit($post);
+		// debug($paypal_api->fetch()); exit();
+		$result = $paypal_api->fetch();
+		if ($result->output->errors['success']) {
+			return $result;
+		}
+	}
+
+	return FALSE;
+}
+
+function generate_invoice($user=FALSE)
+{
+	$ci =& get_instance();
+	if ($user) {
+		$user = (array)$user;
+	} else {
+		if ($ci->accounts->has_session) {
+			$user = $ci->accounts->profile['user'];
+		} else {
+			$user = ['id'=>GACELABS_SUPER_KEY, 'email_address'=>GACELABS_KEY];
+		}
+	}
+
+	$number = 'FA-'.strtoupper(substr(md5($user['id'].$user['email_address'].'|'.time()), 0, 5).'-'.str_pad(rand(1, 10), 2, '0', STR_PAD_LEFT));
+	$data = $ci->db->get_where('invoices', ['number' => $number]);
+	// debug($data->num_rows(), 1);
+	
+	if ($data->num_rows() == 0) {
+		$ci->custom->create('invoices', ['number'=>$number, 'email'=>$user['email_address']]);
+		return $number;
+	} else {
+		return generate_invoice($user);
+	}
 }
