@@ -72,21 +72,21 @@
 										<div>
 											<i class="fas fa-store-alt bg-blue"></i>
 											<div class="timeline-item">
-												<span class="time"><span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> <?php echo round($product['distance'], 2);?><?php echo strtoupper($product['unit']);?></span></span>
+												<span class="time"><span class="badge badge-primary" style="font-size: 15px; font-weight: normal;"><i class="fas fa-map-marker-alt"></i> <?php echo round($product['distance'], 2);?><?php echo strtoupper($product['unit']);?></span></span>
 												<h3 class="timeline-header"><b>From</b> <?php echo $product['farm_name'];?></h3>
 											</div>
 										</div>
 										<div>
 											<i class="fas fa-truck bg-orange text-white" style="padding-left: 3px;"></i>
 											<div class="timeline-item">
-												<span class="time"><i class="fas fa-clock"></i> <?php echo $product['estimated'];?></span>
+												<span class="time" style="font-size: 15px; font-weight: normal;"><i class="fas fa-clock"></i> <?php echo $product['estimated'];?></span>
 												<h3 class="timeline-header no-border">Estimated Delivery time</h3>
 											</div>
 										</div>
 										<div>
 											<i class="fas fa-home bg-green"></i>
 											<div class="timeline-item">
-												<span class="time"><i class="fas fa-dolly-flatbed"></i> Arrived</span>
+												<span class="time" style="font-size: 15px; font-weight: normal;"><i class="fas fa-dolly-flatbed"></i> Arrived</span>
 												<h3 class="timeline-header no-border"><b>To</b> your house</h3>
 											</div>
 										</div>
