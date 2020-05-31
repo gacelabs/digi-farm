@@ -28,7 +28,7 @@
 								<a href="product/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
 									<div class="card">
 										<div class="card-header">
-											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="<?php echo $product['name'];?>" style="height: 248px;">
+											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="<?php echo $product['name'];?>">
 											<div class="card-tools">
 												<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> <?php echo round($product['distance'], 2);?><?php echo strtoupper($product['unit']);?></span>
 											</div>
@@ -53,58 +53,56 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="container padding-zero-sm margin-bottom-15">
-					<div class="division-inner box-shadow">
-						<div class="row mb-2">
-							<div class="col-lg-12">
-								<h5 class="m-0 text-dark">Categories</h5>
-							</div>
+				<div class="division-inner box-shadow">
+					<div class="row mb-2">
+						<div class="col-lg-12">
+							<h5 class="m-0 text-dark">Categories</h5>
 						</div>
-						<section class="center category-slider">
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/lettuce.jpg">
-									<h2 class="slider-title">Lettuce</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/tomatoes.jpg">
-									<h2 class="slider-title">Tomatoes</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/chilis.jpg">
-									<h2 class="slider-title">Chilis</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/eggplants.jpg">
-									<h2 class="slider-title">Eggplants</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/potatoes.jpg">
-									<h2 class="slider-title">Potatoes</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/beans.jpg">
-									<h2 class="slider-title">Beans</h2>
-								</a>
-							</div>
-							<div class="slider-item">
-								<a href="#">
-									<img src="assets/images/props/peppers.jpg">
-									<h2 class="slider-title">Peppers</h2>
-								</a>
-							</div>
-						</section>
 					</div>
+					<section class="center category-slider">
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/lettuce.jpg">
+								<h2 class="slider-title">Lettuce</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/tomatoes.jpg">
+								<h2 class="slider-title">Tomatoes</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/chilis.jpg">
+								<h2 class="slider-title">Chilis</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/eggplants.jpg">
+								<h2 class="slider-title">Eggplants</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/potatoes.jpg">
+								<h2 class="slider-title">Potatoes</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/beans.jpg">
+								<h2 class="slider-title">Beans</h2>
+							</a>
+						</div>
+						<div class="slider-item">
+							<a href="#">
+								<img src="assets/images/props/peppers.jpg">
+								<h2 class="slider-title">Peppers</h2>
+							</a>
+						</div>
+					</section>
 				</div>
 			</div>
 		</div>

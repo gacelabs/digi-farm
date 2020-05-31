@@ -6,7 +6,7 @@ class FarmCart extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('paypalapi', ['key'=>PAYPAL_CLIENTID, 'secret'=>PAYPAL_SECRET], 'paypal');
+		// $this->load->library('paypalapi', ['key'=>PAYPAL_CLIENTID, 'secret'=>PAYPAL_SECRET], 'paypal');
 		$this->load->library('lalamoveapi', ['id'=>LALAMOVE_ID, 'key'=>LALAMOVE_KEY], 'lalamove');
 		// debug($this->paypal);
 		// debug($this->lalamove->add_client(123456), 1);

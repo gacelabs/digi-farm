@@ -52,6 +52,19 @@
 										<?php endforeach ?>
 									</select>
 								</div>
+<<<<<<< HEAD
+
+								<?php
+								'<div class="col-6 form-group">
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" type="checkbox" id="customCheckbox2" name="user[farmer]" $info["farmer"] ? "checked="checked"": "";>
+										<label for="customCheckbox2" class="custom-control-label">I am a farmer</label> 
+										<i class="fas fa-info-circle text-grey" title="Click to learn more." data-toggle="modal" data-target="#modal-farmer-info"></i>
+									</div>
+								</div>';
+								?>
+=======
+>>>>>>> 82213e474a4cda5898788c534a81dca710cd4781
 							</div>
 						</div>
 

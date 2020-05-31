@@ -50,7 +50,8 @@
 							<tr data-rowid="<?php echo $key;?>">
 								<td><?php echo $row+=1;?></td>
 								<td>
-									<a href="product/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
+									<a href="product/view?id=<?php echo $product['id'];?>">
+									<!-- <a href="product/<?php //echo $product['id'];?>/<?php // echo clean_string_name($product['name']);?>"> -->
 										<?php echo $product['name'];?>
 									</a>
 									<br />

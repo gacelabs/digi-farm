@@ -108,6 +108,7 @@ class MY_Controller extends CI_Controller {
 						base_url('assets/admin/template/plugins/bootstrap/js/bootstrap.bundle.min.js'),
 						base_url('assets/admin/template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js'),
 						base_url('assets/admin/template/dist/js/adminlte.js'),
+						base_url('assets/admin/js/custom-js.js'),
 					);
 					break;
 				
@@ -119,7 +120,7 @@ class MY_Controller extends CI_Controller {
 						base_url('assets/admin/template/dist/css/adminlte.min.css'),
 						base_url('assets/admin/template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css'),
 						base_url('assets/admin/css/sourcesanspro.css'),
-						base_url('assets/admin/css/custom-admin.css')
+						base_url('assets/admin/css/custom-admin.css'),
 					);
 					break;
 

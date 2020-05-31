@@ -60,7 +60,7 @@ class LalamoveApi {
 				$this->errors['message'] = $ex->getMessage();
 			}
 		}
-		debug($this);
+		// debug($this);
 		return $this;
 	}
 

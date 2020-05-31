@@ -36,6 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
+				<div class="wrapper-overlay"></div>
 				<?php echo active_menu(2, 'dashboard');?>
 			<?php
 				if (!empty($view['contentdata_view'])) {
@@ -83,6 +84,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<?php endif ?>
 			<?php }; ?>
 		<?php }; ?>
+
+
+<script type="text/javascript">
+	$(window).on('load resize', function() {
+
+		$('.wrapper-overlay').fadeIn('fast');
+
+		setTimeout(function() {
+			$('.wrapper-overlay').fadeOut('slow');
+		},600);
+
+	});
+</script>
 
 	</body>
 </html>
