@@ -22,6 +22,7 @@
 </style>
 <script type="text/javascript">
 	var currPage = "<?php echo $body_id;?>-page";
+	var currLatLng = <?php echo json_encode($this->latlng);?>;
 </script>
 
 <?php foreach ($head_css as $key => $value) { ?>

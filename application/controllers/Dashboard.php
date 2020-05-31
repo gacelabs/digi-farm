@@ -84,6 +84,7 @@ class Dashboard extends MY_Controller {
 					}*/
 					$this->custom->save('user', $set['user'], ['id' => $id]);
 				}
+
 				if (isset($set['user_app_settings'])) {
 					foreach ($set['user_app_settings'] as $settings_id => $values) {
 						if (isset($values['type'])) {
@@ -106,6 +107,7 @@ class Dashboard extends MY_Controller {
 						}
 					}
 				}
+
 				$this->accounts->update($id);
 			} else {
 				$message = 'That was not your profile! Stop hacking the system!';
@@ -139,6 +141,7 @@ class Dashboard extends MY_Controller {
 				),
 				'footer_css' => $this->dash_defaults('footer_css'),
 				'footer_js' => $this->dash_defaults('footer_js', [
+					'https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNbxnm4HQLyFO4FkUOpam3Im14wWY0MA&libraries=places',
 					base_url('assets/js/jquery.validation.min.js'),
 					base_url('assets/js/validator.js'),
 					base_url('assets/js/profile.js'),

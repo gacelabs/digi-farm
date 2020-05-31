@@ -914,9 +914,9 @@ function nearest_locations($data=false, $distance=100, $unit='km')
 								acos(
 									sin(( ".$position['lat']." * pi() / 180))
 									*
-									sin(( `lat` * pi() / 180)) + cos(( ".$position['lat']." * pi() /180 ))
+									sin(( user_location.lat * pi() / 180)) + cos(( ".$position['lat']." * pi() /180 ))
 									*
-									cos(( `lat` * pi() / 180)) * cos((( ".$position['lng']." - `lng`) * pi()/180)))
+									cos(( user_location.lat * pi() / 180)) * cos((( ".$position['lng']." - user_location.lng) * pi()/180)))
 							) * 180/pi()
 						) * 60 * 1.1515 * 1.609344
 					) AS distance, 'km' AS unit 
@@ -933,9 +933,9 @@ function nearest_locations($data=false, $distance=100, $unit='km')
 								acos(
 									sin(( ".$position['lat']." * pi() / 180))
 									*
-									sin(( `lat` * pi() / 180)) + cos(( ".$position['lat']." * pi() /180 ))
+									sin(( user_location.lat * pi() / 180)) + cos(( ".$position['lat']." * pi() /180 ))
 									*
-									cos(( `lat` * pi() / 180)) * cos((( ".$position['lng']." - `lng`) * pi()/180)))
+									cos(( user_location.lat * pi() / 180)) * cos((( ".$position['lng']." - user_location.lng) * pi()/180)))
 							) * 180/pi()
 						) * 60 * 1.1515
 					) AS distance, 'mi' AS unit 

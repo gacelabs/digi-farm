@@ -74,83 +74,29 @@
 					<!-- form start -->
 					<form class="form-validate" action="profile/<?php echo $info['id'];?>" method="post">
 						<div class="card-body">
-							<div class="row">
+							<div class="row home-panel">
+								<?php
+									$latlng = '';
+									if ($info['lat'] AND $info['lng']) {
+										$latlng = json_encode(['lat'=>$info['lat'], 'lng'=>$info['lng']]);
+									}
+								?>
+								<input type="hidden" id="latlng" value='<?php echo $latlng;?>'>
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
 									<div class="input-group">
-										<div class="input-group-prepend">
-											<label for="home_address_1" class="input-group-text">Home #1</label>
-										</div>
-										<input type="text" id="home_address_1" class="form-control" name="home_address_1" placeholder="My house" />
-										<div class="input-group-prepend">
-											<label class="input-group-text">Default <input type="radio" name="home_default" style="margin-left: 10px;" /></label>
+										<input type="text" required="required" class="form-control address" id="home_address" name="user[address]" placeholder="Search for your house location here or drag the map pin below ..." value="<?php echo $info['address'];?>" />
+										<div id="latlng_data">
+											<input type="hidden" id="lat" name="user[lat]" value="<?php echo $info['lat'];?>" />
+											<input type="hidden" id="lng" name="user[lng]" value="<?php echo $info['lng'];?>" />
 										</div>
 									</div>
 								</div>
 
-								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
-									<label for="street">Block /Lot /House # Street</label>
-									<input type="text" class="form-control" id="street" name="street" value="" />
-								</div>
-
-								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
-									<label for="subdivision">Subdivision/ Village/ Compound</label>
-									<input type="text" class="form-control" id="subdivision" name="subdivision" value="" />
-								</div>
-
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
-									<label for="region">Region</label>
-									<input type="text" class="form-control" id="region" name="region" value="" />
-								</div>
-
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
-									<label for="city">City</label>
-									<input type="text" class="form-control" id="city" name="city" value="" />
-								</div>
-
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
-									<label for="postal">Postal Code</label>
-									<input type="text" class="form-control" id="postal" name="postal" value="" />
-								</div>
-
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><hr></div>
-
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group mt-3">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<label for="home_address_1" class="input-group-text">Home #2</label>
-										</div>
-										<input type="text" id="home_address_1" class="form-control" name="home_address_1" placeholder="My mother's house" />
-										<div class="input-group-prepend">
-											<label class="input-group-text">Default <input type="radio" name="home_default" style="margin-left: 10px;" /></label>
-										</div>
+								<div class="col-12 form-group">
+									<div id="map-box-0" style="width: 100%; height: 225px; margin-bottom: 15px;">
+										<img src="http://placehold.it/565x225?text=Map" width="100%">
 									</div>
 								</div>
-
-								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
-									<label for="street">Block /Lot /House # Street</label>
-									<input type="text" class="form-control" id="street" name="street" value="" />
-								</div>
-
-								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
-									<label for="subdivision">Subdivision/ Village/ Compound</label>
-									<input type="text" class="form-control" id="subdivision" name="subdivision" value="" />
-								</div>
-
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
-									<label for="region">Region</label>
-									<input type="text" class="form-control" id="region" name="region" value="" />
-								</div>
-
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
-									<label for="city">City</label>
-									<input type="text" class="form-control" id="city" name="city" value="" />
-								</div>
-
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
-									<label for="postal">Postal Code</label>
-									<input type="text" class="form-control" id="postal" name="postal" value="" />
-								</div>
-
 							</div>
 						</div>
 						<!-- /.card-body -->

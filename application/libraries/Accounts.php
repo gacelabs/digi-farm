@@ -92,6 +92,7 @@ class Accounts {
 								'farm_name' => $post['last_name']."'s".($post['farmer'] ? ' Farm' : ' Place'),
 								'lat' => $this->geolocation['lat'],
 								'lng' => $this->geolocation['lng'],
+								'default' => 1,
 							]);
 							/*after insert copy all settings to this user*/
 							$app_settings = $this->class->db->get('app_settings')->result_array();

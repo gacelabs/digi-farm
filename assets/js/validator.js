@@ -41,6 +41,9 @@ $(document).ready(function() {
 				if (element.attr('type') === 'file' && element.hasClass('custom-file-input')) {
 					element.parents('.input-group').addClass('error');
 				}
+				if (element.attr('type') === 'radio' || element.attr('type') === 'checkbox') {
+					element.parent('label').addClass('error');
+				}
 			},
 			highlight: function (element, errorClass, validClass) {
 				$(element).addClass('error');
@@ -54,6 +57,9 @@ $(document).ready(function() {
 				if ($(element).attr('type') === 'file' && $(element).hasClass('custom-file-input')) {
 					$(element).parents('.input-group').addClass('error');
 				}
+				if ($(element).attr('type') === 'radio' || $(element).attr('type') === 'checkbox') {
+					$(element).parent('label').addClass('error');
+				}
 			},
 			unhighlight: function (element, errorClass, validClass) {
 				$(element).removeClass('error');
@@ -66,6 +72,9 @@ $(document).ready(function() {
 				}
 				if ($(element).attr('type') === 'file' && $(element).hasClass('custom-file-input')) {
 					$(element).parents('.input-group').removeClass('error');
+				}
+				if ($(element).attr('type') === 'radio' || $(element).attr('type') === 'checkbox') {
+					$(element).parent('label').removeClass('error');
 				}
 			},
 			rules: {
