@@ -5,7 +5,7 @@
 	$user_id = $current_profile['user']['id'];
 	$product_id = $inventory['product_id'];
 ?>
-<form action="/save-product/<?php echo $product_id;?>" method="post" id="save-product" class="form-validate" enctype="multipart/form-data">
+<form action="save-product/<?php echo $product_id;?>" method="post" id="save-product" class="form-validate" enctype="multipart/form-data">
 	<section class="content-header">
 		<div class="container-fluid">
 			<div class="row mb-2">

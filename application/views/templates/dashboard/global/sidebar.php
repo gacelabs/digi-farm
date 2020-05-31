@@ -54,7 +54,7 @@
 						</li>
 
 						<li class="nav-item">
-							<a href="cart/" class="nav-link <?php active_menu(1, 'cart');?>">
+							<a href="cart" class="nav-link <?php active_menu(1, 'cart');?>">
 								<i class="fas fa-shopping-cart nav-icon"></i>
 								<p>Cart <span class="right badge badge-success"><?php echo cart_session('count');?></span></p>
 							</a>

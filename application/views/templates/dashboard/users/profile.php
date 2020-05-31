@@ -52,8 +52,6 @@
 										<?php endforeach ?>
 									</select>
 								</div>
-<<<<<<< HEAD
-
 								<?php
 								'<div class="col-6 form-group">
 									<div class="custom-control custom-checkbox">
@@ -63,8 +61,6 @@
 									</div>
 								</div>';
 								?>
-=======
->>>>>>> 82213e474a4cda5898788c534a81dca710cd4781
 							</div>
 						</div>
 
@@ -73,6 +69,102 @@
 						</div>
 					</form>
 				</div>
+
+				<div class="card card-primary card-outline">
+					<div class="card-header">
+						<h3 class="card-title">Home Address</h3>
+					</div>
+					<!-- form start -->
+					<form class="form-validate" action="" method="post">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<label for="home_address_1" class="input-group-text">Home #1</label>
+										</div>
+										<input type="text" id="home_address_1" class="form-control" name="home_address_1" placeholder="My house" />
+										<div class="input-group-prepend">
+											<span class="input-group-text">Default <input type="radio" name="home_default" style="margin-left: 10px;" /></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+									<label for="street">Block /Lot /House # Street</label>
+									<input type="text" class="form-control" id="street" name="street" value="" />
+								</div>
+
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+									<label for="subdivision">Subdivision/ Village/ Compound</label>
+									<input type="text" class="form-control" id="subdivision" name="subdivision" value="" />
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
+									<label for="region">Region</label>
+									<input type="text" class="form-control" id="region" name="region" value="" />
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
+									<label for="city">City</label>
+									<input type="text" class="form-control" id="city" name="city" value="" />
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
+									<label for="postal">Postal Code</label>
+									<input type="text" class="form-control" id="postal" name="postal" value="" />
+								</div>
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><hr></div>
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group mt-3">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<label for="home_address_1" class="input-group-text">Home #2</label>
+										</div>
+										<input type="text" id="home_address_1" class="form-control" name="home_address_1" placeholder="My mother's house" />
+										<div class="input-group-prepend">
+											<span class="input-group-text">Default <input type="radio" name="home_default" style="margin-left: 10px;" /></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+									<label for="street">Block /Lot /House # Street</label>
+									<input type="text" class="form-control" id="street" name="street" value="" />
+								</div>
+
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+									<label for="subdivision">Subdivision/ Village/ Compound</label>
+									<input type="text" class="form-control" id="subdivision" name="subdivision" value="" />
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
+									<label for="region">Region</label>
+									<input type="text" class="form-control" id="region" name="region" value="" />
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
+									<label for="city">City</label>
+									<input type="text" class="form-control" id="city" name="city" value="" />
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
+									<label for="postal">Postal Code</label>
+									<input type="text" class="form-control" id="postal" name="postal" value="" />
+								</div>
+
+							</div>
+						</div>
+						<!-- /.card-body -->
+						<div class="card-footer">
+							<button type="submit" class="btn btn-default">Save</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
 				<?php
 					$settings = $profile_data['app_settings'];
@@ -130,9 +222,7 @@
 						</div>
 					</form>
 				</div>
-			</div>
 
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<div class="card card-default">
 					<div class="card-header">
 						<h3 class="card-title">Password Reset</h3>
