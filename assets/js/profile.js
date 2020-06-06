@@ -29,7 +29,12 @@ $(document).ready(function() {
 
 		var map = new google.maps.Map(mapUI, {
 			zoom: 19,
-			center: thisLatLng
+			center: thisLatLng,
+			zoomControl: true,
+			streetViewControl: false,
+			fullscreenControl: false,
+			mapTypeControl: false,
+			gestureHandling: 'greedy'
 		});
 		// maps.push(map);
 		var marker = new google.maps.Marker({

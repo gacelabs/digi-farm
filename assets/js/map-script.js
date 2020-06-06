@@ -7,7 +7,12 @@ var infowindow = new google.maps.InfoWindow({
 var initMap = function(latlng, mapUI) {
 	map = new google.maps.Map(mapUI, {
 		zoom: 9,
-		center: latlng
+		center: latlng,
+		zoomControl: true,
+		streetViewControl: false,
+		fullscreenControl: false,
+		mapTypeControl: false,
+		gestureHandling: 'greedy'
 	});
 	addMarker(latlng);
 	google.maps.event.addListener(map, "click", function(event) {
