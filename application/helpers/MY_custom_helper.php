@@ -959,7 +959,7 @@ function nearest_locations($data=false, $limit=false, $distance=100, $unit='km')
 			) user_location";
 		}
 
-		$extends = $sql." WHERE distance <= ".$distance;
+		$extends = $sql." WHERE distance <= ".$distance." ORDER BY user_location.id";
 
 		if ($limit) {
 			$extends .= " LIMIT $limit";

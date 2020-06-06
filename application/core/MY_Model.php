@@ -19,7 +19,7 @@ class MY_Model extends CI_Model {
 			if ($where) {
 				$this->db->where($where);
 			}
-			$data = $this->db->get($table);
+			$data = $this->db->order_by(1)->get($table);
 			// debug($data);
 			if ($data->num_rows()) {
 				if ($redirect_url != '') {

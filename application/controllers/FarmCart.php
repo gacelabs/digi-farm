@@ -94,16 +94,9 @@ class FarmCart extends MY_Controller {
 				// debug($insert, 1);
 				$rowid = $this->cart->insert($insert);
 				// debug($this->cart->contents(), 1);
-
-				$order = $this->custom->get('order', ['product_id' => $post['id'], 'rowid' => $rowid], false, 'row');
-				// debug($order, 1);
-				$status = 'Added';
-				if ($order) {
-					$statuses = $this->custom->get('order_status', ['id' => $order['status_id']], false, 'row');
-					$status = $statuses['label'];
-				}
 				$item = $this->cart->get_item($rowid);
-				$item['status'] = $status;
+				$item['status'] = 'Added';
+
 				$this->cart->update($item);
 				$up = $this->update_cart($rowid, $item);
 
@@ -208,6 +201,78 @@ class FarmCart extends MY_Controller {
 			return true;
 		}
 		return false;
+	}
+
+	public function checkout()
+	{
+		$data = array(
+			'meta' => array(),
+			'title' => ucfirst(__CLASS__).' | Farmapp',
+			'head_css' => $this->dash_defaults('head_css'),
+			'head_js' => $this->dash_defaults('head_js'),
+			'body_id' => strtolower(__CLASS__),
+			'body_class' => strtolower(__CLASS__),
+			'wrapper_class' => 'dashboard',
+			'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
+				'nav_view' => array(
+					'templates/dashboard/global/nav'
+				),
+				'sidebar_view' => array(
+					'templates/dashboard/global/sidebar'
+				),
+				'contentdata_view' => array(
+					'templates/dashboard/global/checkout'
+				)
+			),
+			'footer_css' => $this->dash_defaults('footer_css'),
+			'footer_js' => $this->dash_defaults('footer_js', [
+				base_url('assets/admin/js/cart.js')
+			]),
+			'post_body' => array(
+			),
+			'db' => function() {
+				// debug($this->farm_cart, 1);
+				return $this->farm_cart;
+			}
+		);
+		$this->load->view('templates/dashboard/landing', $data);
+	}
+
+	public function place_order()
+	{
+		$data = array(
+			'meta' => array(),
+			'title' => ucfirst(__CLASS__).' | Farmapp',
+			'head_css' => $this->dash_defaults('head_css'),
+			'head_js' => $this->dash_defaults('head_js'),
+			'body_id' => strtolower(__CLASS__),
+			'body_class' => strtolower(__CLASS__),
+			'wrapper_class' => 'dashboard',
+			'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
+				'nav_view' => array(
+					'templates/dashboard/global/nav'
+				),
+				'sidebar_view' => array(
+					'templates/dashboard/global/sidebar'
+				),
+				'contentdata_view' => array(
+					'templates/dashboard/global/place_order'
+				)
+			),
+			'footer_css' => $this->dash_defaults('footer_css'),
+			'footer_js' => $this->dash_defaults('footer_js', [
+				base_url('assets/admin/js/orders.js')
+			]),
+			'post_body' => array(
+			),
+			'db' => function() {
+				$post = get_form_data();
+				// debug($post, 1);
+				// debug($this->farm_cart, 1);
+				return $this->farm_cart;
+			}
+		);
+		$this->load->view('templates/dashboard/landing', $data);
 	}
 
 }
