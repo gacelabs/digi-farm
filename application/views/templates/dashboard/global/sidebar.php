@@ -134,7 +134,7 @@
 
 						<?php if ($is_logged_in OR $this->session->userdata('is_admin')): ?>	
 							<li class="nav-item">
-								<a href="<?php echo $this->session->userdata('is_admin') ? 'admin/sign_out' : 'sign_out';?>" class="nav-link">
+								<a href="<?php echo $this->session->userdata('is_admin') ? 'admin/sign-out' : 'sign-out';?>" class="nav-link">
 									<i class="fas fa-sign-out-alt nav-icon"></i>
 									<p>Log out</p>
 								</a>

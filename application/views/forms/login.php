@@ -11,7 +11,7 @@
 
 		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 			
-			<form action="sign_in" method="post" class="form-validate <?php echo is_url_var('page', 'sign_in') ? 'show' : 'hidden';?>" id="login">
+			<form action="sign-in" method="post" class="form-validate <?php echo is_url_var('page', 'sign-in') ? 'show' : 'hidden';?>" id="login">
 				<h3 class="zero-gap margin-bottom-20">Buy vegetables grown by farmers near you.</h4>
 				<div class="form-group">
 					<label for="email_address">Email address</label>
@@ -24,7 +24,7 @@
 				<button type="submit" class="btn btn-info btn-block">Log in</button>
 			</form>
 
-			<form action="sign_up" method="post" class="form-validate <?php echo is_url_var('page', 'sign_in') ? 'hidden' : 'show';?>" id="signup">
+			<form action="sign-up" method="post" class="form-validate <?php echo is_url_var('page', 'sign-in') ? 'hidden' : 'show';?>" id="signup">
 				<h3 class="zero-gap margin-bottom-20">Let us support the local farmers.</h4>
 				<div class="row">
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -80,7 +80,7 @@
 				<ul class="spaced-list between">
 					<li>
 						<button class="btn btn-sm btn-default" id="login-switch">
-							<?php echo is_url_var('page', 'sign_in') ? 'Sign up' : 'Log in';?>
+							<?php echo is_url_var('page', 'sign-in') ? 'Sign up' : 'Log in';?>
 						</button>
 					</li>
 					<li>

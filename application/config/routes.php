@@ -14,17 +14,19 @@ $route['settings'] = 'Dashboard/settings';
 
 $route['dashboard/admin'] = 'Admin/index';
 $route['dashboard/admin/login'] = 'Admin/login';
-$route['dashboard/admin/sign_out'] = 'Admin/sign_out';
+$route['dashboard/admin/sign-out'] = 'Admin/sign_out';
 
 $route['login'] = 'Account/index';
-$route['sign_in'] = 'Account/sign_in';
-$route['sign_up'] = 'Account/sign_up';
-$route['sign_out'] = 'Account/sign_out';
+$route['sign-in'] = 'Account/sign_in';
+$route['sign-up'] = 'Account/sign_up';
+$route['sign-out'] = 'Account/sign_out';
 
 $route['cart'] = 'FarmCart/index';
 $route['cart/add'] = 'FarmCart/add';
 $route['cart/remove/(:any)'] = 'FarmCart/remove/$1';
 $route['cart/less/(:any)'] = 'FarmCart/less/$1';
+$route['cart/checkout'] = 'FarmCart/checkout';
+$route['cart/place-order'] = 'FarmCart/place_order';
 
 $route['product/(:num)/(:num)/(:any)'] = 'Product/index/$1/$2/$3';
 

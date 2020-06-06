@@ -44,7 +44,7 @@
 										</td>
 										<td><?php echo $product['name'];?></td>
 										<td><?php echo $product['measurement'];?></td>
-										<td><?php echo $product['current_price'];?></td>
+										<td>₱<?php echo $product['current_price'];?></td>
 										<td><?php echo $product['stocks'];?></td>
 										<td data-sort="<?php echo strtotime($product['created']);?>"><?php echo format_date($product['created']);?></td>
 										<td data-sort="<?php echo strtotime($product['last_updated']);?>"><?php echo format_date($product['last_updated']);?></td>
