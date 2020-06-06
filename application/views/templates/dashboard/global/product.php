@@ -20,7 +20,7 @@
 									<img src="<?php check_file_and_render($product['photo'], '300x700?text=Product');?>" alt="Product Image">
 								</div>
 								<?php foreach ($product['photos'] as $photo): ?>
-									<div class="product-image-thumb"><img src="<?php check_file_and_render($product['photo'], '31x26?text=P');?>" alt="Product Image"></div>
+									<div class="product-image-thumb"><img src="<?php check_file_and_render($photo, '31x26?text=P');?>" alt="Product Image"></div>
 								<?php endforeach ?>
 							</div>
 						</div>
