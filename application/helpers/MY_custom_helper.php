@@ -725,7 +725,7 @@ function actual_estimate($secs=0)
 			$estimated .= $seconds . ' sec' . ($seconds > 1 ? 's ' : ' ');
 		}
 
-		if ($minutes < 4) {
+		if ($minutes < 4 AND $hours == false) {
 			$estimated = '5 mins';
 		}
 	}
