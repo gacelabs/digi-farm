@@ -29,8 +29,15 @@ class MY_Controller extends CI_Controller {
 		/*if (cookies('device_id') == FALSE) {
 			cookies('device_id', 'set', $this->device_id);
 		}*/
-		
-		$this->farm_cart = getsave_prev_cart();
+		$segments = $this->uri->segment_array();
+		$intersected = array_intersect($segments, ['cart', 'place-order']);
+		// debug(array_intersect($segments, ['cart','place-order']), 1);
+		/*make sure cart is not overriden in cart/place-order*/
+		if ($this->accounts->has_session AND count($intersected) != 2) {
+			$this->farm_cart = getsave_prev_cart();
+		} else {
+			$this->farm_cart = $this->cart->contents();
+		}
 		/*CHECK ACCOUNT LOGINS HERE*/
 		if ($this->accounts->has_session) {
 			/*FOR NOW ALLOW ALL PAGES WITH SESSION*/

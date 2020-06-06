@@ -65,7 +65,7 @@
 								<td>
 									<ul class="list-inline">
 										<li class="list-inline-item">
-											<img alt="Avatar" class="table-avatar" src="<?php check_file_and_render($product['path'], '37x37?text= ?');?>" />
+											<img alt="<?php echo $product['name'];?>" class="table-avatar" src="<?php check_file_and_render($product['path'], '37x37?text= ?');?>" />
 										</li>
 									</ul>
 								</td>

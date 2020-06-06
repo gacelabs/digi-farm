@@ -22,10 +22,9 @@
 								<p>Delivery Options</p>
 								<div class="form-group">
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" type="radio" id="delivery_lalamove" name="delivery_option" value="0">
-										<label for="delivery_lalamove" class="custom-control-label">Lalamove + <span class="currency">₱</span> 100</label>
+										<input class="custom-control-input" type="radio" id="delivery_option_id" name="delivery_option_id" value="1">
+										<label for="delivery_option_id" class="custom-control-label">Lalamove + <span class="currency">₱</span> 100</label>
 									</div>
-
 									<!-- <select class="form-control" id="delivery_option_id" name="delivery_option_id" required="required">
 										<option value="0">Select</option>
 										<option value="1">Lalamove</option>
@@ -39,11 +38,10 @@
 								<p>Payment Method</p>
 								<div class="form-group">
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" type="radio" id="payment_cod" name="payment_option" value="0">
-										<label for="payment_cod" class="custom-control-label">COD + <span class="currency">₱</span> 50 <i class="fas fa-question-circle"></i></label>
+										<input class="custom-control-input" type="radio" id="payment_method_id" name="payment_method_id" value="1">
+										<label for="payment_method_id" class="custom-control-label">COD + <span class="currency">₱</span> 50 <i class="fas fa-question-circle"></i></label>
 									</div>
 								</div>
-
 								<!-- <select id="payment_method_id" name="payment_method_id" required="required">
 									<option value="0">Select</option>
 									<option value="1">Cash on delivery</option>
@@ -87,13 +85,13 @@
 												<label>Sub total</label>
 												₱<span id="subtotal"><?php echo $total_amount;?></span>
 											</li>
-											<li class="d-none" id="delivery_fee" data-price="15">
+											<li class="d-none" id="delivery_fee" data-price="90">
 												<label>Delivery fee</label>
-												₱15 <!-- SAMPLE LANG -->
+												₱90 <!-- SAMPLE LANG -->
 											</li>
-											<li class="d-none" id="transaction_fee" data-price="10">
+											<li class="d-none" id="transaction_fee" data-price="60">
 												<label>Transaction fee</label>
-												₱10
+												₱60
 											</li>
 											<li>
 												<label>Total amount</label>

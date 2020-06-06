@@ -87,6 +87,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 /*APP CONSTANTS*/
 defined('GACELABS_SUPER_KEY')  OR define('GACELABS_SUPER_KEY', '&@c3L4b$-5uP3R-k3y');
 defined('GACELABS_KEY')		   OR define('GACELABS_KEY', '&@c3L4b$-k3y');
+defined('INVOICE_PREFIX')	   OR define('INVOICE_PREFIX', 'LF');
 
 /*PAYPAL*/
 if (((bool)strstr($_SERVER['HTTP_HOST'], 'local.') == TRUE) OR ((bool)strstr($_SERVER['HTTP_HOST'], 'localhost/localfarm') == TRUE)) {

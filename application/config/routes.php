@@ -4,9 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Marketplace';
 
 $route['dashboard'] = 'Dashboard';
-$route['inventory'] = 'Dashboard/inventory';
-$route['save-product'] = 'Dashboard/save_product';
-$route['save-product/(:num)'] = 'Dashboard/save_product/$1';
 $route['profile'] = 'Dashboard/profile';
 $route['profile/(:num)'] = 'Dashboard/profile/$1';
 $route['farm'] = 'Dashboard/my_farm';
@@ -28,7 +25,13 @@ $route['cart/less/(:any)'] = 'FarmCart/less/$1';
 $route['cart/checkout'] = 'FarmCart/checkout';
 $route['cart/place-order'] = 'FarmCart/place_order';
 
+$route['inventory'] = 'Product/inventory';
 $route['product/(:num)/(:num)/(:any)'] = 'Product/index/$1/$2/$3';
+$route['save-product'] = 'Product/save_product';
+$route['save-product/(:num)'] = 'Product/save_product/$1';
+
+$route['orders'] = 'Orders/index';
+$route['order/(:any)'] = 'Orders/tracking/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

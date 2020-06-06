@@ -88,6 +88,7 @@ class FarmCart extends MY_Controller {
 				$insert['added'] = date('Y-m-d H:i:s');
 				$insert['pos'] = $pos;
 				$insert['user_id'] = $this->user_id;
+				$insert['from_user_id'] = $product['user_id'];
 
 				$photo = $this->custom->get('product_photo', ['product_id' => $post['id'], 'is_main' => 1], false, 'row');
 				$insert['path'] = $photo['path'];
@@ -95,7 +96,9 @@ class FarmCart extends MY_Controller {
 				$rowid = $this->cart->insert($insert);
 				// debug($this->cart->contents(), 1);
 				$item = $this->cart->get_item($rowid);
+				$item['status_id'] = 0;
 				$item['status'] = 'Added';
+				$item['rowid'] = $rowid;
 
 				$this->cart->update($item);
 				$up = $this->update_cart($rowid, $item);
@@ -240,39 +243,53 @@ class FarmCart extends MY_Controller {
 
 	public function place_order()
 	{
-		$data = array(
-			'meta' => array(),
-			'title' => ucfirst(__CLASS__).' | Farmapp',
-			'head_css' => $this->dash_defaults('head_css'),
-			'head_js' => $this->dash_defaults('head_js'),
-			'body_id' => strtolower(__CLASS__),
-			'body_class' => strtolower(__CLASS__),
-			'wrapper_class' => 'dashboard',
-			'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
-				'nav_view' => array(
-					'templates/dashboard/global/nav'
-				),
-				'sidebar_view' => array(
-					'templates/dashboard/global/sidebar'
-				),
-				'contentdata_view' => array(
-					'templates/dashboard/global/place_order'
-				)
-			),
-			'footer_css' => $this->dash_defaults('footer_css'),
-			'footer_js' => $this->dash_defaults('footer_js', [
-				base_url('assets/admin/js/orders.js')
-			]),
-			'post_body' => array(
-			),
-			'db' => function() {
-				$post = get_form_data();
-				// debug($post, 1);
-				// debug($this->farm_cart, 1);
-				return $this->farm_cart;
+		$post = get_form_data();
+		// debug($post);
+		if ($post) {
+			// debug($this->farm_cart, 1);
+			if ($this->farm_cart) {
+				$user = $this->accounts->profile['user'];
+				// $tracking_number = generate_invoice($user);
+				$tracking_number = 'LF-0B1F1-09';
+				$tmp  = [
+					'user_id' => $user['id'],
+					'from_user_id' => 0,
+					'code' => $tracking_number,
+					'items' => [],
+					'status' => 'Order Placed', /*order_placed in order_status table*/
+					'status_id' => 5, /*order_placed in order_status table*/
+					'delivery_fee' => 90.00, /*get lalamove delivery_fee*/
+					'cash_handling' => 60.00, /*get cod cash_handling + transaction fee*/
+					'subtotal' => 0.00,
+					'total_amount' => 0.00,
+				];
+				$tmp = array_merge($tmp, $post);
+				$items = [];
+				foreach ($this->farm_cart as $rowid => $cart) {
+					$cart['updated'] = date('Y-m-d H:i:s');
+					$cart['rowid'] = $rowid;
+					$cart['status'] = $tmp['status'];
+					$cart['status_id'] = $tmp['status_id'];
+					// debug($cart);
+					$tmp['subtotal'] += (float)$cart['subtotal'];
+					$tmp['from_user_id'] = $cart['from_user_id'];
+					$from_user = $this->custom->get('user', ['id' => $cart['from_user_id']], false, 'row');
+					if ($from_user) {
+						$tmp['address'] = $from_user['address'];
+					}
+					$items[] = $cart;
+					$this->cart->remove($rowid);
+					$this->custom->remove('cart', ['user_id' => $user['id'], 'rowid' => $rowid, 'device_id' => $this->device_id]);
+				}
+				$tmp['total_amount'] += $tmp['subtotal'] + $tmp['delivery_fee'] + $tmp['cash_handling'];
+				$tmp['items'] = serialize($items);
+				// debug($tmp, 1);
+				$id = $this->custom->create('order', $tmp);
+				$order = $this->custom->get('order', ['id' => $id], false, 'row');
+				redirect(base_url('order/'.$order['code']));
 			}
-		);
-		$this->load->view('templates/dashboard/landing', $data);
+		}
+		redirect(base_url('orders'));
 	}
 
 }

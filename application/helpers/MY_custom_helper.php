@@ -317,7 +317,7 @@ function create_dirs($dir='')
 	if ($dir != '') {
 		/*create the dirs*/
 		$folder_chunks = explode('/', str_replace(' ', '_', $dir));
-		// debug($folder_chunks);
+		// debug($folder_chunks, 1);
 		if (count($folder_chunks)) {
 			$uploaddir = get_root_path('assets/data/files/');
 			foreach ($folder_chunks as $key => $folder) {
@@ -915,7 +915,7 @@ function nearest_locations($data=false, $limit=false, $distance=100, $unit='km')
 		$position = $data['latlng'];
 
 		$and_clause = "";
-		if ($ci->accounts->has_session) {
+		if ($ci->accounts->has_session AND $ci->accounts->profile['user']['farmer']) {
 			// $and_clause = " AND user.id != '".$ci->accounts->profile['user']['id']."'";
 		}
 
@@ -1054,10 +1054,9 @@ function generate_invoice($user=FALSE)
 		}
 	}
 
-	$number = 'FA-'.strtoupper(substr(md5($user['id'].$user['email_address'].'|'.time()), 0, 5).'-'.str_pad(rand(1, 10), 2, '0', STR_PAD_LEFT));
+	$number = INVOICE_PREFIX.'-'.strtoupper(substr(md5($user['id'].$user['email_address'].'|'.time()), 0, 5).'-'.str_pad(rand(1, 10), 2, '0', STR_PAD_LEFT));
 	$data = $ci->db->get_where('invoices', ['number' => $number]);
 	// debug($data->num_rows(), 1);
-	
 	if ($data->num_rows() == 0) {
 		$ci->custom->create('invoices', ['number'=>$number, 'email'=>$user['email_address']]);
 		return $number;
@@ -1192,4 +1191,22 @@ function get_categories()
 	$ci =& get_instance();
 	$categories = $ci->custom->get('product_category');
 	return $categories;
+}
+
+function get_data_table($table=false, $field='id', $value='', $row='row')
+{
+	$ci =& get_instance();
+	if ($table) {
+		$data = $ci->custom->get($table, [$field => $value], false, $row);
+		return $data;
+	}
+	return false;
+}
+
+function write_data_file($content='', $dir='prints')
+{
+	create_dirs($dir);
+	// Write the contents back to the file
+	@file_put_contents('assets/data/files/prints/print.html', $content);
+	return 'assets/data/files/prints/print.html';
 }
