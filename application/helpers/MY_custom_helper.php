@@ -1129,7 +1129,7 @@ function products_by_location($products=false, $location=false, $data=false)
 					}
 				}
 
-				$data[$product['id']] = $product;
+				$data[] = $product;
 			}
 		}
 		// debug($data, 1);
@@ -1149,10 +1149,10 @@ function get_update_marketplace($latlng=false)
 			foreach ($data as $loc) $distances[$loc['user_id']][] = $loc['distance'];
 			foreach ($data as $key => $loc) {
 				unset($loc['created']); unset($loc['last_updated']);
-
+				/*veggies*/
 				$products = $ci->custom->get('product_location', ['location_id'=>$loc['id']]);
 				$veggies_position = products_by_location($products, $loc, $veggies_position);
-
+				/*farmers*/
 				$users = $ci->db->join('user_location', 'user_location.user_id = user.id', 'left')
 					->select('user.*, "'.$loc['distance'].'" AS distance, "'.$loc['unit'].'" AS unit, user_location.farm_name, user_location.address')
 					->get_where('user', ['user_location.user_id'=>$loc['user_id'], 'user_location.id'=>$loc['id']]);
@@ -1162,6 +1162,10 @@ function get_update_marketplace($latlng=false)
 						$farmers_position[] = $user;
 					}
 				}
+				/*orders*/
+				/*$orders = $ci->db->join('product_location', 'product_location.user_id = user.id', 'left')
+					->select('order.*, "'.$loc['distance'].'" AS distance, "'.$loc['unit'].'" AS unit, product_location.farm_name, product_location.address')
+					->get_where('order', ['order.user_id'=>$loc['user_id'], 'product_location.id'=>$loc['id']]);*/
 			}
 		}
 	}
@@ -1181,4 +1185,11 @@ function format_date($date=false)
 		return date('F j, Y | g:i:s a', strtotime($date));
 	}
 	return false;
+}
+
+function get_categories()
+{
+	$ci =& get_instance();
+	$categories = $ci->custom->get('product_category');
+	return $categories;
 }

@@ -70,6 +70,11 @@
 				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<h3 class="card-title">Home Address</h3>
+						<div class="card-tools">
+							<a href="javascript:window.location.reload();" class="btn btn-tool">
+								<i class="fas fa-sync"></i>
+							</a>
+						</div>
 					</div>
 					<!-- form start -->
 					<form class="form-validate" action="profile/<?php echo $info['id'];?>" method="post">

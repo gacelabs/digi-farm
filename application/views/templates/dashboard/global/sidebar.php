@@ -56,7 +56,7 @@
 						<li class="nav-item">
 							<a href="cart" class="nav-link <?php active_menu(1, 'cart');?>">
 								<i class="fas fa-shopping-cart nav-icon"></i>
-								<p>Cart <span class="right badge badge-success"><?php echo cart_session('count');?></span></p>
+								<p>Cart <span class="right badge badge-warning"><?php echo cart_session('count');?></span></p>
 							</a>
 						</li>
 						<?php if ($is_logged_in OR $this->session->userdata('is_admin')): ?>

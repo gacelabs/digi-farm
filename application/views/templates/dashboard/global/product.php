@@ -39,6 +39,7 @@
 							<div class="mt-4">
 								<form action="cart/add" method="post" class="form-validate">
 									<input type="hidden" name="id" value="<?php echo $product['id'];?>" />
+									<input type="hidden" name="pos" value="<?php echo $product['pos'];?>" />
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<label>In Stock: <?php echo $product['stocks'];?></label>
 										<div class="input-group">

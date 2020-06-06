@@ -26,7 +26,7 @@ $route['cart/add'] = 'FarmCart/add';
 $route['cart/remove/(:any)'] = 'FarmCart/remove/$1';
 $route['cart/less/(:any)'] = 'FarmCart/less/$1';
 
-$route['product/(:num)/(:any)'] = 'Product/index/$1/$2';
+$route['product/(:num)/(:num)/(:any)'] = 'Product/index/$1/$2/$3';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

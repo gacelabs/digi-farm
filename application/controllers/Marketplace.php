@@ -40,6 +40,7 @@ class Marketplace extends MY_Controller {
 			'db' => function() {
 				return [
 					'veggies_position' => $this->products_sessions['veggies_position'],
+					'categories' => get_categories(),
 					'farmers_position' => $this->products_sessions['farmers_position'],
 				];
 			}
