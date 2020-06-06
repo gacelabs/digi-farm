@@ -698,42 +698,38 @@ function get_url_var($name='')
 function calculate_distance($distance=false)
 {
 	if ($distance) {
-		return round(((float) $distance * 1.8), 1);
+		return round(((float) $distance * 1.8) * 60, 1);
 	}
 	return 0;
 }
 
-function actual_estimate($mins=0)
+function actual_estimate($secs=0)
 {
-	$secs = false;
-	if ($mins) {
-		if (in_str($mins, '.')) {
-			$chunks = explode('.', $mins);
-			$butal = ('0.'.$chunks[1]) * 60;
-			if ($chunks[0] > 0) {
-				$mins = $chunks[0] . ' min'.($chunks[0] > 1 ? 's' : '').' '. $butal . ' sec'.($butal > 1 ? 's' : '');
-				$mins = $chunks[0];
-				$secs = $butal;
-			} else {
-				$mins = $butal . ' sec'.($butal > 1 ? 's' : '');
-			}
-		} else {
-			$mins = $mins . ' min'.($mins > 1 ? 's' : '');
-		}
-	} else {
-		$mins = $mins . ' min'.($mins > 1 ? 's' : '');
-	}
+	// debug(gmdate("H:i:s", $secs), 1);
+	$estimated = '';
+	if ($secs) {
+		$gmdate = gmdate("H:i:s", $secs);
+		$exploded = explode(':', $gmdate);
+		
+		$hours = $exploded[0] == '00' ? false : (int)$exploded[0];
+		$minutes = $exploded[1] == '00' ? false : (int)$exploded[1];
+		$seconds = $exploded[2] == '00' ? false : (int)$exploded[2];
 
-	if ($mins < 4) {
-		$mins = '5 mins';
-	} else {
-		if ($secs) {
-			$secs = ' '. $secs . ' sec' . ($secs > 1 ? 's' : '');
+		if ($hours) {
+			$estimated .= $hours . ' hr' . ($hours > 1 ? 's ' : ' ');
 		}
-		$mins = $mins . ' min'.($mins > 1 ? 's' : '') . $secs;
-	}
+		if ($minutes) {
+			$estimated .= $minutes . ' min' . ($minutes > 1 ? 's ' : ' ');
+		}
+		if ($seconds) {
+			$estimated .= $seconds . ' sec' . ($seconds > 1 ? 's ' : ' ');
+		}
 
-	return $mins;
+		if ($minutes < 4) {
+			$estimated = '5 mins';
+		}
+	}
+	return $estimated;
 }
 
 function has_get($name='')
