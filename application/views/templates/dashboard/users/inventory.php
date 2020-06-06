@@ -31,6 +31,7 @@
 									<th>Price</th>
 									<th>In Stock</th>
 									<th>Posted</th>
+									<th>Updated</th>
 									<th>Status</th>
 								</tr>
 							</thead>
@@ -46,6 +47,7 @@
 										<td><?php echo $product['current_price'];?></td>
 										<td><?php echo $product['stocks'];?></td>
 										<td data-sort="<?php echo strtotime($product['created']);?>"><?php echo format_date($product['created']);?></td>
+										<td data-sort="<?php echo strtotime($product['last_updated']);?>"><?php echo format_date($product['last_updated']);?></td>
 										<td><?php echo $product['status'];?></td>
 									</tr>
 									<?php endforeach ?>

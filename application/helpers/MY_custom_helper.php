@@ -705,29 +705,20 @@ function calculate_distance($distance=false)
 
 function actual_estimate($secs=0)
 {
-	// debug(gmdate("H:i:s", $secs), 1);
 	$estimated = '';
 	if ($secs) {
-		$gmdate = gmdate("H:i:s", $secs);
+		$gmdate = gmdate('H:i:s', $secs);
 		$exploded = explode(':', $gmdate);
 		
 		$hours = $exploded[0] == '00' ? false : (int)$exploded[0];
 		$minutes = $exploded[1] == '00' ? false : (int)$exploded[1];
 		$seconds = $exploded[2] == '00' ? false : (int)$exploded[2];
 
-		if ($hours) {
-			$estimated .= $hours . ' hr' . ($hours > 1 ? 's ' : ' ');
-		}
-		if ($minutes) {
-			$estimated .= $minutes . ' min' . ($minutes > 1 ? 's ' : ' ');
-		}
-		if ($seconds) {
-			$estimated .= $seconds . ' sec' . ($seconds > 1 ? 's ' : ' ');
-		}
+		if ($hours) $estimated .= $hours . ' hr' . ($hours > 1 ? 's. ' : '. ');
+		if ($minutes) $estimated .= $minutes . ' min' . ($minutes > 1 ? 's. ' : '. ');
+		if ($seconds) $estimated .= $seconds . ' sec' . ($seconds > 1 ? 's. ' : '. ');
 
-		if ($minutes < 4 AND $hours == false) {
-			$estimated = '5 mins';
-		}
+		if ($minutes < 4 AND $hours == false) $estimated = '5 mins';
 	}
 	return $estimated;
 }
@@ -760,15 +751,21 @@ function redirect_prev_url()
 function getsave_prev_cart()
 {
 	$ci =& get_instance();
-	$carts = $ci->custom->get('cart', ['device_id' => $ci->device_id]);
+	$ci->cart->destroy();
+	$check = ['device_id' => $ci->device_id];
+	if ($ci->accounts->has_session) {
+		$user = $ci->accounts->profile['user'];
+		$check = ['user_id' => $user['id'], 'device_id' => $ci->device_id];
+	}
+	$carts = $ci->custom->get('cart', $check);
 	// debug($carts AND empty($ci->cart->contents()), 1);
-	if ($carts AND empty($ci->cart->contents())) {
+	if ($carts) {
 		foreach ($carts as $key => $cart) {
 			$data = unserialize($cart['data']);
 			$ci->cart->insert($data);
 		}
 	}
-	return false;
+	return $ci->cart->contents();
 }
 
 function construct($data=false, $type='', $selected=false, $field='id')

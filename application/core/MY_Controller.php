@@ -9,6 +9,7 @@ class MY_Controller extends CI_Controller {
 	public $ajax_shall_not_pass = TRUE;
 	public $profile = FALSE;
 	public $products_sessions = FALSE;
+	public $farm_cart = FALSE;
 
 	public function __construct()
 	{
@@ -29,6 +30,7 @@ class MY_Controller extends CI_Controller {
 			cookies('device_id', 'set', $this->device_id);
 		}*/
 		
+		$this->farm_cart = getsave_prev_cart();
 		/*CHECK ACCOUNT LOGINS HERE*/
 		if ($this->accounts->has_session) {
 			/*FOR NOW ALLOW ALL PAGES WITH SESSION*/
