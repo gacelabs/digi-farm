@@ -710,7 +710,11 @@ function actual_estimate($mins=0)
 			$chunks = explode('.', $mins);
 			$butal = ('0.'.$chunks[1]) * 60;
 			$mins = $chunks[0] . ' min'.($chunks[0] > 1 ? 's' : '').' '. $butal . ' sec'.($butal > 1 ? 's' : '');
+		} else {
+			$mins = $mins . ' min'.($mins > 1 ? 's' : '');
 		}
+	} else {
+		$mins = $mins . ' min'.($mins > 1 ? 's' : '');
 	}
 	return $mins;
 }
