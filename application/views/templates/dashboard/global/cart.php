@@ -10,12 +10,14 @@
 			<h3 class="card-title">Cart</h3>
 			<div class="card-tools">
 				<a href="" class="btn btn-sm btn-primary">
-					<i class="fas fa-shopping-bag"></i>&nbsp;&nbsp;Continue Shopping
+					<i class="fas fa-shopping-bag"></i> Continue Shopping
 				</a>
-				<a href="cart/checkout" class="btn btn-sm btn-success">
-					<i class="fas fa-cash-register"></i>&nbsp;&nbsp;CHECKOUT
-				</a>
-				<span class="badge badge-warning navbar-badge"><b><?php echo cart_session('count');?></b></span>
+				<?php $count = cart_session('count');?>
+				<?php if ($count): ?>
+					<a href="cart/checkout" class="btn btn-sm btn-success">
+						<i class="fas fa-cash-register"></i> CHECKOUT
+					</a>
+				<?php endif ?>
 			</div>
 		</div>
 		<div class="card-body p-0">
@@ -31,7 +33,7 @@
 						<th>
 							Cart Items
 						</th>
-						<th>
+						<th class="text-center">
 							Quantity
 						</th>
 						<th>
@@ -40,7 +42,7 @@
 						<th class="text-center">
 							Status
 						</th>
-						<th style="width: 30%;"></th>
+						<th class="text-right">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -67,7 +69,7 @@
 										</li>
 									</ul>
 								</td>
-								<td>
+								<td class="text-center">
 									<?php echo $product['qty'];?>
 								</td>
 								<td class="project_progress">
@@ -94,7 +96,7 @@
 									<span class="badge badge-success"><?php echo $status;?></span>
 								</td>
 								<td class="project-actions text-right">
-									<a href="cart/add?id=<?php echo $product['id'];?>" class="btn btn-success btn-sm" href="#">
+									<a href="cart/add?id=<?php echo $product['id'];?>&pos=<?php echo $product['pos'];?>" class="btn btn-success btn-sm" href="#">
 										<i class="fas fa-plus"> </i>
 									</a>
 									<a href="cart/less/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
@@ -116,6 +118,17 @@
 			</table>
 		</div>
 		<!-- /.card-body -->
+		<div class="card-footer clearfix pr-2">
+			<?php $count = cart_session('count');?>
+			<?php if ($count): ?>
+				<a href="cart/checkout" class="btn btn-sm btn-success float-right ml-1">
+					<i class="fas fa-cash-register"></i> CHECKOUT
+				</a>
+			<?php endif ?>
+			<a href="" class="btn btn-sm btn-primary float-right">
+				<i class="fas fa-shopping-bag"></i> Continue Shopping
+			</a>
+		</div>
 	</div>
 	<!-- /.card -->
 </section>
