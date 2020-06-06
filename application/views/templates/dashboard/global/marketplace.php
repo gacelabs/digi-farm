@@ -1,9 +1,8 @@
 <?php
 	$marketplace_data = $db();
 	$veggies_position = $marketplace_data['veggies_position'];
+	$categories = $marketplace_data['categories'];
 	$farmers_position = $marketplace_data['farmers_position'];
-	// debug($veggies_position);
-	// debug($farmers_position);
 ?>
 <?php if ($veggies_position): ?>
 	<section class="content-header">
@@ -22,10 +21,10 @@
 				<div class="col-lg-12">
 					<section class="location-slider">
 						<!-- LOOP HERE -->
-						<?php foreach ($veggies_position as $key => $product): ?>
+						<?php foreach ($veggies_position as $pos => $product): ?>
 							<div class="slider-item product-item">
 								<!-- <a href="product/view?id=<?php echo $product['id']?>"> -->
-								<a href="product/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
+								<a href="product/<?php echo $pos;?>/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
 									<div class="card">
 										<div class="card-header square-me">
 											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="<?php echo $product['name'];?>">
@@ -49,65 +48,33 @@
 	</section>
 <?php endif ?>
 
-<section class="content" style="padding:20px 0;">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="division-inner box-shadow">
-					<div class="row mb-2">
-						<div class="col-lg-12">
-							<h5 class="m-0 text-dark">Categories</h5>
+<?php if ($categories): ?>
+	<section class="content" style="padding:20px 0;">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="division-inner box-shadow">
+						<div class="row mb-2">
+							<div class="col-lg-12">
+								<h5 class="m-0 text-dark">Categories</h5>
+							</div>
 						</div>
+						<section class="center category-slider">
+							<?php foreach ($categories as $category): ?>
+								<div class="slider-item">
+									<a href="category/<?php echo $category['id'];?>/<?php echo $category['value'];?>">
+										<img src="<?php check_file_and_render($category['photo'], '243x207?text=Category');?>">
+										<h2 class="slider-title"><?php echo $category['label'];?></h2>
+									</a>
+								</div>
+							<?php endforeach ?>
+						</section>
 					</div>
-					<section class="center category-slider">
-						<div class="slider-item">
-							<a href="#">
-								<img src="assets/images/props/lettuce.jpg">
-								<h2 class="slider-title">Lettuce</h2>
-							</a>
-						</div>
-						<div class="slider-item">
-							<a href="#">
-								<img src="assets/images/props/tomatoes.jpg">
-								<h2 class="slider-title">Tomatoes</h2>
-							</a>
-						</div>
-						<div class="slider-item">
-							<a href="#">
-								<img src="assets/images/props/chilis.jpg">
-								<h2 class="slider-title">Chilis</h2>
-							</a>
-						</div>
-						<div class="slider-item">
-							<a href="#">
-								<img src="assets/images/props/eggplants.jpg">
-								<h2 class="slider-title">Eggplants</h2>
-							</a>
-						</div>
-						<div class="slider-item">
-							<a href="#">
-								<img src="assets/images/props/potatoes.jpg">
-								<h2 class="slider-title">Potatoes</h2>
-							</a>
-						</div>
-						<div class="slider-item">
-							<a href="#">
-								<img src="assets/images/props/beans.jpg">
-								<h2 class="slider-title">Beans</h2>
-							</a>
-						</div>
-						<div class="slider-item">
-							<a href="#">
-								<img src="assets/images/props/peppers.jpg">
-								<h2 class="slider-title">Peppers</h2>
-							</a>
-						</div>
-					</section>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
+<?php endif ?>
 
 <?php if ($farmers_position): ?>
 	<section class="content-header">

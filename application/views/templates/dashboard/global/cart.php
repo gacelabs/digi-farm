@@ -1,6 +1,6 @@
 <?php
 	$carts = $db();
-	// debug($carts);
+	// debug($carts, 1);
 ?>
 <!-- Main content -->
 <section class="content pt-2">
@@ -10,11 +10,12 @@
 			<h3 class="card-title">Cart</h3>
 			<div class="card-tools">
 				<a href="" class="btn btn-sm btn-primary">
-					<i class="fas fa-shopping-bag"></i> Continue Shopping
+					<i class="fas fa-shopping-bag"></i>&nbsp;&nbsp;Continue Shopping
 				</a>
-				<!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-					<i class="fas fa-times"></i>
-				</button> -->
+				<a href="cart/checkout" class="btn btn-sm btn-success">
+					<i class="fas fa-cash-register"></i>&nbsp;&nbsp;CHECKOUT
+				</a>
+				<span class="badge badge-warning navbar-badge"><b><?php echo cart_session('count');?></b></span>
 			</div>
 		</div>
 		<div class="card-body p-0">
@@ -50,7 +51,7 @@
 							<tr data-rowid="<?php echo $key;?>">
 								<td><?php echo $row+=1;?></td>
 								<td>
-									<a href="product/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
+									<a href="product/<?php echo $product['pos'];?>/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
 										<?php echo $product['name'];?>
 									</a>
 									<br />
@@ -99,11 +100,8 @@
 									<a href="cart/less/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
 										<i class="fas fa-minus"> </i>
 									</a>
-									<a class="btn btn-primary btn-sm" href="#">
-										<i class="fas fa-folder"> </i>
-										Checkout
-									</a>
-									<a href="cart/remove/<?php echo $key;?>" class="btn btn-danger btn-sm" href="#">
+									<b>|</b>
+									<a href="javascript:confirm('Sure you want to remove this item?') ? window.location = 'cart/remove/<?php echo $key;?>' : void(0)" class="btn btn-danger btn-sm" href="#">
 										<i class="fas fa-trash"> </i>
 									</a>
 								</td>

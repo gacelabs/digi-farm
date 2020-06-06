@@ -65,12 +65,12 @@ class FarmCart extends MY_Controller {
 			if (!isset($post['qty'])) $post['qty'] = 1;
 			
 			$product = $estimated = false;
-			if ((isset($post['id']) AND is_numeric($post['id']))) {
-				$id = $post['id'];
+			if ((isset($post['pos']) AND is_numeric($post['pos']))) {
+				$pos = $post['pos'];
 				$near_veggies = $this->session->userdata('near_veggies');
 				// debug($this->latlng);
-				if (isset($near_veggies[$id])) {
-					$product = $near_veggies[$id];
+				if (isset($near_veggies[$pos])) {
+					$product = $near_veggies[$pos];
 					$estimated = calculate_distance($product['distance']);
 					$product['estimated'] = actual_estimate($estimated);
 				}
@@ -86,6 +86,7 @@ class FarmCart extends MY_Controller {
 				$insert['options'] = $product;
 				$insert['options']['device_id'] = $this->device_id;
 				$insert['added'] = date('Y-m-d H:i:s');
+				$insert['pos'] = $pos;
 				$insert['user_id'] = $this->user_id;
 
 				$photo = $this->custom->get('product_photo', ['product_id' => $post['id'], 'is_main' => 1], false, 'row');
