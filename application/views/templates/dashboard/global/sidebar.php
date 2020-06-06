@@ -60,7 +60,6 @@
 							</a>
 						</li>
 						<?php if ($is_logged_in OR $this->session->userdata('is_admin')): ?>
-							<?php if ($current_profile['user']['farmer']): ?>
 							<?php $orders = get_data_table('order', 'user_id', $current_profile['user']['id'], 'result'); ?>
 							<li class="nav-item">
 								<a href="orders" class="nav-link">
@@ -68,6 +67,7 @@
 									<p>Orders <span class="right badge badge-success"><?php echo $orders ? count($orders) : 0;?></span></p>
 								</a>
 							</li>
+							<?php if ($current_profile['user']['farmer']): ?>
 							<li class="nav-item has-treeview <?php active_menu(1, 'dashboard', true);?> <?php active_menu(1, 'inventory', true);?> <?php active_menu(1, 'orders', true);?> <?php active_menu(1, 'save-product', true);?> <?php active_menu(1, 'farm', true);?> <?php active_menu(1, 'settings', true);?>">
 								<a href="javascript:;" class="nav-link <?php active_menu(1, 'dashboard');?> <?php active_menu(1, 'inventory');?> <?php active_menu(1, 'save-product');?> <?php active_menu(1, 'farm');?> <?php active_menu(1, 'settings');?>">
 									<i class="nav-icon fas fa-store-alt"></i>

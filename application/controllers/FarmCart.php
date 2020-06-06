@@ -59,7 +59,7 @@ class FarmCart extends MY_Controller {
 			// debug($parse_url, 1);
 			if (!$this->accounts->has_session AND !in_array($parse_url['path'], [null,'/'])) {
 				$this->session->set_userdata('prev_url', base_url('cart/add?'.http_build_query($post)));
-				redirect(base_url('login?page=sign_in'));
+				redirect(base_url('login?page=sign-in'));
 			}
 			// debug($this->cart->contents(), 1);
 			if (!isset($post['qty'])) $post['qty'] = 1;
@@ -249,8 +249,8 @@ class FarmCart extends MY_Controller {
 			// debug($this->farm_cart, 1);
 			if ($this->farm_cart) {
 				$user = $this->accounts->profile['user'];
-				// $tracking_number = generate_invoice($user);
-				$tracking_number = 'LF-0B1F1-09';
+				$tracking_number = generate_invoice($user);
+				// $tracking_number = 'LF-0B1F1-09';
 				$tmp  = [
 					'user_id' => $user['id'],
 					'from_user_id' => 0,
