@@ -13,3 +13,10 @@ $(window).on('load resize', function() {
 	},500);
 
 });
+
+$(document).ready(function() {
+	$('.square-me').each(function() {
+		var thisWidth = $(this).outerWidth();
+		$(this).css('height', thisWidth);
+	});
+});

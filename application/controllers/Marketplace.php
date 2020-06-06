@@ -45,12 +45,9 @@ class Marketplace extends MY_Controller {
 			'post_body' => array(
 			),
 			'db' => function() {
-				$latlng = $this->latlng;
-				// debug($latlng, 1);
-				$products_sessions = get_update_marketplace($latlng);
 				return [
-					'veggies_position' => $products_sessions['veggies_position'],
-					'farmers_position' => $products_sessions['farmers_position'],
+					'veggies_position' => $this->products_sessions['veggies_position'],
+					'farmers_position' => $this->products_sessions['farmers_position'],
 				];
 			}
 		);
