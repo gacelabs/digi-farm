@@ -10,6 +10,6 @@ $(window).on('load resize', function() {
 		});	
 
 		$('.product-image-thumb').css('height', $('.product-image-thumb').width()+18);
-	},200);
+	},500);
 
 });

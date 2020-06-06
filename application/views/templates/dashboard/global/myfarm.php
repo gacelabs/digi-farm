@@ -16,7 +16,7 @@
 					<img src="<?php check_file_and_render($info['banner'], '1080x200?text=Banner');?>" width="100%" height="150px" alt="">
 					<div class="card-body box-profile">
 						<div class="text-center" style="margin-top: -75px;">
-							<img class="profile-user-img img-fluid img-circle" src="<?php check_file_and_render($info['photo'], '128x128?text=Photo');?>" alt="User profile picture">
+							<img class="profile-user-img img-fluid img-circle square-me" src="<?php check_file_and_render($info['photo'], '128x128?text=Photo');?>" alt="User profile picture">
 						</div>
 						<h3 class="profile-username text-center"><?php echo ucwords(get_fullname($current_profile));?></h3>
 					</div>
@@ -30,7 +30,7 @@
 						<div class="slider-item product-item">
 							<a href="#">
 								<div class="card">
-									<div class="card-header">
+									<div class="card-header square-me">
 										<img src="assets/images/props/tomatoes.jpg" class="img-fit" alt="">
 										<div class="card-tools">
 											<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> 1.3KM</span>
