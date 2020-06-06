@@ -1112,10 +1112,48 @@ function products_by_location($products=false, $location=false, $data=false)
 					}
 				}
 
-				$data[] = $product;
+				$data[$product['id']] = $product;
 			}
 		}
 		// debug($data, 1);
 	}
 	return $data;
+}
+
+function get_update_marketplace($latlng=false)
+{
+	$veggies_position = $farmers_position = false;
+	if ($latlng) {
+		$ci =& get_instance();
+		$data = nearest_locations(['latlng' => $latlng]);
+		// debug($data, 1);
+		if ($data) {
+			$veggies_position = $farmers_position = $distances = [];
+			foreach ($data as $loc) $distances[$loc['user_id']][] = $loc['distance'];
+			foreach ($data as $key => $loc) {
+				unset($loc['created']); unset($loc['last_updated']);
+
+				$products = $ci->custom->get('product_location', ['location_id'=>$loc['id']]);
+				$veggies_position = products_by_location($products, $loc, $veggies_position);
+
+				$users = $ci->db->join('user_location', 'user_location.user_id = user.id', 'left')
+					->select('user.*, "'.$loc['distance'].'" AS distance, "'.$loc['unit'].'" AS unit, user_location.farm_name, user_location.address')
+					->get_where('user', ['user_location.user_id'=>$loc['user_id'], 'user_location.id'=>$loc['id']]);
+				if ($users->num_rows()) {
+					// debug($users->result_array(), 1);
+					foreach ($users->result_array() as $key => $user) {
+						$farmers_position[] = $user;
+					}
+				}
+			}
+		}
+	}
+	$ci->session->set_userdata('near_veggies', $veggies_position);
+	// debug($veggies_position, 1);
+	$ci->session->set_userdata('near_farmers', $farmers_position);
+	// debug($farmers_position, 1);
+	return [
+		'veggies_position' => $veggies_position,
+		'farmers_position' => $farmers_position
+	];
 }

@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class FarmCart extends MY_Controller {
 
+	public $user_id = 0;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -10,6 +12,8 @@ class FarmCart extends MY_Controller {
 		$this->load->library('lalamoveapi', ['id'=>LALAMOVE_ID, 'key'=>LALAMOVE_KEY], 'lalamove');
 		// debug($this->paypal);
 		// debug($this->lalamove, 1);
+		// debug($this->accounts->profile, 1);
+		$this->user_id = $this->accounts->has_session ? $this->accounts->profile['user']['id'] : 0;
 	}
 
 	public function index()
@@ -54,23 +58,28 @@ class FarmCart extends MY_Controller {
 	{
 		$post = get_form_data();
 		// debug($post, 1);
+		// debug(http_build_query($post), 1);
 		if ($post) {
+			$parse_url = parse_url($this->agent->referrer());
+			// debug($parse_url, 1);
+			if (!$this->accounts->has_session AND !in_array($parse_url['path'], [null,'/'])) {
+				$this->session->set_userdata('prev_url', base_url('cart/add?'.http_build_query($post)));
+				redirect(base_url('login?page=sign_in'));
+			}
 			// debug($this->cart->contents(), 1);
 			if (!isset($post['qty'])) $post['qty'] = 1;
 			
 			$product = $estimated = false;
-			if ((isset($post['pos']) AND is_numeric($post['pos']))) {
-				$pos = $post['pos'];
+			if ((isset($post['id']) AND is_numeric($post['id']))) {
+				$id = $post['id'];
 				$near_veggies = $this->session->userdata('near_veggies');
 				// debug($this->latlng);
-				if (isset($near_veggies[$pos])) {
-					$product = $near_veggies[$pos];
-					$product['pos'] = $pos;
+				if (isset($near_veggies[$id])) {
+					$product = $near_veggies[$id];
 					$estimated = calculate_distance($product['distance']);
 					$product['estimated'] = actual_estimate($estimated);
 				}
 			}
-
 			// debug($product, 1);
 			if ($product) {
 				$insert = [
@@ -82,7 +91,7 @@ class FarmCart extends MY_Controller {
 				$insert['options'] = $product;
 				$insert['options']['device_id'] = $this->device_id;
 				$insert['added'] = date('Y-m-d H:i:s');
-				$insert['pos'] = $product['pos'];
+				$insert['user_id'] = $this->user_id;
 
 				$photo = $this->custom->get('product_photo', ['product_id' => $post['id'], 'is_main' => 1], false, 'row');
 				$insert['path'] = $photo['path'];
@@ -102,16 +111,10 @@ class FarmCart extends MY_Controller {
 				$this->cart->update($item);
 				$up = $this->update_cart($rowid, $item);
 
-				$parse_url = parse_url($this->agent->referrer());
-				if (!$this->accounts->has_session AND !in_array($parse_url['path'], [null,'/'])) {
-					$this->session->set_userdata('prev_url', base_url('cart'));
-					redirect(base_url('login?page=sign_up'));
+				if ($up) {
+					redirect(base_url('cart?message=Product '.$insert['name'].' quantity added'));
 				} else {
-					if ($up) {
-						redirect(base_url('cart?message=Product '.$insert['name'].' quantity added'));
-					} else {
-						redirect(base_url('cart?error=Product '.$insert['name'].' quantity failed to add'));
-					}
+					redirect(base_url('cart?error=Product '.$insert['name'].' quantity failed to add'));
 				}
 			} else {
 				redirect(base_url('cart?error=Product maybe out of stocks or been removed!'));
@@ -128,8 +131,7 @@ class FarmCart extends MY_Controller {
 			$this->cart->update($item);
 			
 			if ($item['qty'] <= 0) {
-				$this->custom->remove('cart', ['rowid' => $rowid, 'device_id' => $this->device_id]);
-				redirect(base_url('cart?message=Product '.$item['name'].' quantity deducted'));
+				$this->remove($rowid);
 			} else {
 				if ($this->update_cart($rowid, $item)) {
 					redirect(base_url('cart?message=Product '.$item['name'].' quantity deducted'));
@@ -196,12 +198,12 @@ class FarmCart extends MY_Controller {
 	private function update_cart($rowid=false, $item=false)
 	{
 		if ($rowid AND $item) {
-			$check_cart = $this->custom->get('cart', ['rowid' => $rowid, 'device_id' => $this->device_id], false, 'row');
+			$check_cart = $this->custom->get('cart', ['user_id' => $this->user_id, 'rowid' => $rowid, 'device_id' => $this->device_id], false, 'row');
 			if ($check_cart) {
 			/*update*/
-				$this->custom->save('cart', ['data' => serialize($item)], ['rowid' => $rowid, 'device_id' => $this->device_id]);
+				$this->custom->save('cart', ['data' => serialize($item), 'user_id' => $this->user_id], ['user_id' => $this->user_id, 'rowid' => $rowid, 'device_id' => $this->device_id]);
 			} else {
-				$this->custom->create('cart', ['data' => serialize($item), 'rowid' => $rowid, 'device_id' => $this->device_id]);
+				$this->custom->create('cart', ['data' => serialize($item), 'user_id' => $this->user_id, 'rowid' => $rowid, 'device_id' => $this->device_id]);
 			}
 			return true;
 		}

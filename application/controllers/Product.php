@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Product extends MY_Controller {
 
-	public function index($pos=false, $id=false, $name=false)
+	public function index($id=false, $name=false)
 	{
-		if ($pos AND $id AND $name) {
+		if ($id AND $name) {
 			$data = array(
 				'meta' => array(
 					'<meta name="og:url" content="" />', // URL to the page
@@ -40,23 +40,18 @@ class Product extends MY_Controller {
 				'post_body' => array(
 				),
 				'db' => function() {
+					$product_id = $this->uri->segment(2);
+					$product = $estimated = false;
 					// debug($this->latlng);
-					$product_id = $this->uri->segment(3);
-					$pos = $this->uri->segment(2);
-
-					if (is_numeric($pos)) {
+					if (is_numeric($product_id)) {
 						$near_veggies = $this->session->userdata('near_veggies');
-						$product = $estimated = false;
-						if (isset($near_veggies[$pos])) {
-							$product = $near_veggies[$pos];
-							$product['pos'] = $pos;
+						if (isset($near_veggies[$product_id])) {
+							$product = $near_veggies[$product_id];
+							$product['pos'] = $product_id;
 							$estimated = calculate_distance($product['distance']);
 							$product['estimated'] = actual_estimate($estimated);
 						}
-					} else {
-						
 					}
-
 					// debug($product, 1);
 					return $product;
 				}
