@@ -894,7 +894,7 @@ function get_geolocation($latlng_only=true) {
 	return false;
 }
 
-function nearest_locations($data=false, $distance=100, $unit='km')
+function nearest_locations($data=false, $limit=false, $distance=100, $unit='km')
 {
 	if ($data AND isset($data['latlng'])) {
 		$ci =& get_instance();
@@ -945,8 +945,11 @@ function nearest_locations($data=false, $distance=100, $unit='km')
 			) user_location";
 		}
 
-		$extends = $sql." WHERE distance <= ".$distance/*."LIMIT ".$limit.";"*/;
+		$extends = $sql." WHERE distance <= ".$distance;
 
+		if ($limit) {
+			$extends .= " LIMIT $limit";
+		}
 		// debug($extends, 1);
 		$record = $ci->db->query($extends);
 		if ($record->num_rows()) {
@@ -1125,7 +1128,7 @@ function get_update_marketplace($latlng=false)
 	$veggies_position = $farmers_position = false;
 	if ($latlng) {
 		$ci =& get_instance();
-		$data = nearest_locations(['latlng' => $latlng]);
+		$data = nearest_locations(['latlng' => $latlng], 10);
 		// debug($data, 1);
 		if ($data) {
 			$veggies_position = $farmers_position = $distances = [];
@@ -1156,4 +1159,12 @@ function get_update_marketplace($latlng=false)
 		'veggies_position' => $veggies_position,
 		'farmers_position' => $farmers_position
 	];
+}
+
+function format_date($date=false)
+{
+	if ($date) {
+		return date('F j, Y | g:i:s a', strtotime($date));
+	}
+	return false;
 }

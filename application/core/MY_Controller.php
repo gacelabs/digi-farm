@@ -8,6 +8,7 @@ class MY_Controller extends CI_Controller {
 	public $shall_not_pass = FALSE;
 	public $ajax_shall_not_pass = TRUE;
 	public $profile = FALSE;
+	public $products_sessions = FALSE;
 
 	public function __construct()
 	{
@@ -20,7 +21,7 @@ class MY_Controller extends CI_Controller {
 		// debug($this->accounts->geolocation, 1);
 		device_id($this->accounts->geolocation['ip']); /*set device id*/
 		$this->latlng = ['lat' => $this->accounts->geolocation['lat'], 'lng' => $this->accounts->geolocation['lng']];
-		// debug($this, 1);
+		// debug($this->latlng);
 
 		/*check/set for cookies*/
 		// debug(cookies('device_id'), 1);
@@ -32,8 +33,14 @@ class MY_Controller extends CI_Controller {
 		if ($this->accounts->has_session) {
 			/*FOR NOW ALLOW ALL PAGES WITH SESSION*/
 			// $this->profile = $this->accounts->refetch();
-			// debug($this->accounts, 1);
+			$user = $this->accounts->profile['user'];
+			if (!empty($user['lat']) AND !empty($user['lng'])) {
+				$this->latlng = ['lat' => $user['lat'], 'lng' => $user['lng']];
+			}
+			// debug($this->latlng, 1);
+			$this->products_sessions = get_update_marketplace($this->latlng);
 		} else {
+			$this->products_sessions = get_update_marketplace($this->latlng);
 			/*now if ajax and ajax_shall_not_pass is TRUE redirect*/
 			if ($this->input->is_ajax_request() AND $this->ajax_shall_not_pass) {
 				// redirect(base_url());

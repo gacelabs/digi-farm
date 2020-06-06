@@ -45,7 +45,7 @@
 										<td><?php echo $product['measurement'];?></td>
 										<td><?php echo $product['current_price'];?></td>
 										<td><?php echo $product['stocks'];?></td>
-										<td><?php echo $product['created'];?></td>
+										<td data-sort="<?php echo strtotime($product['created']);?>"><?php echo format_date($product['created']);?></td>
 										<td><?php echo $product['status'];?></td>
 									</tr>
 									<?php endforeach ?>
