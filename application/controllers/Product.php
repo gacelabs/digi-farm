@@ -44,12 +44,14 @@ class Product extends MY_Controller {
 					$product = $estimated = false;
 					// debug($this->latlng);
 					if (is_numeric($product_id)) {
-						$near_veggies = $this->session->userdata('near_veggies');
-						if (isset($near_veggies[$product_id])) {
-							$product = $near_veggies[$product_id];
-							$product['pos'] = $product_id;
-							$estimated = calculate_distance($product['distance']);
-							$product['estimated'] = actual_estimate($estimated);
+						if ($this->products_sessions) {
+							$near_veggies = $this->products_sessions['veggies_position'];
+							if (isset($near_veggies[$product_id])) {
+								$product = $near_veggies[$product_id];
+								$product['pos'] = $product_id;
+								$estimated = calculate_distance($product['distance']);
+								$product['estimated'] = actual_estimate($estimated);
+							}
 						}
 					}
 					// debug($product, 1);

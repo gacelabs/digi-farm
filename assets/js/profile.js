@@ -55,6 +55,8 @@ $(document).ready(function() {
 			var long = place.geometry.location.lng();
 			// console.log({'lat': lat, 'lng': long})
 			$('#latlng').attr('value', JSON.stringify({'lat': lat, 'lng': long}));
+			$('#lat').attr('value', lat);
+			$('#lng').attr('value', long);
 			
 			google.maps.event.clearListeners(marker, 'dragend');
 			marker.setMap(null);
