@@ -27,7 +27,7 @@
 								<!-- <a href="product/view?id=<?php echo $product['id']?>"> -->
 								<a href="product/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
 									<div class="card">
-										<div class="card-header">
+										<div class="card-header square-me">
 											<img src="<?php check_file_and_render($product['photo'], '300x300?text=Product');?>" class="" alt="<?php echo $product['name'];?>">
 											<div class="card-tools">
 												<span class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> <?php echo round($product['distance'], 2);?><?php echo strtoupper($product['unit']);?></span>
@@ -133,7 +133,7 @@
 										<img src="<?php check_file_and_render($farmer['banner'], '1080x500?text=Banner');?>" class="farmer-item-banner" />
 										<div class="box-profile">
 											<div class="card-header text-center" style="margin-top:-45px;border-bottom:0 none;">
-												<img class="profile-user-img img-fluid img-circle" src="<?php check_file_and_render($farmer['photo'], '80x80?text=Photo');?>" alt="User profile picture" />
+												<img class="profile-user-img img-fluid img-circle square-me" src="<?php check_file_and_render($farmer['photo'], '80x80?text=Photo');?>" alt="User profile picture" />
 											</div>
 											<div class="card-footer text-center text-ellipsis" style="background-color:#fff;border-bottom-left-radius:.25rem;border-bottom-right-radius:.25rem">
 												<h3 class="profile-username zero-gap"><?php echo $farmer['farm_name'];?></h3>

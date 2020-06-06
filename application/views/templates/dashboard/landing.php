@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
-				<!-- <div class="wrapper-overlay"></div> -->
+				<!-- <div class="wrapper-overlay" style="padding: 1rem;">Loading...</div> -->
 				<!-- <?php echo active_menu(2, 'dashboard');?> -->
 			<?php
 				if (!empty($view['contentdata_view'])) {
