@@ -42,13 +42,8 @@ class FarmCart extends MY_Controller {
 			'post_body' => array(
 			),
 			'db' => function() {
-				// $this->cart->destroy();
-				$cart = getsave_prev_cart();
-				if ($cart) {
-					redirect(base_url('cart'));
-				}
-				// debug($this->cart->contents(), 1);
-				return $this->cart->contents();
+				// debug($this->farm_cart, 1);
+				return $this->farm_cart;
 			}
 		);
 		$this->load->view('templates/dashboard/landing', $data);
@@ -150,6 +145,8 @@ class FarmCart extends MY_Controller {
 			$item = $this->cart->get_item($rowid);
 			$this->cart->remove($rowid);
 			$this->custom->remove('cart', ['rowid' => $rowid, 'device_id' => $this->device_id]);
+			$this->farm_cart = $this->custom->get('cart', 
+				['user_id' => $this->user_id, 'rowid' => $rowid, 'device_id' => $this->device_id], false, 'row');
 			redirect(base_url('cart?message=Product '.$item['name'].' removed'));
 		} else {
 			redirect(base_url('cart?error=Does nothing'));
@@ -205,6 +202,8 @@ class FarmCart extends MY_Controller {
 			} else {
 				$this->custom->create('cart', ['data' => serialize($item), 'user_id' => $this->user_id, 'rowid' => $rowid, 'device_id' => $this->device_id]);
 			}
+			$this->farm_cart = $this->custom->get('cart', 
+				['user_id' => $this->user_id, 'rowid' => $rowid, 'device_id' => $this->device_id], false, 'row');
 			return true;
 		}
 		return false;
