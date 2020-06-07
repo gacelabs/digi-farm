@@ -45,7 +45,6 @@
 								<p>Order Details</p>
 								<?php if ($carts):
 
-
 									$total_amount = 0;
 									?>
 										<?php foreach ($carts as $key => $product): ?>
@@ -53,7 +52,7 @@
 												<img class="attachment-img table-avatar" src="<?php check_file_and_render($product['path'], '37x37?text= ?');?>" />
 
 												<div class="attachment-pushed">
-													<h4 class="attachment-heading"><?php echo $product['name'];?></h4>
+													<h4 class="attachment-heading"><a href="#" target="_new"><?php echo $product['name'];?></a></h4>
 
 													<div class="attachment-text">
 														<ul class="spaced-list between">
