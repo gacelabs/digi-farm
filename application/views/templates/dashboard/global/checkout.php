@@ -33,70 +33,12 @@
 									<?php foreach ($payment_methods as $key => $method): ?>
 									<div class="form-group">
 										<div class="custom-control custom-checkbox">
-											<input class="custom-control-input payment_method" type="radio" id="<?php echo $method['id'];?>" name="payment_method_id" value="<?php echo $method['id'];?>">
-											<label for="<?php echo $method['id'];?>" class="custom-control-label"><?php echo $method['label'];?> + <span class="currency">₱</span> 50</label> <i class="fas fa-question-circle text-grey"></i>
+											<input class="custom-control-input payment_method" type="radio" id="payment_method_id<?php echo $method['id'];?>" name="payment_method_id" value="<?php echo $method['id'];?>">
+											<label for="payment_method_id<?php echo $method['id'];?>" class="custom-control-label"><?php echo $method['label'];?> + <span class="currency">₱</span> 50</label> <i class="fas fa-question-circle text-grey"></i>
 										</div>
 									</div>
 									<?php endforeach ?>
 								<hr>
-							</div>
-
-							<div id="step_details">
-								<p>Order Details</p>
-								<?php if ($carts):
-
-
-									$total_amount = 0;
-									?>
-										<?php foreach ($carts as $key => $product): ?>
-											<div class="attachment-block clearfix">
-												<img class="attachment-img table-avatar" src="<?php check_file_and_render($product['path'], '37x37?text= ?');?>" />
-
-												<div class="attachment-pushed">
-													<h4 class="attachment-heading"><?php echo $product['name'];?></h4>
-
-													<div class="attachment-text">
-														<ul class="spaced-list between">
-															<li>
-																<label>Base price: </label>
-																₱ <?php echo $product['price'];?> per <?php echo $product['options']['measurement']; ?>
-															</li>
-															<li>
-																<label>Quantity: </label>
-																<?php echo $product['qty'];?>
-															</li>
-														</ul>
-														<div>
-															<label>Total</label>
-															₱ <?php echo $product['subtotal'];?>
-															<?php
-																$total_amount += (float)$product['subtotal'];
-															?>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-										<?php endforeach ?>
-										<div class="callout callout-warning">
-											<label>Sub total: </label>
-											₱<span id="subtotal"><?php echo $total_amount;?></span>
-											<p class="d-none" id="delivery_fee" data-price="90">
-												<label>Delivery fee: </label>
-												₱90 <!-- SAMPLE LANG -->
-											</p>
-											<p class="d-none" id="transaction_fee" data-price="60">
-												<label>Transaction fee</label>
-												₱60
-											</p>
-											<h5 style="margin: 0;">
-												<label>Total amount: </label>
-												₱<span id="total_amount"><?php echo $total_amount;?></span>
-											</h5>
-										</div>
-								<?php else: ?>
-									<div>NO TRANSACTIONS</div>
-								<?php endif ?>
 							</div>
 
 							<div class="row d-none" id="step_3">
@@ -106,6 +48,71 @@
 							</div>
 						</div>
 					</form>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="card card-outline card-warning">
+					<div class="card-header">
+						<h3 class="card-title">Checkout</h3>
+					</div>
+					<div class="card-body">
+						<div id="step_details">
+							<p>Order Details</p>
+							<?php if ($carts):
+								$total_amount = 0;
+								?>
+									<?php foreach ($carts as $key => $product): ?>
+										<div class="attachment-block clearfix">
+											<img class="attachment-img table-avatar" src="<?php check_file_and_render($product['path'], '37x37?text= ?');?>" />
+
+											<div class="attachment-pushed">
+												<h4 class="attachment-heading"><?php echo $product['name'];?></h4>
+
+												<div class="attachment-text">
+													<ul class="spaced-list between">
+														<li>
+															<label>Base price: </label>
+															₱ <?php echo $product['price'];?> per <?php echo $product['options']['measurement']; ?>
+														</li>
+														<li>
+															<label>Quantity: </label>
+															<?php echo $product['qty'];?>
+														</li>
+													</ul>
+													<div>
+														<label>Total</label>
+														₱ <?php echo $product['subtotal'];?>
+														<?php
+															$total_amount += (float)$product['subtotal'];
+														?>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+									<?php endforeach ?>
+									<div class="callout callout-warning">
+										<label>Sub total: </label>
+										₱<span id="subtotal"><?php echo $total_amount;?></span>
+										<p class="d-none" id="delivery_fee" data-price="90">
+											<label>Delivery fee: </label>
+											₱90 <!-- SAMPLE LANG -->
+										</p>
+										<p class="d-none" id="transaction_fee" data-price="60">
+											<label>Transaction fee</label>
+											₱60
+										</p>
+										<h5 style="margin: 0;">
+											<label>Total amount: </label>
+											₱<span id="total_amount"><?php echo $total_amount;?></span>
+										</h5>
+									</div>
+							<?php else: ?>
+								<div>NO TRANSACTIONS</div>
+							<?php endif ?>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

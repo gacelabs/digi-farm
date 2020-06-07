@@ -258,6 +258,7 @@ class FarmCart extends MY_Controller {
 				$tmp  = [
 					'user_id' => $user['id'],
 					'from_user_id' => 0,
+					'address' => $user['address'],
 					'code' => $tracking_number,
 					'items' => [],
 					'status' => 'Order Placed', /*order_placed in order_status table*/
@@ -268,6 +269,7 @@ class FarmCart extends MY_Controller {
 					'total_amount' => 0.00,
 				];
 				$tmp = array_merge($tmp, $post);
+				// debug($tmp, 1);
 				$items = [];
 				foreach ($this->farm_cart as $rowid => $cart) {
 					$cart['updated'] = date('Y-m-d H:i:s');
@@ -277,7 +279,6 @@ class FarmCart extends MY_Controller {
 					// debug($cart);
 					$tmp['subtotal'] += (float)$cart['subtotal'];
 					$tmp['from_user_id'] = $cart['from_user_id'];
-					$tmp['address'] = $user['address'];
 					
 					$items[] = $cart;
 					$this->cart->remove($rowid);

@@ -66,7 +66,7 @@
 								<?php $orders = get_data_table('order', 'user_id', $current_profile['user']['id'], 'result'); ?>
 							<?php endif ?>
 							<li class="nav-item">
-								<a href="orders" class="nav-link">
+								<a href="orders" class="nav-link <?php active_menu(1, 'orders');?>">
 									<i class="fas fa-shopping-basket nav-icon"></i>
 									<p>Orders <span class="right badge badge-success"><?php echo $orders ? count($orders) : 0;?></span></p>
 								</a>
