@@ -122,3 +122,13 @@ body {
 .text-white {
 	color: #fff !important;
 }
+.timeline>div>.timeline-item>.timeline-header {
+	padding: 13px;
+}
+@media screen and (max-width: 474px) {
+	.timeline>div>.timeline-item>.time {
+		float: none;
+		display: block;
+		padding-bottom: 0;
+	}
+}

@@ -59,7 +59,7 @@
 									<br />
 									<small>
 										<?php $datetime = explode('.', $product['added']);?>
-										Created | <?php echo date('F j, Y g:i a', strtotime($datetime[0]));?>
+										Added | <?php echo date('F j, Y g:i a', strtotime($datetime[0]));?>
 									</small>
 								</td>
 								<td>

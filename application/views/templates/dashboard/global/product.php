@@ -80,7 +80,7 @@
 											<i class="fas fa-truck bg-orange text-white" style="padding-left: 3px;"></i>
 											<div class="timeline-item">
 												<span class="time" style="font-size: 15px; font-weight: normal;"><i class="fas fa-clock"></i> <?php echo $product['estimated'];?></span>
-												<h3 class="timeline-header no-border">Estimated Delivery time</h3>
+												<h3 class="timeline-header no-border">Estimated Delivery Time</h3>
 											</div>
 										</div>
 										<div>

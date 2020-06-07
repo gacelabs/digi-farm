@@ -25,7 +25,7 @@
 						<table id="product-list" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Featured Photo</th>
+									<th>Photo</th>
 									<th>Product Title</th>
 									<th>Measurement</th>
 									<th>Price</th>
