@@ -67,7 +67,11 @@
 											<img class="attachment-img table-avatar" src="<?php check_file_and_render($product['path'], '37x37?text= ?');?>" />
 
 											<div class="attachment-pushed">
-												<h4 class="attachment-heading"><?php echo $product['name'];?></h4>
+												<h4 class="attachment-heading">
+													<a href="product/<?php echo $product['pos'];?>/<?php echo $product['id'];?>/<?php echo clean_string_name($product['name']);?>">
+														<?php echo $product['name'];?>
+													</a>
+												</h4>
 
 												<div class="attachment-text">
 													<ul class="spaced-list between">
