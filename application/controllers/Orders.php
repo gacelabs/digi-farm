@@ -32,8 +32,11 @@ class Orders extends MY_Controller {
 			),
 			'db' => function() {
 				$user = $this->accounts->profile['user'];
-				// debug($this->farm_cart, 1);
-				$orders = $this->custom->get('order', ['user_id' => $user['id']]);
+				$who = ['user_id' => $user['id']];
+				if ($user['farmer']) {
+					$who = ['from_user_id' => $user['id']];
+				}
+				$orders = $this->custom->get('order', $who);
 				return $orders;
 			}
 		);
@@ -75,7 +78,11 @@ class Orders extends MY_Controller {
 			'db' => function() {
 				$tracking_number = $this->uri->segment(2);
 				$user = $this->accounts->profile['user'];
-				$order = $this->custom->get('order', ['code' => $tracking_number, 'user_id' => $user['id']], false, 'row');
+				$who = ['code' => $tracking_number, 'user_id' => $user['id']];
+				if ($user['farmer']) {
+					$who = ['code' => $tracking_number, 'from_user_id' => $user['id']];
+				}
+				$order = $this->custom->get('order', $who, false, 'row');
 				return $order;
 			}
 		);

@@ -1,6 +1,7 @@
 <?php
 	$orders = $db();
 	// debug($orders, 1);
+	$user = $this->accounts->profile['user'];
 ?>
 
 <!-- Main content -->

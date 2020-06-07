@@ -1,13 +1,9 @@
 <?php
 	$carts = $db();
 	// debug($carts, 1);
+	$delivery_options = get_data_table('delivery_option');
+	$payment_methods = get_data_table('payment_method');
 ?>
-
-<?php
-	$carts = $db();
-	// debug($carts, 1);
-?>
-
 <section class="content" style="padding-top: 20px;">
 	<div class="container-fluid">
 		<div class="row">
@@ -22,13 +18,12 @@
 								<p>Delivery Options</p>
 								<div class="form-group">
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" type="radio" id="delivery_option_id" name="delivery_option_id" value="1">
-										<label for="delivery_option_id" class="custom-control-label">Lalamove + <span class="currency">₱</span> 100</label>
+										<?php foreach ($delivery_options as $key => $option): ?>
+											<input class="custom-control-input delivery_option" type="radio" id="delivery_option_id<?php echo $option['id'];?>" name="delivery_option_id" value="<?php echo $option['id'];?>">
+											<label for="delivery_option_id<?php echo $option['id'];?>" class="custom-control-label"><?php echo $option['label'];?> + <span class="currency">₱</span> 100</label>
+											<br>
+										<?php endforeach ?>
 									</div>
-									<!-- <select class="form-control" id="delivery_option_id" name="delivery_option_id" required="required">
-										<option value="0">Select</option>
-										<option value="1">Lalamove</option>
-									</select> -->
 								</div>
 								<hr>
 							</div>
@@ -38,15 +33,13 @@
 								<p>Payment Method</p>
 								<div class="form-group">
 									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" type="radio" id="payment_method_id" name="payment_method_id" value="1">
-										<label for="payment_method_id" class="custom-control-label">COD + <span class="currency">₱</span> 50 <i class="fas fa-question-circle"></i></label>
+										<?php foreach ($payment_methods as $key => $method): ?>
+											<input class="custom-control-input payment_method" type="radio" id="payment_method_id<?php echo $method['id'];?>" name="payment_method_id" value="<?php echo $method['id'];?>">
+											<label for="payment_method_id<?php echo $method['id'];?>" class="custom-control-label"><?php echo $method['label'];?> + <span class="currency">₱</span> 50 <i class="fas fa-question-circle"></i></label>
+											<br>
+										<?php endforeach ?>
 									</div>
 								</div>
-								<!-- <select id="payment_method_id" name="payment_method_id" required="required">
-									<option value="0">Select</option>
-									<option value="1">Cash on delivery</option>
-									<option value="2">Paypal (Credit / Debit)</option>
-								</select> -->
 								<hr>
 							</div>
 

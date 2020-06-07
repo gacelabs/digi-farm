@@ -208,37 +208,41 @@ class FarmCart extends MY_Controller {
 
 	public function checkout()
 	{
-		$data = array(
-			'meta' => array(),
-			'title' => ucfirst(__CLASS__).' | Farmapp',
-			'head_css' => $this->dash_defaults('head_css'),
-			'head_js' => $this->dash_defaults('head_js'),
-			'body_id' => strtolower(__CLASS__),
-			'body_class' => strtolower(__CLASS__),
-			'wrapper_class' => 'dashboard',
-			'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
-				'nav_view' => array(
-					'templates/dashboard/global/nav'
+		if ($this->farm_cart) {
+			$data = array(
+				'meta' => array(),
+				'title' => ucfirst(__CLASS__).' | Farmapp',
+				'head_css' => $this->dash_defaults('head_css'),
+				'head_js' => $this->dash_defaults('head_js'),
+				'body_id' => strtolower(__CLASS__),
+				'body_class' => strtolower(__CLASS__),
+				'wrapper_class' => 'dashboard',
+				'view' => array( // html elements. these are declared within body tags. example: 'folder/filename'
+					'nav_view' => array(
+						'templates/dashboard/global/nav'
+					),
+					'sidebar_view' => array(
+						'templates/dashboard/global/sidebar'
+					),
+					'contentdata_view' => array(
+						'templates/dashboard/global/checkout'
+					)
 				),
-				'sidebar_view' => array(
-					'templates/dashboard/global/sidebar'
+				'footer_css' => $this->dash_defaults('footer_css'),
+				'footer_js' => $this->dash_defaults('footer_js', [
+					base_url('assets/admin/js/cart.js')
+				]),
+				'post_body' => array(
 				),
-				'contentdata_view' => array(
-					'templates/dashboard/global/checkout'
-				)
-			),
-			'footer_css' => $this->dash_defaults('footer_css'),
-			'footer_js' => $this->dash_defaults('footer_js', [
-				base_url('assets/admin/js/cart.js')
-			]),
-			'post_body' => array(
-			),
-			'db' => function() {
-				// debug($this->farm_cart, 1);
-				return $this->farm_cart;
-			}
-		);
-		$this->load->view('templates/dashboard/landing', $data);
+				'db' => function() {
+					// debug($this->farm_cart, 1);
+					return $this->farm_cart;
+				}
+			);
+			$this->load->view('templates/dashboard/landing', $data);
+		} else {
+			redirect(base_url());
+		}
 	}
 
 	public function place_order()
@@ -273,10 +277,8 @@ class FarmCart extends MY_Controller {
 					// debug($cart);
 					$tmp['subtotal'] += (float)$cart['subtotal'];
 					$tmp['from_user_id'] = $cart['from_user_id'];
-					$from_user = $this->custom->get('user', ['id' => $cart['from_user_id']], false, 'row');
-					if ($from_user) {
-						$tmp['address'] = $from_user['address'];
-					}
+					$tmp['address'] = $user['address'];
+					
 					$items[] = $cart;
 					$this->cart->remove($rowid);
 					$this->custom->remove('cart', ['user_id' => $user['id'], 'rowid' => $rowid, 'device_id' => $this->device_id]);

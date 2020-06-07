@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	var subtotal = parseFloat($('#subtotal').text());
 	var total = parseFloat($('#total_amount').text());
-	$('#delivery_option_id').off('click').on('click', function(e) {
+	$('.delivery_option').off('click').on('click', function(e) {
 		if ($(this).is(':checked')) {
 			$('#step_2').removeClass('d-none');
 			$('#delivery_fee').removeClass('d-none');
@@ -10,13 +10,13 @@ $(document).ready(function() {
 		} else {
 			$('#step_2').addClass('d-none');
 			$('#delivery_fee').addClass('d-none');
-			$('#payment_method_id').val(0).trigger('click');
+			$('.payment_method_id').removeAttr('checked');
 			total -= $('#delivery_fee').data('price');
 		}
 		$('#total_amount').text(total);
 	});
 
-	$('#payment_method_id').off('click').on('click', function(e) {
+	$('.payment_method_id').off('click').on('click', function(e) {
 		total = subtotal + $('#delivery_fee').data('price');
 		if (!$(this).is(':checked')) {
 			$('#step_3').addClass('d-none');

@@ -28,7 +28,11 @@
 							<!-- /.col -->
 						</div>
 						<?php
-							$from_user = get_data_table('user', 'id', $order['from_user_id']);
+							if ($user['farmer']) {
+								$who = get_data_table('user', 'id', $order['user_id']);
+							} else {
+								$who = get_data_table('user', 'id', $order['from_user_id']);
+							}
 							$products = unserialize($order['items']);
 							// debug($products, 1);
 						?>
@@ -36,12 +40,12 @@
 						<div class="row invoice-info">
 							<!-- /.col -->
 							<div class="col-sm-4 invoice-col">
-								To
+								<?php if ($user['farmer']): ?>To<?php else: ?>From<?php endif ?>
 								<address>
-									<strong><?php echo get_fullname(['user' => $from_user]);?></strong><br>
-									<?php echo ucwords($order['address']);?><br>
-									<!-- Phone: <?php // echo $from_user['phone_number'];?><br> -->
-									Email: <?php echo $from_user['email_address'];?>
+									<strong><?php echo get_fullname(['user' => $who]);?></strong><br>
+									<?php echo ucwords($who['address']);?><br>
+									<!-- Phone: <?php // echo $who['phone_number'];?><br> -->
+									Email: <?php echo $who['email_address'];?>
 								</address>
 							</div>
 							<!-- /.col -->
@@ -122,9 +126,15 @@
 						<div class="row no-print">
 							<div class="col-12">
 								<!-- <a href="" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
-								<button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-									Payment
-								</button>
+							<?php if ($user['farmer']): ?>
+								<button type="button" class="btn btn-success float-right"><i class="fas fa-check"></i> Confirm Payment</button>
+							<?php else: ?>
+								<?php if ($order['payment_method_id'] == 1): /*COD*/ ?>
+									<button type="button" class="btn btn-success float-right"><i class="fas fa-check"></i> Confirm Delivery</button>
+								<?php else: ?>
+									<button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Make Payment</button>
+								<?php endif ?>
+							<?php endif ?>
 								<!-- <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
 									<i class="fas fa-download"></i> Generate PDF
 								</button> -->

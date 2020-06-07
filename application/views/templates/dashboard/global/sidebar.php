@@ -60,7 +60,11 @@
 							</a>
 						</li>
 						<?php if ($is_logged_in OR $this->session->userdata('is_admin')): ?>
-							<?php $orders = get_data_table('order', 'user_id', $current_profile['user']['id'], 'result'); ?>
+							<?php if ($current_profile['user']['farmer']): ?>
+								<?php $orders = get_data_table('order', 'from_user_id', $current_profile['user']['id'], 'result'); ?>
+							<?php else: ?>
+								<?php $orders = get_data_table('order', 'user_id', $current_profile['user']['id'], 'result'); ?>
+							<?php endif ?>
 							<li class="nav-item">
 								<a href="orders" class="nav-link">
 									<i class="fas fa-shopping-basket nav-icon"></i>

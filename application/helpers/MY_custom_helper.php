@@ -1193,11 +1193,15 @@ function get_categories()
 	return $categories;
 }
 
-function get_data_table($table=false, $field='id', $value='', $row='row')
+function get_data_table($table=false, $field='id', $value=false, $row='row')
 {
 	$ci =& get_instance();
 	if ($table) {
-		$data = $ci->custom->get($table, [$field => $value], false, $row);
+		if ($value) {
+			$data = $ci->custom->get($table, [$field => $value], false, $row);
+		} else {
+			$data = $ci->custom->get($table);
+		}
 		return $data;
 	}
 	return false;
