@@ -21,7 +21,7 @@
 					<label for="password">Password</label>
 					<input type="password" class="form-control" id="password" name="password"/>
 				</div>
-				<button type="submit" class="btn btn-info btn-block">Log in</button>
+				<button type="submit" class="btn btn-info btn-lg btn-block">Log in</button>
 			</form>
 
 			<form action="sign-up" method="post" class="form-validate <?php echo is_url_var('page', 'sign-in') ? 'hidden' : 'show';?>" id="signup">
@@ -69,7 +69,7 @@
 					</div>
 
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-						<button type="submit" class="btn btn-success btn-block">Sign up!</button>
+						<button type="submit" class="btn btn-success btn-lg btn-block">Sign up!</button>
 					</div>
 				</div>
 			</form>
