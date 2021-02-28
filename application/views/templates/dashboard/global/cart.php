@@ -37,6 +37,9 @@
 							Quantity
 						</th>
 						<th>
+							Duration
+						</th>
+						<th>
 							Progress
 						</th>
 						<th class="text-center">
@@ -71,6 +74,9 @@
 								</td>
 								<td class="text-center">
 									<?php echo $product['qty'];?>
+								</td>
+								<td>
+									<span class="time" style="font-size: 15px; font-weight: normal;"><i class="fas fa-clock"></i> <?php echo $product['options']['estimated'];?></span>
 								</td>
 								<td class="project_progress">
 									<?php
